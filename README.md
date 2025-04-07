@@ -82,7 +82,7 @@ The current feedback process at SVK has significant structural weaknesses:
 
 ## Proposed (To-Be) Process
 
-CURRENTLY IN DEVELOPMENT. 
+CURRENTLY IN DEVELOPMENT PHASE. 
 
 As a first step, different Handling Scenarios for different types of feedback have been defined.
 
