@@ -67,7 +67,7 @@ A cross-functional board that:
 
 ---
 
-## 📉 Current (AS-IS) Feedback Process
+## Current (AS-IS) Feedback Process
 
 The current feedback process at SVK has significant structural weaknesses:
 
@@ -79,3 +79,20 @@ The current feedback process at SVK has significant structural weaknesses:
 - There is **no structured categorization** or trend reporting
 
 ---
+
+## Proposed (To-Be) Process
+
+CURRENTLY IN DEVELOPMENT. 
+
+As a first step, different Handling Scenarios for different types of feedback have been defined.
+
+## Handling Scenarios
+
+- **Scenario 1**: Low-urgency suggestions or negative feedback are added to the Review Board backlog for periodic review. They might still be handled operationally but are tracked to identify recurring themes.
+
+- **Scenario 2**: High-impact or complex feedback is forwarded to the appropriate department. The Feedback Master identifies and assigns the responsible team during classification.
+
+- **Scenario 3**: Routine issues that the Feedback Master can resolve directly are implemented immediately. The stakeholder is notified, and the resolution is logged.
+
+- **Scenario 4**: Positive feedback (e.g., praise or kudos) is stored in the Review Board backlog for potential sharing and celebration during regular review meetings.
+
