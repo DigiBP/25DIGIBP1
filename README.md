@@ -1,6 +1,5 @@
 # Feedback Management Process at SVK
 
-## Overview
 
 This project aims to implement a standardized and digitized customer feedback management process for the **Schweizerische Verband für Gemeinschaftsaufgaben der Krankenversicherer (SVK)**. It complies with the continuous improvement requirements of **ISO 9001:2015**, specifically **clauses 9.1.2 (Customer Satisfaction)** and **9.1.3 (Analysis and Evaluation)**.
 
@@ -47,7 +46,7 @@ The overarching goal is to **digitally transform SVK’s feedback management** b
 
 ## Organizational Enhancements
 
-### 👤 New Role: Feedback Master
+### New Role: Feedback Master
 
 A dedicated employee (or team) who is responsible for:
 
