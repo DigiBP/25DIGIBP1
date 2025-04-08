@@ -106,3 +106,11 @@ As a first step, different Handling Scenarios for different types of feedback ha
 | Kevin Maier  | kevin.maier@students.fhnw.ch |
 | Loris Mariño | loris.marino@students.fhnw.ch |
 | Ramona Stadler | ramona.stadler@students.fhnw.ch |
+
+
+## Coaches
+| Name          | Email                  |
+|---------------|------------------------|
+| Andreas Martin | andreas.martin@fhnw.ch |
+| Charuta Pande | charuta.pande@fhnw.ch |
+| Devid Montecchiari  | devid.montecchiari@fhnw.ch |
