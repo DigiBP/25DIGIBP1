@@ -96,3 +96,13 @@ As a first step, different Handling Scenarios for different types of feedback ha
 
 - **Scenario 4**: Positive feedback (e.g., praise or kudos) is stored in the Review Board backlog for potential sharing and celebration during regular review meetings.
 
+
+---
+
+## Team Members
+| Name          | Email                  |
+|---------------|------------------------|
+| Julie Klingelschmitt | julie.klingelschmitt@students.fhnw.ch |
+| Kevin Maier  | kevin.maier@students.fhnw.ch |
+| Loris Mariño | loris.marino@students.fhnw.ch |
+| Ramona Stadler | ramona.stadler@students.fhnw.ch |
