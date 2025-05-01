@@ -4,7 +4,7 @@ from openpyxl import Workbook, load_workbook
 from os.path import exists
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC = "write-excel"
+TOPIC = "store-feedback-in-db"
 WORKER_ID = "python-worker-1"
 EXCEL_FILE = "form_data.xlsx"
 
@@ -17,7 +17,7 @@ def fetch_and_lock():
         "topics": [{
             "topicName": TOPIC,
             "lockDuration": 10000,
-            "tenantId": "25DIGIBP13"
+            "tenantId": "25DIGIBP12"
         }]
     })
     return response.json()
@@ -37,7 +37,7 @@ def write_to_excel(data: dict):
     else:
         wb = Workbook()
         ws = wb.active
-        ws.append(list(data.keys()))  # Add header
+        ws.cell(1, 1, "")
 
     ws.append(list(data.values()))
     wb.save(EXCEL_FILE)
