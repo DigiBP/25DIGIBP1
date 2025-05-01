@@ -3,7 +3,7 @@ from email.message import EmailMessage
 
 # email credentials
 email_address = "digipro-demo@ikmail.com"
-password = "4t!RKvZYwRFtAJY"  # replace with your actual password
+password = "password"  # replace with your actual password
 
 # create the email
 msg = EmailMessage()

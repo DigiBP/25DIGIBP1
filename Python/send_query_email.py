@@ -35,7 +35,7 @@ def write_to_excel(data: dict, task_id):
 
     # email credentials
     email_address = "digipro-demo@ikmail.com"
-    password = "4t!RKvZYwRFtAJY"  # replace with your actual password
+    password = "password"  # replace with your actual password
 
     # compose email
     message = (
