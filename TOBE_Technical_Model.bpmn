@@ -781,13 +781,9 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
       <bpmndi:BPMNShape id="Participant_1hm4vaw_di" bpmnElement="Participant_07nt3gy" isHorizontal="true">
         <dc:Bounds x="1270" y="80" width="600" height="60" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1kusfry_di" bpmnElement="Association_1kusfry">
-        <di:waypoint x="508" y="630" />
-        <di:waypoint x="545" y="591" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_00gvn2o_di" bpmnElement="Association_00gvn2o">
-        <di:waypoint x="1230" y="640" />
-        <di:waypoint x="1190" y="660" />
+        <di:waypoint x="1230" y="632" />
+        <di:waypoint x="1205" y="640" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_1kjkyyt" bpmnElement="TextAnnotation_04ja5jq">
         <dc:Bounds x="1810" y="750" width="420" height="27" />
@@ -813,6 +809,10 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
         <dc:Bounds x="860" y="430" width="363.9988196680912" height="54.996083896361924" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1gu67uq_di" bpmnElement="TextAnnotation_1gu67uq">
+        <dc:Bounds x="520" y="550" width="99.99999822778292" height="40.99883767370563" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_1a45egd" bpmnElement="Association_1j0fm5j">
         <di:waypoint x="1750" y="736" />
         <di:waypoint x="1825" y="750" />
@@ -833,12 +833,12 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
         <di:waypoint x="2890" y="860" />
         <di:waypoint x="2864" y="910" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1gu67uq_di" bpmnElement="TextAnnotation_1gu67uq">
-        <dc:Bounds x="520" y="550" width="99.99999822778292" height="40.99883767370563" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1kusfry_di" bpmnElement="Association_1kusfry">
+        <di:waypoint x="508" y="630" />
+        <di:waypoint x="545" y="591" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_1dfy55n_di" bpmnElement="TextAnnotation_1dfy55n">
-        <dc:Bounds x="1110" y="660" width="99.99999822778292" height="40.65040650406504" />
+        <dc:Bounds x="1110" y="640" width="100" height="41" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
