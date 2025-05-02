@@ -4,8 +4,8 @@ import smtplib
 from email.message import EmailMessage
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC = "send-query-email"
-WORKER_ID = "python-worker-2"
+TOPIC = "send-withdrawal-message"
+WORKER_ID = "python-worker-4"
 
 
 
@@ -43,11 +43,12 @@ def send_email(data: dict, task_id):
     # compose email
     message = (
         f"Guten Tag\n\n\n"
-        f"Am TBD haben Sie uns folgendes Feedback übermittelt:\n"
+        f"Am TBD haben Sie uns ein Feedback übermittelt.\n"
         f"\"{data['feedbackText']}\"\n\n"
-        f"Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende zusätzlichen Informationen:\n"
-        f"{data['query']}\n\n"
-        f"Vielen Dank, dass Sie sich dafür kurz Zeit nehmen.\n\n"
+        f"Da wir bis heute keine keine Antwort zu unserer Rückfrage erhalten haben, "
+        f"erlauben wir uns, Ihr Feedback zu schliessen.\n\n"
+        f"Treten Sie gerne erneut mit uns in Kontakt, "
+        f"falls Sie das Thema nochmal aufgreifen möchten oder sie ein weiteres Anliegen haben.\n\n"
         f"Freundliche Grüsse\n\n\n"
         f"Digipro Demo AG\n"
         f"Teststrasse 1\n"

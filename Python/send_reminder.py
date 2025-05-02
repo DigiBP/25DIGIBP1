@@ -4,8 +4,8 @@ import smtplib
 from email.message import EmailMessage
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC = "send-query-email"
-WORKER_ID = "python-worker-2"
+TOPIC = "send-reminder"
+WORKER_ID = "python-worker-3"
 
 
 
@@ -42,12 +42,12 @@ def send_email(data: dict, task_id):
 
     # compose email
     message = (
-        f"Guten Tag\n\n\n"
+        f"Guten Tag\n\n"
         f"Am TBD haben Sie uns folgendes Feedback übermittelt:\n"
         f"\"{data['feedbackText']}\"\n\n"
         f"Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende zusätzlichen Informationen:\n"
-        f"{data['query']}\n\n"
-        f"Vielen Dank, dass Sie sich dafür kurz Zeit nehmen.\n\n"
+        f"\"{data['query']}\"\n\n"
+        f"Für Ihre Antwort in den nächsten 7 Tagen sind wir dankbar.\n\n"
         f"Freundliche Grüsse\n\n\n"
         f"Digipro Demo AG\n"
         f"Teststrasse 1\n"
@@ -56,7 +56,7 @@ def send_email(data: dict, task_id):
 
     # create the email
     msg = EmailMessage()
-    msg["Subject"] = "Nachfrage zu Ihrem Feedback"
+    msg["Subject"] = "Reminder: Nachfrage zu Ihrem Feedback "
     msg["From"] = email_address
     msg["To"] = data["email"]
     msg.set_content(message)
