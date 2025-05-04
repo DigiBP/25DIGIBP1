@@ -18,7 +18,8 @@ def fetch_and_lock():
         "topics": [{
             "topicName": TOPIC,
             "lockDuration": 10000,
-            "tenantId": "25DIGIBP12"
+            "tenantId": "25DIGIBP12",
+            "includeBusinessKey": True
         }]
     })
     return response.json()
@@ -31,7 +32,7 @@ def complete_task(task_id, variables):
     })
 
 
-def send_email(data: dict, task_id):
+def send_email(data: dict, task_id, business_key):
 
     # email credentials
     email_address = "digipro-demo@ikmail.com"
@@ -47,6 +48,7 @@ def send_email(data: dict, task_id):
         f"\"{data['feedbackText']}\"\n\n"
         f"Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende zusätzlichen Informationen:\n"
         f"{data['query']}\n\n"
+        f"Klicken Sie hier, um Rückmeldung zu geben: https://www.jotform.com/251103903332039?feedbackId={business_key}&feedbackText={data['feedbackText']}&query={data['query']}\n\n"
         f"Vielen Dank, dass Sie sich dafür kurz Zeit nehmen.\n\n"
         f"Freundliche Grüsse\n\n\n"
         f"Digipro Demo AG\n"
@@ -73,9 +75,10 @@ while True:
     tasks = fetch_and_lock()
     for task in tasks:
         task_id = task['id']
+        business_key = task.get('businessKey')
         variables = {k: v['value'] for k, v in task['variables'].items()}
         print(f"Fetched task {task_id} with variables {variables}")
 
-        send_email(variables, task_id)
+        send_email(variables, task_id, business_key)
         complete_task(task_id, variables)
     time.sleep(5)
