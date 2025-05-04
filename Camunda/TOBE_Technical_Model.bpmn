@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0oft0v0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.34.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.22.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0oft0v0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.22.0">
   <bpmn:message id="Message_2juj8qq" name="JOTFORM_SUPPLEMENTED" />
   <bpmn:collaboration id="Collaboration_1w0nin8">
     <bpmn:participant id="Participant_1pprxzh" name="Workflow Engine" processRef="Process_0jc9ssk" />
     <bpmn:participant id="Participant_07nt3gy" />
     <bpmn:textAnnotation id="TextAnnotation_04ja5jq">
       <bpmn:text>variable: additional details (concatenate with feedbackText?)</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_1mhwyb2">
-      <bpmn:text>4 categories:
-- scope
-- urgency
-- type
-- forwardToDepartment</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1cmdct2">
       <bpmn:text>Automatic Mail Drafting</bpmn:text>
@@ -27,10 +20,8 @@
       <bpmn:text>Send following Link:
 https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSie={queryText}</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_1j0fm5j" associationDirection="None" sourceRef="Activity_0m4ba6r" targetRef="TextAnnotation_04ja5jq" />
     <bpmn:association id="Association_16h0so7" associationDirection="None" sourceRef="Activity_198js72" targetRef="TextAnnotation_1cmdct2" />
     <bpmn:association id="Association_01xo19d" associationDirection="None" sourceRef="Activity_198js72" targetRef="TextAnnotation_16p0cxs" />
-    <bpmn:association id="Association_15ftcdl" associationDirection="None" sourceRef="Activity_0gz5sb3" targetRef="TextAnnotation_1mhwyb2" />
     <bpmn:association id="Association_1mppq1d" associationDirection="None" sourceRef="Activity_00ox568" targetRef="TextAnnotation_1s4ee53" />
     <bpmn:textAnnotation id="TextAnnotation_1gu67uq">
       <bpmn:text>Service Implemented</bpmn:text>
@@ -52,6 +43,7 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
       <bpmn:text>Service Implemented</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1ki8jhc" associationDirection="None" sourceRef="Activity_1tods68" targetRef="TextAnnotation_1b6xwyv" />
+    <bpmn:association id="Association_1j0fm5j" associationDirection="None" sourceRef="Activity_0m4ba6r" targetRef="TextAnnotation_04ja5jq" />
   </bpmn:collaboration>
   <bpmn:process id="Process_0jc9ssk" isExecutable="true">
     <bpmn:laneSet id="LaneSet_0xhu1r1">
@@ -90,22 +82,18 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
         <bpmn:flowNodeRef>Activity_0m86ov3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0bv3ocp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1tods68</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0s8xcjt</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0fyk0z5</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0i3bbd5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0j2fomz</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0m4ba6r</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0h6crcj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_198js72</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_10qbtil</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0m4ba6r</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0s8xcjt</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:userTask id="Activity_0b8ibsb" name="Document Measures Taken" />
-    <bpmn:userTask id="Activity_0dsam57" name="Write Query">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="query" label="Write your Query to the Stakeholder:" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="Activity_0dsam57" name="Write Query" camunda:formRef="queryForm" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_0f4p51u</bpmn:incoming>
       <bpmn:outgoing>Flow_0hdqy29</bpmn:outgoing>
     </bpmn:userTask>
@@ -159,57 +147,8 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
       <bpmn:outgoing>Flow_05yqniz</bpmn:outgoing>
       <bpmn:outgoing>Flow_1vdldng</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0gz5sb3" name="Classify Feedback">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="impactScope" label="Impact Scope:" type="enum">
-            <camunda:value id="isSpecific" name="Stakeholder Specific" />
-            <camunda:value id="isSmall" name="Small Stakeholder Group" />
-            <camunda:value id="isLarge" name="Large Stakeholder Group" />
-          </camunda:formField>
-          <camunda:formField id="feedbackType" label="Feedback Type:" type="enum">
-            <camunda:value id="ftPositive" name="Positive Feedback" />
-            <camunda:value id="ftNegative" name="Negative Feedback" />
-            <camunda:value id="ftSuggestion" name="Suggestion" />
-          </camunda:formField>
-          <camunda:formField id="urgency" label="Urgency" type="enum">
-            <camunda:value id="uLow" name="Low" />
-            <camunda:value id="uMedium" name="Medium" />
-            <camunda:value id="uHigh" name="High" />
-          </camunda:formField>
-          <camunda:formField id="feedbackText" label="Feedback Text:" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" config="true" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="lastName" label="Last Name" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" config="true" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="firstName" label="First Name" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" config="true" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="phone" label="Phone Number" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" config="true" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="needsClarification" label="Are further Clarifications with the Stakeholder needed?" type="boolean" defaultValue="false">
-            <camunda:properties />
-          </camunda:formField>
-          <camunda:formField id="forwardToDepartment" label="Forward Feedback to a Department?" type="enum">
-            <camunda:value id="fwdpTest" name="Test Department" />
-          </camunda:formField>
-          <camunda:formField id="email" label="E-Mail:" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" config="true" />
-            </camunda:validation>
-          </camunda:formField>
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="Activity_0gz5sb3" name="Classify Feedback" camunda:formRef="classificationForm" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_04y6l0m</bpmn:incoming>
       <bpmn:incoming>Flow_1u5fu15</bpmn:incoming>
       <bpmn:outgoing>Flow_10r4bup</bpmn:outgoing>
@@ -281,25 +220,13 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
       <bpmn:incoming>Flow_0gdoqxz</bpmn:incoming>
       <bpmn:outgoing>Flow_07m0ea5</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:intermediateCatchEvent id="Event_0s8xcjt" name="7 days">
-      <bpmn:incoming>Flow_0xnlyq1</bpmn:incoming>
-      <bpmn:outgoing>Flow_19e5er8</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_0vcwthj">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT120S </bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
     <bpmn:eventBasedGateway id="Gateway_0fyk0z5">
       <bpmn:incoming>Flow_0ic29lq</bpmn:incoming>
       <bpmn:incoming>Flow_0czfp4a</bpmn:incoming>
       <bpmn:outgoing>Flow_0apwpus</bpmn:outgoing>
       <bpmn:outgoing>Flow_0xnlyq1</bpmn:outgoing>
-      <bpmn:outgoing>Flow_059yr9z</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0wx7pvn</bpmn:outgoing>
     </bpmn:eventBasedGateway>
-    <bpmn:intermediateCatchEvent id="Event_0i3bbd5" name="Feedback Supplementation received">
-      <bpmn:incoming>Flow_059yr9z</bpmn:incoming>
-      <bpmn:outgoing>Flow_1r147vf</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0ydw0q3" messageRef="Message_2juj8qq" />
-    </bpmn:intermediateCatchEvent>
     <bpmn:intermediateCatchEvent id="Event_0j2fomz" name="Sent Reminder &#38; waited 7 days">
       <bpmn:incoming>Flow_0apwpus</bpmn:incoming>
       <bpmn:outgoing>Flow_0gdoqxz</bpmn:outgoing>
@@ -307,21 +234,11 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
         <bpmn:condition xsi:type="bpmn:tFormalExpression">${reminderSent == true}</bpmn:condition>
       </bpmn:conditionalEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:task id="Activity_0m4ba6r" name="Supplement Feeedback">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="api_connect_api_variables" />
-          <camunda:inputParameter name="api_connect_result_variables" />
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1r147vf</bpmn:incoming>
-      <bpmn:outgoing>Flow_1u5fu15</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:serviceTask id="Activity_12l7n12" name="Save  Measures taken in DB" camunda:type="external" camunda:topic="">
       <bpmn:incoming>Flow_00c0oiq</bpmn:incoming>
       <bpmn:outgoing>Flow_07gthg9</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:task id="Activity_06ilcez">
+    <bpmn:task id="Activity_06ilcez" name="Inform CEO">
       <bpmn:incoming>Flow_1vdldng</bpmn:incoming>
       <bpmn:outgoing>Flow_03gr7zf</bpmn:outgoing>
     </bpmn:task>
@@ -388,8 +305,6 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
     <bpmn:sequenceFlow id="Flow_0xnlyq1" sourceRef="Gateway_0fyk0z5" targetRef="Event_0s8xcjt" />
     <bpmn:sequenceFlow id="Flow_0ic29lq" sourceRef="Activity_198js72" targetRef="Gateway_0fyk0z5" />
     <bpmn:sequenceFlow id="Flow_0apwpus" sourceRef="Gateway_0fyk0z5" targetRef="Event_0j2fomz" />
-    <bpmn:sequenceFlow id="Flow_059yr9z" sourceRef="Gateway_0fyk0z5" targetRef="Event_0i3bbd5" />
-    <bpmn:sequenceFlow id="Flow_1r147vf" sourceRef="Event_0i3bbd5" targetRef="Activity_0m4ba6r" />
     <bpmn:serviceTask id="Activity_0h6crcj" name="Store Feedback in Database" camunda:type="external" camunda:topic="store-feedback-in-db">
       <bpmn:incoming>Flow_1re9g8v</bpmn:incoming>
       <bpmn:outgoing>Flow_004qqmq</bpmn:outgoing>
@@ -404,6 +319,30 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
       <bpmn:incoming>Flow_0hdqy29</bpmn:incoming>
       <bpmn:outgoing>Flow_0ic29lq</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="Event_10qbtil">
+      <bpmn:incoming>Flow_0wx7pvn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hrv3ai</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0g8pl3d" messageRef="Message_2juj8qq" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:task id="Activity_0m4ba6r" name="Supplement Feeedback">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="api_connect_api_variables" />
+          <camunda:inputParameter name="api_connect_result_variables" />
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0hrv3ai</bpmn:incoming>
+      <bpmn:outgoing>Flow_1u5fu15</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0hrv3ai" sourceRef="Event_10qbtil" targetRef="Activity_0m4ba6r" />
+    <bpmn:sequenceFlow id="Flow_0wx7pvn" sourceRef="Gateway_0fyk0z5" targetRef="Event_10qbtil" />
+    <bpmn:intermediateCatchEvent id="Event_0s8xcjt" name="7 days">
+      <bpmn:incoming>Flow_0xnlyq1</bpmn:incoming>
+      <bpmn:outgoing>Flow_19e5er8</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0vcwthj">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT12000S </bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
   </bpmn:process>
   <bpmn:message id="Message_2tmq0p1" name="JOTFORM_SUBMITTED" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -532,20 +471,11 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
       <bpmndi:BPMNShape id="BPMNShape_02ogj39" bpmnElement="Gateway_0fyk0z5">
         <dc:Bounds x="1405" y="590" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0269jc8_di" bpmnElement="Event_0i3bbd5">
-        <dc:Bounds x="1532" y="707" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1509" y="750" width="83" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_15pkewz_di" bpmnElement="Event_0j2fomz">
         <dc:Bounds x="1532" y="597" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1509" y="640" width="85" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1my6yty_di" bpmnElement="Activity_0m4ba6r">
-        <dc:Bounds x="1650" y="685" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_11whomn" bpmnElement="Activity_12l7n12">
         <dc:Bounds x="3190" y="1245" width="100" height="80" />
@@ -553,12 +483,19 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06ilcez_di" bpmnElement="Activity_06ilcez">
         <dc:Bounds x="1140" y="1170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1eway6x_di" bpmnElement="Activity_0h6crcj">
         <dc:Bounds x="420" y="630" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0szlnf4_di" bpmnElement="Activity_198js72">
         <dc:Bounds x="1230" y="575" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ob0lep_di" bpmnElement="Event_10qbtil">
+        <dc:Bounds x="1532" y="707" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1c82wk6_di" bpmnElement="Activity_0m4ba6r">
+        <dc:Bounds x="1650" y="685" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1gw20by" bpmnElement="Event_0xa585z">
         <dc:Bounds x="3182" y="907" width="36" height="36" />
@@ -781,36 +718,20 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
         <di:waypoint x="1455" y="615" />
         <di:waypoint x="1532" y="615" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_059yr9z_di" bpmnElement="Flow_059yr9z">
+      <bpmndi:BPMNEdge id="Flow_0hrv3ai_di" bpmnElement="Flow_0hrv3ai">
+        <di:waypoint x="1568" y="725" />
+        <di:waypoint x="1650" y="725" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wx7pvn_di" bpmnElement="Flow_0wx7pvn">
         <di:waypoint x="1430" y="640" />
         <di:waypoint x="1430" y="725" />
         <di:waypoint x="1532" y="725" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1r147vf_di" bpmnElement="Flow_1r147vf">
-        <di:waypoint x="1568" y="725" />
-        <di:waypoint x="1650" y="725" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1hm4vaw_di" bpmnElement="Participant_07nt3gy" isHorizontal="true">
         <dc:Bounds x="1270" y="80" width="600" height="60" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_0u1awfr_di" bpmnElement="Association_0u1awfr">
-        <di:waypoint x="1916" y="575" />
-        <di:waypoint x="1961" y="526" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1ki8jhc_di" bpmnElement="Association_1ki8jhc">
-        <di:waypoint x="1750" y="588" />
-        <di:waypoint x="1782" y="571" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1u2ckzc_di" bpmnElement="Association_1u2ckzc">
-        <di:waypoint x="1750" y="499" />
-        <di:waypoint x="1820" y="482" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_1kjkyyt" bpmnElement="TextAnnotation_04ja5jq">
         <dc:Bounds x="1810" y="750" width="420" height="27" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_01n0rx8" bpmnElement="TextAnnotation_1mhwyb2">
-        <dc:Bounds x="630" y="1200" width="250" height="84" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0lvhlqm" bpmnElement="TextAnnotation_1cmdct2">
@@ -837,6 +758,18 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
         <dc:Bounds x="1110" y="640" width="100" height="41" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1hf6dk1_di" bpmnElement="TextAnnotation_1hf6dk1">
+        <dc:Bounds x="1960" y="456" width="99.99999822778292" height="69.68641114982579" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_14kftl9_di" bpmnElement="TextAnnotation_14kftl9">
+        <dc:Bounds x="1820" y="456" width="99.99999822778292" height="40.65040650406504" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1b6xwyv_di" bpmnElement="TextAnnotation_1b6xwyv">
+        <dc:Bounds x="1780" y="530" width="99.99999822778292" height="40.65040650406504" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_1a45egd" bpmnElement="Association_1j0fm5j">
         <di:waypoint x="1750" y="736" />
         <di:waypoint x="1825" y="750" />
@@ -848,10 +781,6 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
       <bpmndi:BPMNEdge id="Association_01xo19d_di" bpmnElement="Association_01xo19d">
         <di:waypoint x="1230" y="592" />
         <di:waypoint x="1042" y="505" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_07z9r4y" bpmnElement="Association_15ftcdl">
-        <di:waypoint x="789" y="1105" />
-        <di:waypoint x="689" y="1200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_03h66vr" bpmnElement="Association_1mppq1d">
         <di:waypoint x="2890" y="860" />
@@ -865,18 +794,18 @@ https://www.jotform.com/251103903332039?feedbackId={businessKey}&amp;schreibenSi
         <di:waypoint x="1230" y="632" />
         <di:waypoint x="1205" y="640" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1hf6dk1_di" bpmnElement="TextAnnotation_1hf6dk1">
-        <dc:Bounds x="1960" y="456" width="99.99999822778292" height="69.68641114982579" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1b6xwyv_di" bpmnElement="TextAnnotation_1b6xwyv">
-        <dc:Bounds x="1780" y="530" width="99.99999822778292" height="40.65040650406504" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_14kftl9_di" bpmnElement="TextAnnotation_14kftl9">
-        <dc:Bounds x="1820" y="456" width="99.99999822778292" height="40.65040650406504" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0u1awfr_di" bpmnElement="Association_0u1awfr">
+        <di:waypoint x="1916" y="575" />
+        <di:waypoint x="1961" y="526" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1u2ckzc_di" bpmnElement="Association_1u2ckzc">
+        <di:waypoint x="1750" y="499" />
+        <di:waypoint x="1820" y="482" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1ki8jhc_di" bpmnElement="Association_1ki8jhc">
+        <di:waypoint x="1750" y="588" />
+        <di:waypoint x="1782" y="571" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
