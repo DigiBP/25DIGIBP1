@@ -1,0 +1,187 @@
+{
+  "components": [
+    {
+      "text": "# Stakeholder Feedback Submission",
+      "type": "text",
+      "layout": {
+        "row": "Row_05e8mk0",
+        "columns": 7
+      },
+      "id": "Field_0r2yk86"
+    },
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0bmybt6",
+        "columns": 8
+      },
+      "id": "Field_0q1s2s6",
+      "key": "firstName",
+      "readonly": true
+    },
+    {
+      "label": "Last Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0bmybt6",
+        "columns": null
+      },
+      "id": "Field_11qvgqr",
+      "key": "lastName",
+      "readonly": true
+    },
+    {
+      "label": "E-Mail Adress",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0km4aio",
+        "columns": null
+      },
+      "id": "Field_0l8j949",
+      "key": "email",
+      "readonly": true
+    },
+    {
+      "label": "Phone Number",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0km4aio",
+        "columns": null
+      },
+      "id": "Field_08ru0rq",
+      "key": "phone",
+      "readonly": true
+    },
+    {
+      "label": "Feedback Text",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0agtzdg",
+        "columns": null
+      },
+      "id": "Field_1r0i8f1",
+      "key": "feedbackText",
+      "readonly": "true"
+    },
+    {
+      "text": "## Classification",
+      "type": "text",
+      "layout": {
+        "row": "Row_0qk86cc",
+        "columns": null
+      },
+      "id": "Field_16qncsu"
+    },
+    {
+      "label": "Type of Feedback",
+      "values": [
+        {
+          "label": "Positive",
+          "value": "ftPositive"
+        },
+        {
+          "label": "Negative",
+          "value": "ftNegative"
+        },
+        {
+          "label": "Suggestion",
+          "value": "ftSuggestion"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1c3anfr",
+        "columns": 5
+      },
+      "id": "Field_0j5ukvq",
+      "key": "feedbackType"
+    },
+    {
+      "label": "Urgency",
+      "values": [
+        {
+          "label": "Low",
+          "value": "uLow"
+        },
+        {
+          "label": "Medium",
+          "value": "uMedium"
+        },
+        {
+          "label": "High",
+          "value": "uHigh"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1c3anfr",
+        "columns": 5
+      },
+      "id": "Field_1sj1abq",
+      "key": "urgency"
+    },
+    {
+      "label": "Impact Scope",
+      "values": [
+        {
+          "label": "Specific",
+          "value": "isSpecific"
+        },
+        {
+          "label": "Small",
+          "value": "isSmall"
+        },
+        {
+          "label": "Large",
+          "value": "isLarge"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1c3anfr",
+        "columns": null
+      },
+      "id": "Field_0y7ftwe",
+      "key": "impactScope"
+    },
+    {
+      "label": "",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1wvag58",
+        "columns": null
+      },
+      "id": "Field_1nk6kxj",
+      "key": "needsClarification",
+      "description": "Check if further clarifications with stakeholder are needed for classification",
+      "disabled": false
+    },
+    {
+      "label": "Forward Feedback?",
+      "values": [
+        {
+          "label": "testDepartment",
+          "value": "testDepartment"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_17cngfc",
+        "columns": null
+      },
+      "id": "Field_11q2jjr",
+      "key": "forwardToDepartment",
+      "description": "If yes, select respective department"
+    }
+  ],
+  "type": "default",
+  "id": "classificationForm",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 17
+}

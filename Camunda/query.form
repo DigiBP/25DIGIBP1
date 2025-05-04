@@ -1,0 +1,96 @@
+{
+  "components": [
+    {
+      "text": "# Feedback Query",
+      "type": "text",
+      "layout": {
+        "row": "Row_0auifxn",
+        "columns": null
+      },
+      "id": "Field_145ahj3"
+    },
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1q4pqnc",
+        "columns": 8
+      },
+      "id": "Field_13l6wjs",
+      "key": "firstName",
+      "readonly": true
+    },
+    {
+      "label": "Last Nane",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1q4pqnc",
+        "columns": null
+      },
+      "id": "Field_1ehuu3u",
+      "key": "lastName",
+      "readonly": true
+    },
+    {
+      "label": "E-Mail Adress",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1daov1k",
+        "columns": null
+      },
+      "id": "Field_1u4qb56",
+      "key": "email",
+      "readonly": true
+    },
+    {
+      "label": "Phone Number",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1daov1k",
+        "columns": null
+      },
+      "id": "Field_0459k1q",
+      "key": "phone",
+      "readonly": true
+    },
+    {
+      "label": "Feedback Text",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0e9c29w",
+        "columns": null
+      },
+      "id": "Field_1ldiuwn",
+      "key": "feedbackText",
+      "readonly": true
+    },
+    {
+      "text": "## Please write your Query",
+      "type": "text",
+      "layout": {
+        "row": "Row_01p03bq",
+        "columns": null
+      },
+      "id": "Field_1xjirnu"
+    },
+    {
+      "label": "",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0vflsuy",
+        "columns": null
+      },
+      "id": "Field_1jz41y8",
+      "key": "query"
+    }
+  ],
+  "type": "default",
+  "id": "queryForm",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 17
+}
