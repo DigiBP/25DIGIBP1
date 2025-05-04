@@ -2,6 +2,7 @@ import requests
 import time, datetime
 import smtplib
 from email.message import EmailMessage
+from urllib.parse import quote_plus
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
 TOPIC = "send-query-email"
@@ -34,36 +35,65 @@ def complete_task(task_id, variables):
 
 def send_email(data: dict, task_id, business_key):
 
-    # email credentials
+    # E-Mail-Zugangsdaten
     email_address = "digipro-demo@ikmail.com"
+    with open("password.txt") as f:
+        password = f.readline().strip()
 
-    f = open("password.txt")
-    password = f.readline()
-    f.close()
 
-    # compose email
-    message = (
-        f"Guten Tag\n\n\n"
+    base_url = "https://www.jotform.com/251103903332039"
+    query_string = (
+        f"feedbackId={quote_plus(str(business_key))}"
+        f"&feedbackText={quote_plus(data['feedbackText'])}"
+        f"&query={quote_plus(data['query'])}"
+    )
+    link = f"{base_url}?{query_string}"
+
+
+    message_text = (
+        "Guten Tag\n\n"
         f"Am TBD haben Sie uns folgendes Feedback übermittelt:\n"
         f"\"{data['feedbackText']}\"\n\n"
-        f"Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende zusätzlichen Informationen:\n"
+        "Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende "
+        "zusätzliche Informationen:\n"
         f"{data['query']}\n\n"
-        f"Klicken Sie hier, um Rückmeldung zu geben: https://www.jotform.com/251103903332039?feedbackId={business_key}&feedbackText={data['feedbackText']}&query={data['query']}\n\n"
-        f"Vielen Dank, dass Sie sich dafür kurz Zeit nehmen.\n\n"
-        f"Freundliche Grüsse\n\n\n"
-        f"Digipro Demo AG\n"
-        f"Teststrasse 1\n"
-        f"6000 Zürich"
+        f"Rückmeldung geben: {link}\n\n"
+        "Vielen Dank, dass Sie sich dafür kurz Zeit nehmen.\n\n"
+        "Freundliche Grüsse\n\n"
+        "Digipro Demo AG\n"
+        "Teststrasse 1\n"
+        "6000 Zürich"
     )
 
-    # create the email
+    message_html = f"""
+    <html>
+      <body style="font-family:Arial,Helvetica,sans-serif; line-height:1.4;">
+        <p>Guten&nbsp;Tag<br><br>
+           Am&nbsp;TBD&nbsp;haben&nbsp;Sie&nbsp;uns folgendes Feedback übermittelt:<br>
+           „{data['feedbackText']}“<br><br>
+           Um&nbsp;Ihr&nbsp;Feedback&nbsp;bearbeiten&nbsp;zu&nbsp;können, bitten&nbsp;wir&nbsp;Sie&nbsp;um&nbsp;folgende&nbsp;zusätzliche&nbsp;Informationen:<br>
+           {data['query']}<br><br>
+           <a href="{link}">Klicken&nbsp;Sie&nbsp;hier, um&nbsp;Rückmeldung&nbsp;zu&nbsp;geben</a><br><br>
+           Vielen&nbsp;Dank, dass&nbsp;Sie&nbsp;sich&nbsp;dafür&nbsp;kurz&nbsp;Zeit&nbsp;nehmen.<br><br>
+           Freundliche&nbsp;Grüsse<br><br>
+           Digipro&nbsp;Demo&nbsp;AG<br>
+           Teststrasse&nbsp;1<br>
+           6000&nbsp;Zürich
+        </p>
+      </body>
+    </html>
+    """
+
+    # E-Mail zusammensetzen
     msg = EmailMessage()
     msg["Subject"] = "Nachfrage zu Ihrem Feedback"
-    msg["From"] = email_address
-    msg["To"] = data["email"]
-    msg.set_content(message)
+    msg["From"]    = email_address
+    msg["To"]      = data["email"]
 
-    # send the email
+    # Plain-Text und HTML in einer Multipart-Alternative-Mail
+    msg.set_content(message_text)
+    msg.add_alternative(message_html, subtype="html")
+
     with smtplib.SMTP_SSL("mail.infomaniak.com", 465) as smtp:
         smtp.login(email_address, password)
         smtp.send_message(msg)
