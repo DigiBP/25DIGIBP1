@@ -40,15 +40,8 @@ def send_email(data: dict, task_id, business_key):
     with open("password.txt") as f:
         password = f.readline().strip()
 
-
-    base_url = "https://www.jotform.com/251103903332039"
-    query_string = (
-        f"feedbackId={quote_plus(str(business_key))}"
-        f"&feedbackText={quote_plus(data['feedbackText'])}"
-        f"&query={quote_plus(data['query'])}"
-    )
-    link = f"{base_url}?{query_string}"
-
+    # build the link from the submission ID
+    link = f"https://eu.jotform.com/edit/{data['jotformSubmissionId']}"
 
     message_text = (
         "Guten Tag\n\n"
@@ -67,19 +60,71 @@ def send_email(data: dict, task_id, business_key):
 
     message_html = f"""
     <html>
-      <body style="font-family:Arial,Helvetica,sans-serif; line-height:1.4;">
-        <p>Guten&nbsp;Tag<br><br>
-           Am&nbsp;TBD&nbsp;haben&nbsp;Sie&nbsp;uns folgendes Feedback übermittelt:<br>
-           „{data['feedbackText']}“<br><br>
-           Um&nbsp;Ihr&nbsp;Feedback&nbsp;bearbeiten&nbsp;zu&nbsp;können, bitten&nbsp;wir&nbsp;Sie&nbsp;um&nbsp;folgende&nbsp;zusätzliche&nbsp;Informationen:<br>
-           {data['query']}<br><br>
-           <a href="{link}">Klicken&nbsp;Sie&nbsp;hier, um&nbsp;Rückmeldung&nbsp;zu&nbsp;geben</a><br><br>
-           Vielen&nbsp;Dank, dass&nbsp;Sie&nbsp;sich&nbsp;dafür&nbsp;kurz&nbsp;Zeit&nbsp;nehmen.<br><br>
-           Freundliche&nbsp;Grüsse<br><br>
-           Digipro&nbsp;Demo&nbsp;AG<br>
-           Teststrasse&nbsp;1<br>
-           6000&nbsp;Zürich
-        </p>
+      <body style="margin:0;padding:0;background-color:#f5f7fa;font-family:Arial,Helvetica,sans-serif;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f7fa;">
+          <tr>
+            <td align="center" style="padding:30px 10px;">
+              <!-- Karten-Container -->
+              <table role="presentation" width="600" cellpadding="0" cellspacing="0"
+                     style="background-color:#ffffff;border-radius:8px;
+                            box-shadow:0 2px 8px rgba(0,0,0,0.05);overflow:hidden;">
+                <!-- Kopfbereich -->
+                <tr>
+                  <td style="background-color:#0073b3;padding:24px 32px;">
+                    <h1 style="margin:0;font-size:24px;color:#ffffff;font-weight:normal;">
+                      Nachfrage&nbsp;zu&nbsp;Ihrem&nbsp;Feedback
+                    </h1>
+                  </td>
+                </tr>
+    
+                <!-- Nachricht -->
+                <tr>
+                  <td style="padding:32px;color:#333333;">
+                    <p style="margin-top:0;">Guten&nbsp;Tag,</p>
+    
+                    <p>am&nbsp;TBD&nbsp;haben&nbsp;Sie&nbsp;uns folgendes Feedback übermittelt:</p>
+    
+                    <!-- Zitat -->
+                    <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                                       padding:16px;background-color:#f0f8ff;">
+                      <em>{data['feedbackText']}</em>
+                    </blockquote>
+    
+                    <p>Um&nbsp;Ihr&nbsp;Feedback&nbsp;bearbeiten&nbsp;zu&nbsp;können, bitten&nbsp;wir&nbsp;Sie&nbsp;um&nbsp;folgende&nbsp;zusätzliche&nbsp;Informationen:</p>
+    
+                    <p style="font-weight:bold;margin-bottom:24px;">{data['query']}</p>
+    
+                    <!-- Call to Action -->
+                    <p style="text-align:center;margin:32px 0;">
+                      <a href="{link}"
+                         style="background-color:#0073b3;color:#ffffff;text-decoration:none;
+                                padding:12px 24px;border-radius:4px;font-weight:bold;display:inline-block;">
+                         Rückmeldung&nbsp;geben
+                      </a>
+                    </p>
+    
+                    <p>Vielen&nbsp;Dank, dass&nbsp;Sie&nbsp;sich&nbsp;dafür&nbsp;kurz&nbsp;Zeit&nbsp;nehmen.</p>
+    
+                    <p style="margin-bottom:0;">
+                      Freundliche&nbsp;Grüsse<br><br>
+                      Digipro&nbsp;Demo&nbsp;AG<br>
+                      Teststrasse&nbsp;1<br>
+                      6000&nbsp;Zürich
+                    </p>
+                  </td>
+                </tr>
+    
+                <!-- Fusszeile -->
+                <tr>
+                  <td style="background-color:#f0f2f4;padding:16px;text-align:center;
+                             font-size:12px;color:#666666;">
+                    © {datetime.datetime.now().year}&nbsp;Digipro&nbsp;Demo&nbsp;AG&nbsp;• Alle&nbsp;Rechte&nbsp;vorbehalten
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
       </body>
     </html>
     """
