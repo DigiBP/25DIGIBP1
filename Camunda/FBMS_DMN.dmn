@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="DMN_DefineScenario" name="EvaluateFeedback" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.33.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.22.0">
+  <decision id="Decision_DefineScenario" name="Define Scenario">
+    <informationRequirement id="InformationRequirement_1tug1jr">
+      <requiredInput href="#InputData_1ooepj4" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1ewleh9">
+      <requiredInput href="#InputData_1316v50" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0eugsc1">
+      <requiredInput href="#InputData_1s1bes2" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_06bxs3p">
+      <requiredInput href="#InputData_0tkk8ss" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0x44u3s">
+      <input id="Input_1" label="Feedback Type  " biodi:width="192" camunda:inputVariable="feedbackType">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>feedbackType  </text>
+        </inputExpression>
+        <inputValues id="UnaryTests_03uqfro">
+          <text>"ftNegative","ftSuggestion","ftPositive"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0icyye9" label="Impact Scope">
+        <inputExpression id="LiteralExpression_1055coy" typeRef="string">
+          <text>impactScope</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_01y9038">
+          <text>"isLarge","isSmall","isSpecific"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1u4cofa" label="Urgency">
+        <inputExpression id="LiteralExpression_0rdssrn" typeRef="string">
+          <text>urgency</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1rqh2vw">
+          <text>"uHigh","uMedium","uLow"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0nhgfyf" label="Can Feedback Master take immediate action?">
+        <inputExpression id="LiteralExpression_02pv2qu" typeRef="string">
+          <text>immediateAction</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0u6eygd">
+          <text>"fmYes","fmNo"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Scenario" name="scenario" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_1u2dgpj">
+          <text>"scenario1","scenario2","scenario3","scenario4"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1mu7c9o">
+        <description>Scenario 4:
+Positive feedback to backlog of the
+sounding board</description>
+        <inputEntry id="UnaryTests_1loomv4">
+          <text>"ftPositive"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w4thn9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18siwyu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fcqwhz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0w0le7f">
+          <text>"scenario4"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kfppjn">
+        <description>Scenario 3:
+Fedback master takes action</description>
+        <inputEntry id="UnaryTests_1agv7be">
+          <text>"ftNegative", "ftSuggestion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gifk4m">
+          <text>"isLarge"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06lwo8n">
+          <text>"uHigh"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a5ol4l">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1urtkgf">
+          <text>"scenario3"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0w3lzrs">
+        <description>Scenario 1:
+Suggestion / negative feedback to backlog of the sounding board</description>
+        <inputEntry id="UnaryTests_0tqd0z8">
+          <text>"ftNegative", "ftSuggestion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bz7d7z">
+          <text>"isLarge"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14m4pq3">
+          <text>"uMedium", "uLow"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z6kifs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09cqo5z">
+          <text>"scenario1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nuy2nq">
+        <inputEntry id="UnaryTests_0szc6pn">
+          <text>"ftNegative", "ftSuggestion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_143tdrm">
+          <text>"isSmall", "isSpecific"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gwsww8">
+          <text>"uHigh"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j5w2yp">
+          <text>"fmYes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a22rgj">
+          <text>"scenario3"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mktlhu">
+        <description>Scenario 2:
+Forwarding to
+respective department</description>
+        <inputEntry id="UnaryTests_1wcf6an">
+          <text>"ftNegative", "ftSuggestion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pm77q6">
+          <text>"isSmall", "isSpecific"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cu7mxs">
+          <text>"uHigh"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b3mhb1">
+          <text>"fmNo"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xdet63">
+          <text>"scenario2"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1v9i35o">
+        <inputEntry id="UnaryTests_0fyhy64">
+          <text>"ftNegative", "ftSuggestion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_148erxn">
+          <text>"isSmall", "isSpecific"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lm57e9">
+          <text>"uMedium", "uLow"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wt65ol">
+          <text>"fmYes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0x5ovqm">
+          <text>"scenario3"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tog0lg">
+        <inputEntry id="UnaryTests_03nh0ow">
+          <text>"ftNegative", "ftSuggestion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16k7q2d">
+          <text>"isSmall", "isSpecific"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0agn7qz">
+          <text>"uMedium", "uLow"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uizimn">
+          <text>"fmNo"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t4nap0">
+          <text>"scenario1"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1ooepj4" name="impactScope" />
+  <inputData id="InputData_1316v50" name="urgency" />
+  <inputData id="InputData_1s1bes2" name="feedbackType" />
+  <inputData id="InputData_0tkk8ss" name="forwardFB" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_DefineScenario">
+        <dc:Bounds height="80" width="180" x="370" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_113qq6i" dmnElementRef="InputData_1ooepj4">
+        <dc:Bounds height="45" width="125" x="307" y="247" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_11g332n" dmnElementRef="InformationRequirement_1tug1jr">
+        <di:waypoint x="370" y="247" />
+        <di:waypoint x="442" y="180" />
+        <di:waypoint x="442" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0ikoy7b" dmnElementRef="InputData_1316v50">
+        <dc:Bounds height="45" width="125" x="451" y="247" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_09lpdey" dmnElementRef="InformationRequirement_1ewleh9">
+        <di:waypoint x="514" y="247" />
+        <di:waypoint x="478" y="180" />
+        <di:waypoint x="478" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1sycoe7" dmnElementRef="InputData_1s1bes2">
+        <dc:Bounds height="45" width="125" x="157" y="247" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0qfv6vy" dmnElementRef="InformationRequirement_0eugsc1">
+        <di:waypoint x="220" y="247" />
+        <di:waypoint x="406" y="180" />
+        <di:waypoint x="406" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0ay4vlp" dmnElementRef="InputData_0tkk8ss">
+        <dc:Bounds height="45" width="125" x="597" y="247" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_08bdww4" dmnElementRef="InformationRequirement_06bxs3p">
+        <di:waypoint x="660" y="247" />
+        <di:waypoint x="514" y="180" />
+        <di:waypoint x="514" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
