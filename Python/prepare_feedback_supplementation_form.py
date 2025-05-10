@@ -1,25 +1,12 @@
-#!/usr/bin/env python3
-"""
-Camunda 7 external-task worker
-──────────────────────────────
-Creates a Jotform submission for form 251103903332039 and writes the returned
-`submissionID` back to the process as variable `jotformSubmissionId`.
-
-Field mapping (Camunda → Jotform):
-  businessKey            → submission[5]
-  feedbackText variable  → submission[6]
-  query variable         → submission[3]
-"""
-
 import os
 import time
 import requests
 from urllib.parse import quote_plus
 
-# ─── Configuration ────────────────────────────────────────────────────────────
+
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC      = "prepare_supplementation_form"
-WORKER_ID  = "python-worker-2"
+TOPIC      = "prepare-supplementation-form"
+WORKER_ID  = "python-worker-99"
 TENANT_ID  = "25DIGIBP12"
 
 FORM_ID = "251103903332039"
@@ -34,10 +21,8 @@ JOTFORM_URL = (
 
 POLL_INTERVAL = 5      # seconds between polling cycles
 LOCK_DURATION = 10_000 # ms – must exceed worst-case handling time
-# ──────────────────────────────────────────────────────────────────────────────
 
 
-# ─── Camunda helpers ──────────────────────────────────────────────────────────
 def fetch_and_lock(max_tasks: int = 1):
     """Fetch at most `max_tasks` external tasks for our topic."""
     resp = requests.post(
@@ -73,7 +58,7 @@ def complete_task(task_id: str, variables: dict | None = None):
     ).raise_for_status()
 
 
-# ─── Business logic ───────────────────────────────────────────────────────────
+
 def handle_task(task: dict):
     """Create Jotform submission, return submissionID to Camunda."""
     task_id      = task["id"]
@@ -106,9 +91,9 @@ def handle_task(task: dict):
     print(f"✓ Completed Camunda task {task_id} (saved jotformSubmissionId)")
 
 
-# ─── Main loop ────────────────────────────────────────────────────────────────
+
 if __name__ == "__main__":
-    print("Jotform worker started — polling Camunda for tasks …")
+    print("Jotform worker started — polling Camunda for tasks")
     while True:
         try:
             for t in fetch_and_lock():
