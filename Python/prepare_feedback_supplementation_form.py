@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC      = "prepare-supplementation-form"
+TOPIC      = "prepare_supplementation_form"
 WORKER_ID  = "python-worker-99"
 TENANT_ID  = "25DIGIBP12"
 

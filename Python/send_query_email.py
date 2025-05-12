@@ -1,45 +1,3 @@
-#!/usr/bin/env python3
-"""
-Camunda External-Task Worker – Send Query E-Mail
-Topic: send-query-email
-
-Features
---------
-• Polls Camunda for external tasks, one at a time, and completes them after the
-  e-mail is successfully sent.
-
-• Builds a **multipart e-mail (plain-text + HTML)** addressed to the stakeholder.
-
-• Parses the process variable **feedbackText** into:
-    1. *Initial feedback* – everything before the first
-       “Unsere Rückfrage an Sie:” marker.
-    2. Zero or more **conversation cycles** – each consisting of
-         • “Unsere Rückfrage an Sie:” <query text>
-         • “Rückmeldung vom <timestamp>:” <answer text>
-       Only pairs that already contain both parts are treated as “finished”
-       conversation history and are shown in chronological order.
-    3. The **current open query** (process variable **query**) – not yet answered.
-
-• E-mail layout
-    – Initial feedback in a blue-border blockquote.
-    – For every finished cycle:
-        * heading “Unsere Rückfrage an Sie” + quoted query
-        * heading “Rückmeldung vom … ” + quoted answer
-      (all inside the same card, oldest → newest).
-    – Current open query highlighted beneath the history, followed by a
-      “Rückmeldung geben” call-to-action button that links to the editable
-      Jotform submission (**jotformSubmissionId**).
-
-• Keeps stakeholder line breaks intact:
-    * plain-text part – preserves `\n`
-    * HTML part – converts `\n` to `<br>` via the `nl2br()` helper.
-
-• Sends via Infomaniak SMTP (SSL, port 465); password is read from *password.txt*.
-
-• Console logging: fetched task IDs, successful sends, and any errors.
-  On exception the worker lets the lock expire so Camunda will retry
-  automatically.
-"""
 from __future__ import annotations
 import re
 import time
@@ -49,6 +7,8 @@ import html
 from email.message import EmailMessage
 
 import requests
+
+from SupportFunctions import get_date
 
 # ── Constants ────────────────────────────────────────────────────────────────
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
@@ -163,7 +123,7 @@ def build_mail(data: dict) -> EmailMessage:
     plain = [
         "Guten Tag",
         "",
-        "Am TBD haben Sie uns folgendes Feedback übermittelt:",
+        f"Am {get_date(task_id)} haben Sie uns folgendes Feedback übermittelt:",
         f"\"{initial}\"",
         "",
     ]
@@ -227,7 +187,7 @@ def build_mail(data: dict) -> EmailMessage:
         <td style="padding:32px;color:#333333;">
           <p style="margin-top:0;">Guten&nbsp;Tag,</p>
 
-          <p>am&nbsp;TBD&nbsp;haben&nbsp;Sie&nbsp;uns folgendes Feedback übermittelt:</p>
+          <p>am&nbsp;{get_date(task_id)}&nbsp;haben&nbsp;Sie&nbsp;uns folgendes Feedback übermittelt:</p>
 
           <blockquote style="margin:0;border-left:4px solid #0073b3;
                              padding:16px;background-color:#f0f8ff;">

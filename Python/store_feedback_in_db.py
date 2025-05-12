@@ -1,5 +1,6 @@
 import requests
-import time, datetime
+import time
+from datetime import date
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font
 from os.path import exists
@@ -42,8 +43,8 @@ def write_to_excel(data: dict, task_id):
         wb = Workbook()
         ws = wb.active
 
-        ws.cell(1, 1, "timestamp").font = bold
-        ws.cell(1, 2, "submissionid").font = bold
+        ws.cell(1, 1, "submissionID").font = bold
+        ws.cell(1, 2, "feedbackDate").font = bold
         ws.cell(1, 3, "feedbackType").font = bold
         ws.cell(1, 4, "query").font = bold
         ws.cell(1, 5, "email").font = bold
@@ -65,9 +66,11 @@ def write_to_excel(data: dict, task_id):
 
     print(data)
 
+    feedback_date = str(date.today().strftime("%d.%m.%Y"))
+
     # write new data to excel
-    ws.cell(row, 1, datetime.datetime.now())
-    ws.cell(row, 2, task_id)
+    ws.cell(row, 1, task_id)
+    ws.cell(row, 2, feedback_date)
     ws.cell(row, 5, data["email"])
     ws.cell(row, 6, data["phone"])
     ws.cell(row, 7, data["firstName"])
