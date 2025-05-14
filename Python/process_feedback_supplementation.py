@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Camunda External-Task Worker
-Topic: append-feedback-text   (must match the BPMN service task)
+Topic: append-feedback-text
 
 Features
 --------
@@ -43,7 +43,7 @@ import requests
 from datetime import datetime, timezone, timedelta
 
 try:
-    from zoneinfo import ZoneInfo          # Python ≥ 3.9 with tzdata installed
+    from zoneinfo import ZoneInfo
     TZ_BERLIN = ZoneInfo("Europe/Berlin")
 except Exception:
     # Fallback if tzdata is missing (UTC+2 for summertime, adjust if needed)
@@ -51,7 +51,7 @@ except Exception:
 
 # ── Camunda / worker settings ────────────────────────────────────────────────
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC      = "append-feedback-text"       # must match the Service Task in BPMN
+TOPIC      = "append-feedback-text"
 WORKER_ID  = "python-worker-append-45"
 TENANT_ID  = "25DIGIBP12"
 

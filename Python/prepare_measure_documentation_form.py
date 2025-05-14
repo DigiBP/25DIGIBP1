@@ -3,12 +3,15 @@
 Camunda 7 external-task worker
 ──────────────────────────────
 Creates a Jotform submission for form 251103903332039 and writes the returned
-`submissionID` back to the process as variable `supplementationJotformSubmissionId`.
+`submissionID` back to the process as variable `jotformSubmissionId`.
 
 Field mapping (Camunda → Jotform):
-  businessKey            → submission[5]
+  businessKey            → submission[15]
+  email                  → submission[5]
+  firstName              → submission[3][first]
+  lastName               → submission[3][last]
+  phone                  → submission[4]
   feedbackText variable  → submission[6]
-  query variable         → submission[3]
 """
 
 import os
@@ -18,11 +21,11 @@ from urllib.parse import quote_plus
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC      = "prepare_supplementation_form"
+TOPIC      = "prepare_measure_documentation_form"
 WORKER_ID  = "python-worker-2"
 TENANT_ID  = "25DIGIBP12"
 
-FORM_ID = "251103903332039"
+FORM_ID = "251324255618051"
 API_KEY = os.getenv(                 # < set JOTFORM_API_KEY env-var in prod!
     "JOTFORM_API_KEY",
     "75f1f0b302477cad1fb52837c2f427db",
@@ -81,9 +84,12 @@ def handle_task(task: dict):
     vars_        = {k: v["value"] for k, v in task["variables"].items()}
 
     payload = {
-        "submission[5]": business_key,
+        "submission[15]": business_key,
+        "submission[5]": vars_.get("email", ""),
+        "submission[3][first]": vars_.get("firstName", ""),
+        "submission[3][last]": vars_.get("lastName", ""),
+        "submission[4]": vars_.get("phone", ""),
         "submission[6]": vars_.get("feedbackText", ""),
-        "submission[3]": vars_.get("query", ""),
     }
 
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
@@ -96,14 +102,14 @@ def handle_task(task: dict):
     print(f"✓ Jotform submission {submission_id} created")
 
     camunda_vars = {
-        "supplementationJotformSubmissionId": {
+        "documentationJotformSubmissionId": {
             "value": submission_id,
             "type":  "String",
         }
     }
 
     complete_task(task_id, camunda_vars)
-    print(f"✓ Completed Camunda task {task_id} (saved supplementationJotformSubmissionId)")
+    print(f"✓ Completed Camunda task {task_id} (saved jotformSubmissionId)")
 
 
 # ─── Main loop ────────────────────────────────────────────────────────────────

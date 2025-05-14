@@ -116,7 +116,7 @@ def build_mail(data: dict) -> EmailMessage:
       • the current query (data['query'])
       • CTA link
     """
-    link = f"https://eu.jotform.com/edit/{data['jotformSubmissionId']}"
+    link = f"https://eu.jotform.com/edit/{data['supplementationJotformSubmissionId']}"
     initial, convs = split_conversation(data["feedbackText"])
 
     # -------- Plain-text part -------------------------------------------------

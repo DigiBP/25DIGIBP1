@@ -14,7 +14,7 @@ f.close()
 msg = EmailMessage()
 msg["Subject"] = "Test Email from Python"
 msg["From"] = email_address
-msg["To"] = "loris.marino@students.fhnw.ch"
+msg["To"] = "kevin.maier@students.fhnw.ch"
 msg.set_content("This is a test email sent via Infomaniak SMTP.")
 
 # send the email
