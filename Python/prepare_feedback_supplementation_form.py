@@ -22,10 +22,10 @@ TOPIC      = "prepare_supplementation_form"
 WORKER_ID  = "python-worker-2"
 TENANT_ID  = "25DIGIBP12"
 
-FORM_ID = "251103903332039"
+FORM_ID = "251256180381049"
 API_KEY = os.getenv(                 # < set JOTFORM_API_KEY env-var in prod!
     "JOTFORM_API_KEY",
-    "75f1f0b302477cad1fb52837c2f427db",
+    "e82fe0e1901aa0dff42c1c8592ecd21c",
 )
 
 JOTFORM_URL = (
@@ -81,9 +81,9 @@ def handle_task(task: dict):
     vars_        = {k: v["value"] for k, v in task["variables"].items()}
 
     payload = {
-        "submission[5]": business_key,
-        "submission[6]": vars_.get("feedbackText", ""),
-        "submission[3]": vars_.get("query", ""),
+        "submission[3]": business_key,
+        "submission[4]": vars_.get("feedbackText", ""),
+        "submission[5]": vars_.get("query", ""),
     }
 
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
