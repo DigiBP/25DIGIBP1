@@ -28,7 +28,7 @@ TENANT_ID  = "25DIGIBP12"
 FORM_ID = "251324255618051"
 API_KEY = os.getenv(                 # < set JOTFORM_API_KEY env-var in prod!
     "JOTFORM_API_KEY",
-    "75f1f0b302477cad1fb52837c2f427db",
+    "e82fe0e1901aa0dff42c1c8592ecd21c",
 )
 
 JOTFORM_URL = (
@@ -120,6 +120,7 @@ if __name__ == "__main__":
             for t in fetch_and_lock():
                 try:
                     handle_task(t)
+                    print(t)
                 except requests.HTTPError as exc:
                     # The lock will expire, Camunda will retry.
                     print(f"HTTP error in task {t['id']}: {exc}")
