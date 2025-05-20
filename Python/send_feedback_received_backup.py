@@ -71,7 +71,7 @@ def build_mail(data: dict) -> EmailMessage:
        "Guten Tag",
        "",
        "Vielen Dank für das Einreichen Ihres Feedbacks. Gerne melden wir uns bei Rückfragen und Updates.",
-       f"\"{data["feedbackText"]}\"",
+       f"\"{data['feedbackText']}\"",
        "",
    ]
 
