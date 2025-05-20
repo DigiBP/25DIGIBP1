@@ -14,7 +14,7 @@
       <bpmn:text>Automatic Mail Drafting</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1s4ee53">
-      <bpmn:text>Departments Mail-Adress is identified by the variable "forwardToDepartment"</bpmn:text>
+      <bpmn:text>NEW: TO TEST</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1jzuvko">
       <bpmn:text>Add a another event followed by a subprocess for Escalation here?</bpmn:text>
@@ -35,20 +35,24 @@
       <bpmn:text>Service Implemented</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_0ewojiv">
-      <bpmn:text>TBD</bpmn:text>
+      <bpmn:text>NEW: TO TEST</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0u1awfr" associationDirection="None" sourceRef="Activity_0m86ov3" targetRef="TextAnnotation_1hf6dk1" />
-    <bpmn:association id="Association_1ki8jhc" associationDirection="None" sourceRef="Activity_1tods68" targetRef="TextAnnotation_1b6xwyv" />
-    <bpmn:association id="Association_1u2ckzc" associationDirection="None" sourceRef="Activity_0bv3ocp" targetRef="TextAnnotation_14kftl9" />
-    <bpmn:association id="Association_1kusfry" associationDirection="None" sourceRef="Activity_0h6crcj" targetRef="TextAnnotation_1gu67uq" />
-    <bpmn:association id="Association_16h0so7" associationDirection="None" sourceRef="Activity_198js72" targetRef="TextAnnotation_1cmdct2" />
-    <bpmn:association id="Association_00gvn2o" associationDirection="None" sourceRef="Activity_198js72" targetRef="TextAnnotation_1dfy55n" />
-    <bpmn:association id="Association_1617iv6" associationDirection="None" sourceRef="Activity_06ilcez" targetRef="TextAnnotation_0ewojiv" />
-    <bpmn:association id="Association_1mppq1d" associationDirection="None" sourceRef="Activity_00ox568" targetRef="TextAnnotation_1s4ee53" />
     <bpmn:textAnnotation id="TextAnnotation_1bf6w1v">
-      <bpmn:text>Service Implemented</bpmn:text>
+      <bpmn:text>NEW: TO TEST</bpmn:text>
     </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_1wkl0ev">
+      <bpmn:text>NEW: TO TEST</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1617iv6" associationDirection="None" sourceRef="Activity_06ilcez" targetRef="TextAnnotation_0ewojiv" />
     <bpmn:association id="Association_1cxnj7g" associationDirection="None" sourceRef="Activity_0dxajre" targetRef="TextAnnotation_1bf6w1v" />
+    <bpmn:association id="Association_1mppq1d" associationDirection="None" sourceRef="Activity_00ox568" targetRef="TextAnnotation_1s4ee53" />
+    <bpmn:association id="Association_1cmwj7c" associationDirection="None" sourceRef="Activity_1hp7vw3" targetRef="TextAnnotation_1wkl0ev" />
+    <bpmn:association id="Association_00gvn2o" associationDirection="None" sourceRef="Activity_198js72" targetRef="TextAnnotation_1dfy55n" />
+    <bpmn:association id="Association_16h0so7" associationDirection="None" sourceRef="Activity_198js72" targetRef="TextAnnotation_1cmdct2" />
+    <bpmn:association id="Association_1kusfry" associationDirection="None" sourceRef="Activity_0h6crcj" targetRef="TextAnnotation_1gu67uq" />
+    <bpmn:association id="Association_1u2ckzc" associationDirection="None" sourceRef="Activity_0bv3ocp" targetRef="TextAnnotation_14kftl9" />
+    <bpmn:association id="Association_1ki8jhc" associationDirection="None" sourceRef="Activity_1tods68" targetRef="TextAnnotation_1b6xwyv" />
+    <bpmn:association id="Association_0u1awfr" associationDirection="None" sourceRef="Activity_0m86ov3" targetRef="TextAnnotation_1hf6dk1" />
   </bpmn:collaboration>
   <bpmn:process id="Process_0jc9ssk" isExecutable="true">
     <bpmn:laneSet id="LaneSet_0xhu1r1">
@@ -58,11 +62,10 @@
         <bpmn:flowNodeRef>Gateway_0mfdu1h</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1m6mbc3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0gz5sb3</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_06ilcez</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0dsam57</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_06ilcez</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1oxjz55" name="Automatic">
-        <bpmn:flowNodeRef>Activity_1ywgfly</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0ullzeq</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0m86ov3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1tods68</bpmn:flowNodeRef>
@@ -72,8 +75,7 @@
         <bpmn:flowNodeRef>Activity_0h6crcj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_198js72</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1oa8tow</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0s8xcjt</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0j2fomz</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1ywgfly</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_12l7n12</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ai0bev</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1hp7vw3</bpmn:flowNodeRef>
@@ -82,7 +84,6 @@
         <bpmn:flowNodeRef>Gateway_1cem2fi</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0q9n1f3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1x7pzhv</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0xa585z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0moh8hk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_02vfyt4</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ukq9ph</bpmn:flowNodeRef>
@@ -96,73 +97,69 @@
         <bpmn:flowNodeRef>Activity_00ox568</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0ns81hs</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0dxajre</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0xa585z</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0s8xcjt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0j2fomz</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:sequenceFlow id="Flow_07mpbqx" sourceRef="Activity_1ywgfly" targetRef="Activity_0m4ba6r" />
-    <bpmn:sequenceFlow id="Flow_1npqr6u" sourceRef="Activity_0m86ov3" targetRef="Event_0ullzeq" />
-    <bpmn:sequenceFlow id="Flow_07m0ea5" sourceRef="Activity_1tods68" targetRef="Activity_0m86ov3" />
-    <bpmn:sequenceFlow id="Flow_0gdoqxz" sourceRef="Event_0j2fomz" targetRef="Activity_1tods68" />
-    <bpmn:sequenceFlow id="Flow_00utfl1" sourceRef="Activity_0bv3ocp" targetRef="Event_0rr6dfk" />
-    <bpmn:sequenceFlow id="Flow_19e5er8" sourceRef="Event_0s8xcjt" targetRef="Activity_0bv3ocp" />
-    <bpmn:sequenceFlow id="Flow_1umya76" sourceRef="Activity_0m4ba6r" targetRef="Gateway_0ns81hs" />
-    <bpmn:sequenceFlow id="Flow_08qoybe" sourceRef="Gateway_0ns81hs" targetRef="Activity_0gz5sb3" />
-    <bpmn:sequenceFlow id="Flow_0w657m4" sourceRef="Activity_0moh8hk" targetRef="Gateway_1b0i6av" />
-    <bpmn:sequenceFlow id="Flow_1kivcr5" sourceRef="Activity_0q9n1f3" targetRef="Gateway_0mhmgj8" />
     <bpmn:sequenceFlow id="Flow_04y6l0m" sourceRef="Activity_0dxajre" targetRef="Gateway_0ns81hs" />
+    <bpmn:sequenceFlow id="Flow_1fyy8os" sourceRef="Activity_0d9vnw7" targetRef="Gateway_048p2le" />
+    <bpmn:sequenceFlow id="Flow_1umya76" sourceRef="Activity_0m4ba6r" targetRef="Gateway_0ns81hs" />
+    <bpmn:sequenceFlow id="Flow_10jhxx4" sourceRef="Activity_0asxs1s" targetRef="Activity_00ox568" />
+    <bpmn:sequenceFlow id="Flow_0cnn1ny" name="s2: High Urgency || can&#39;t take measures" sourceRef="Gateway_048p2le" targetRef="Activity_0asxs1s">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario2"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_06ny747" sourceRef="Gateway_0mhmgj8" targetRef="Event_1rdw3jw" />
+    <bpmn:sequenceFlow id="Flow_0l6ldh7" sourceRef="Activity_0ukq9ph" targetRef="Gateway_0mhmgj8" />
+    <bpmn:sequenceFlow id="Flow_1amiwcb" sourceRef="Gateway_1b0i6av" targetRef="Activity_0ukq9ph" />
+    <bpmn:sequenceFlow id="Flow_0w657m4" sourceRef="Activity_0moh8hk" targetRef="Gateway_1b0i6av" />
+    <bpmn:sequenceFlow id="Flow_02h0dtk" sourceRef="Activity_00ox568" targetRef="Activity_0moh8hk" />
+    <bpmn:sequenceFlow id="Flow_15fixss" sourceRef="Activity_1x7pzhv" targetRef="Event_02vfyt4" />
+    <bpmn:sequenceFlow id="Flow_1hbaj8x" sourceRef="Event_0xa585z" targetRef="Activity_1x7pzhv" />
+    <bpmn:sequenceFlow id="Flow_1kivcr5" sourceRef="Activity_0q9n1f3" targetRef="Gateway_0mhmgj8" />
+    <bpmn:sequenceFlow id="Flow_0mlhq6o" sourceRef="Gateway_1cem2fi" targetRef="Activity_0q9n1f3" />
+    <bpmn:sequenceFlow id="Flow_18i7dfk" name="s4: Positive" sourceRef="Gateway_048p2le" targetRef="Activity_06bitc4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario4"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_18dc5wg" name="s1: Low || Medium Urgency" sourceRef="Gateway_048p2le" targetRef="Activity_0126yah">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario1"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_12yx9w0" sourceRef="Activity_1hp7vw3" targetRef="Gateway_1cem2fi" />
+    <bpmn:sequenceFlow id="Flow_0enjmos" sourceRef="Activity_06bitc4" targetRef="Activity_1hp7vw3" />
+    <bpmn:sequenceFlow id="Flow_07cqq0i" sourceRef="Activity_0ai0bev" targetRef="Gateway_1cem2fi" />
+    <bpmn:sequenceFlow id="Flow_03usgvb" sourceRef="Activity_0126yah" targetRef="Activity_0ai0bev" />
     <bpmn:sequenceFlow id="Flow_07gthg9" sourceRef="Activity_12l7n12" targetRef="Gateway_1b0i6av" />
+    <bpmn:sequenceFlow id="Flow_08qoybe" sourceRef="Gateway_0ns81hs" targetRef="Activity_0gz5sb3" />
+    <bpmn:sequenceFlow id="Flow_1vdldng" name="Yes" sourceRef="Gateway_1m6mbc3" targetRef="Activity_06ilcez">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${urgency.equals('uHigh') }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_10r4bup" sourceRef="Activity_0gz5sb3" targetRef="Gateway_1m6mbc3" />
+    <bpmn:sequenceFlow id="Flow_0f4p51u" name="Yes" sourceRef="Gateway_0mfdu1h" targetRef="Activity_0dsam57">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${needsClarification}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_05yqniz" name="No" sourceRef="Gateway_1m6mbc3" targetRef="Gateway_0mfdu1h">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${urgency.equals(null) || urgency.equals('uLow') || urgency.equals('uMedium') || feedbackType.equals('ftPositive') }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1fe2jur" sourceRef="Gateway_10e8lke" targetRef="Activity_0d9vnw7" />
+    <bpmn:sequenceFlow id="Flow_03gr7zf" sourceRef="Activity_06ilcez" targetRef="Gateway_10e8lke" />
+    <bpmn:sequenceFlow id="Flow_1sqnsnf" name="No" sourceRef="Gateway_0mfdu1h" targetRef="Gateway_10e8lke">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!needsClarification}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_00c0oiq" sourceRef="Activity_0b8ibsb" targetRef="Activity_12l7n12" />
+    <bpmn:sequenceFlow id="Flow_1nwjopi" name="s3: High Urgency || can take measures" sourceRef="Gateway_048p2le" targetRef="Activity_0b8ibsb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario3"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_07mpbqx" sourceRef="Activity_1ywgfly" targetRef="Activity_0m4ba6r" />
+    <bpmn:sequenceFlow id="Flow_0hdqy29" sourceRef="Activity_0dsam57" targetRef="Activity_1oa8tow" />
+    <bpmn:sequenceFlow id="Flow_14otp86" sourceRef="Activity_198js72" targetRef="Activity_1ywgfly" />
+    <bpmn:sequenceFlow id="Flow_1rv7iun" sourceRef="Activity_1oa8tow" targetRef="Activity_198js72" />
     <bpmn:sequenceFlow id="Flow_004qqmq" sourceRef="Activity_0h6crcj" targetRef="Activity_0dxajre" />
     <bpmn:sequenceFlow id="Flow_1re9g8v" sourceRef="Event_048sgrw" targetRef="Activity_0h6crcj" />
-    <bpmn:sequenceFlow id="Flow_14otp86" sourceRef="Activity_198js72" targetRef="Activity_1ywgfly" />
-    <bpmn:sequenceFlow id="Flow_0hdqy29" sourceRef="Activity_0dsam57" targetRef="Activity_1oa8tow" />
-    <bpmn:endEvent id="Event_0ullzeq">
-      <bpmn:incoming>Flow_1npqr6u</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_0m86ov3" name="Withdraw Feedback" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_07m0ea5</bpmn:incoming>
-      <bpmn:outgoing>Flow_1npqr6u</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_1tods68" name="Send Message that Feedback was withdrawn" camunda:type="external" camunda:topic="send-withdrawal-message">
-      <bpmn:extensionElements />
-      <bpmn:incoming>Flow_0gdoqxz</bpmn:incoming>
-      <bpmn:outgoing>Flow_07m0ea5</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_0rr6dfk">
-      <bpmn:incoming>Flow_00utfl1</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_0bv3ocp" name="Send Reminder" camunda:type="external" camunda:topic="send-reminder">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:outputParameter name="reminderSent">true</camunda:outputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_19e5er8</bpmn:incoming>
-      <bpmn:outgoing>Flow_00utfl1</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:startEvent id="Event_048sgrw" name="Feedback received">
-      <bpmn:extensionElements />
-      <bpmn:outgoing>Flow_1re9g8v</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_15jwwn6" messageRef="Message_2tmq0p1" />
-    </bpmn:startEvent>
-    <bpmn:serviceTask id="Activity_0h6crcj" name="Store Feedback in Database" camunda:type="external" camunda:topic="store-feedback-in-db">
-      <bpmn:incoming>Flow_1re9g8v</bpmn:incoming>
-      <bpmn:outgoing>Flow_004qqmq</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_198js72" name="Send Query-Mail to Stakeholder" camunda:type="external" camunda:topic="send-query-email">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="api_connect_api_variables" />
-          <camunda:inputParameter name="api_connect_result_variables" />
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1rv7iun</bpmn:incoming>
-      <bpmn:outgoing>Flow_14otp86</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1rv7iun" sourceRef="Activity_1oa8tow" targetRef="Activity_198js72" />
-    <bpmn:serviceTask id="Activity_1oa8tow" name="Prepare Feedback Supplementation Form" camunda:type="external" camunda:topic="prepare_supplementation_form">
-      <bpmn:incoming>Flow_0hdqy29</bpmn:incoming>
-      <bpmn:outgoing>Flow_1rv7iun</bpmn:outgoing>
-    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_19e5er8" sourceRef="Event_0s8xcjt" targetRef="Activity_0bv3ocp" />
+    <bpmn:sequenceFlow id="Flow_00utfl1" sourceRef="Activity_0bv3ocp" targetRef="Event_0rr6dfk" />
+    <bpmn:sequenceFlow id="Flow_0gdoqxz" sourceRef="Event_0j2fomz" targetRef="Activity_1tods68" />
+    <bpmn:sequenceFlow id="Flow_07m0ea5" sourceRef="Activity_1tods68" targetRef="Activity_0m86ov3" />
+    <bpmn:sequenceFlow id="Flow_1npqr6u" sourceRef="Activity_0m86ov3" targetRef="Event_0ullzeq" />
     <bpmn:boundaryEvent id="Event_0j2fomz" name="14&#10;days" cancelActivity="false" attachedToRef="Activity_1ywgfly">
       <bpmn:outgoing>Flow_0gdoqxz</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0lufvcd">
@@ -175,141 +172,33 @@
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10000S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:receiveTask id="Activity_1ywgfly" name="Wait for Stakeholder Response" messageRef="Message_2juj8qq">
-      <bpmn:incoming>Flow_14otp86</bpmn:incoming>
-      <bpmn:outgoing>Flow_07mpbqx</bpmn:outgoing>
-    </bpmn:receiveTask>
-    <bpmn:userTask id="Activity_0b8ibsb" name="Document Measures Taken">
-      <bpmn:incoming>Flow_1nwjopi</bpmn:incoming>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="Gateway_10e8lke">
-      <bpmn:incoming>Flow_1sqnsnf</bpmn:incoming>
-      <bpmn:incoming>Flow_03gr7zf</bpmn:incoming>
-      <bpmn:outgoing>Flow_1fe2jur</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="Gateway_0mfdu1h" name="Needs Clarification?">
-      <bpmn:incoming>Flow_05yqniz</bpmn:incoming>
-      <bpmn:outgoing>Flow_0f4p51u</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1sqnsnf</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="Gateway_1m6mbc3" name="Feedback has high Urgency?">
-      <bpmn:incoming>Flow_10r4bup</bpmn:incoming>
-      <bpmn:outgoing>Flow_05yqniz</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1vdldng</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0gz5sb3" name="Classify Feedback" camunda:formRef="classificationForm" camunda:formRefBinding="latest">
-      <bpmn:extensionElements />
-      <bpmn:incoming>Flow_08qoybe</bpmn:incoming>
-      <bpmn:outgoing>Flow_10r4bup</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:task id="Activity_06ilcez" name="Inform CEO">
-      <bpmn:incoming>Flow_1vdldng</bpmn:incoming>
-      <bpmn:outgoing>Flow_03gr7zf</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:userTask id="Activity_0dsam57" name="Write Query" camunda:formRef="queryForm" camunda:formRefBinding="latest">
-      <bpmn:extensionElements />
-      <bpmn:incoming>Flow_0f4p51u</bpmn:incoming>
-      <bpmn:outgoing>Flow_0hdqy29</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_1sqnsnf" name="No" sourceRef="Gateway_0mfdu1h" targetRef="Gateway_10e8lke">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!needsClarification}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_03gr7zf" sourceRef="Activity_06ilcez" targetRef="Gateway_10e8lke" />
-    <bpmn:sequenceFlow id="Flow_05yqniz" name="No" sourceRef="Gateway_1m6mbc3" targetRef="Gateway_0mfdu1h">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${urgency.equals(null) || urgency.equals('uLow') || urgency.equals('uMedium') || feedbackType.equals('ftPositive') }</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0f4p51u" name="Yes" sourceRef="Gateway_0mfdu1h" targetRef="Activity_0dsam57">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${needsClarification}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_10r4bup" sourceRef="Activity_0gz5sb3" targetRef="Gateway_1m6mbc3" />
-    <bpmn:sequenceFlow id="Flow_1vdldng" name="Yes" sourceRef="Gateway_1m6mbc3" targetRef="Activity_06ilcez">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${urgency.equals('uHigh') }</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Activity_12l7n12" name="Save  Measures taken in DB" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_00c0oiq</bpmn:incoming>
-      <bpmn:outgoing>Flow_07gthg9</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0ai0bev" name="Send Mail that Feedback will be processed soon" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_03usgvb</bpmn:incoming>
-      <bpmn:outgoing>Flow_07cqq0i</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_1hp7vw3" name="Send Thank You Message" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_0enjmos</bpmn:incoming>
-      <bpmn:outgoing>Flow_12yx9w0</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0126yah" name="Set Status &#34;Review Board&#34; in DB" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_18dc5wg</bpmn:incoming>
-      <bpmn:outgoing>Flow_03usgvb</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_06bitc4" name="Set Status &#34;Review Board&#34; in DB" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_18i7dfk</bpmn:incoming>
-      <bpmn:outgoing>Flow_0enjmos</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="Gateway_1cem2fi">
-      <bpmn:incoming>Flow_07cqq0i</bpmn:incoming>
-      <bpmn:incoming>Flow_12yx9w0</bpmn:incoming>
-      <bpmn:outgoing>Flow_0mlhq6o</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:sendTask id="Activity_0q9n1f3" name="Inform Feedback Master" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_0mlhq6o</bpmn:incoming>
-      <bpmn:outgoing>Flow_1kivcr5</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:sequenceFlow id="Flow_03usgvb" sourceRef="Activity_0126yah" targetRef="Activity_0ai0bev" />
-    <bpmn:sequenceFlow id="Flow_07cqq0i" sourceRef="Activity_0ai0bev" targetRef="Gateway_1cem2fi" />
-    <bpmn:sequenceFlow id="Flow_0enjmos" sourceRef="Activity_06bitc4" targetRef="Activity_1hp7vw3" />
-    <bpmn:sequenceFlow id="Flow_12yx9w0" sourceRef="Activity_1hp7vw3" targetRef="Gateway_1cem2fi" />
-    <bpmn:sequenceFlow id="Flow_0mlhq6o" sourceRef="Gateway_1cem2fi" targetRef="Activity_0q9n1f3" />
-    <bpmn:serviceTask id="Activity_1x7pzhv" name="Send Reminder to Department" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_1hbaj8x</bpmn:incoming>
-      <bpmn:outgoing>Flow_15fixss</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:boundaryEvent id="Event_0xa585z" name="3 days" cancelActivity="false" attachedToRef="Activity_0moh8hk">
       <bpmn:outgoing>Flow_1hbaj8x</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_1e4u8fr">
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT15S </bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:receiveTask id="Activity_0moh8hk" name="Wait for Documentation of Measures Taken" messageRef="Message_306083u">
-      <bpmn:incoming>Flow_02h0dtk</bpmn:incoming>
-      <bpmn:outgoing>Flow_0w657m4</bpmn:outgoing>
-    </bpmn:receiveTask>
-    <bpmn:sequenceFlow id="Flow_1hbaj8x" sourceRef="Event_0xa585z" targetRef="Activity_1x7pzhv" />
-    <bpmn:sequenceFlow id="Flow_15fixss" sourceRef="Activity_1x7pzhv" targetRef="Event_02vfyt4" />
-    <bpmn:endEvent id="Event_02vfyt4">
-      <bpmn:incoming>Flow_15fixss</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_02h0dtk" sourceRef="Activity_00ox568" targetRef="Activity_0moh8hk" />
-    <bpmn:sequenceFlow id="Flow_10jhxx4" sourceRef="Activity_0asxs1s" targetRef="Activity_00ox568" />
-    <bpmn:serviceTask id="Activity_0ukq9ph" name="Send Mail that Feedback was Processed including Measures taken" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_1amiwcb</bpmn:incoming>
-      <bpmn:outgoing>Flow_0l6ldh7</bpmn:outgoing>
+    <bpmn:serviceTask id="Activity_06ilcez" name="Inform CEO" camunda:type="external" camunda:topic="send_information_ceo">
+      <bpmn:incoming>Flow_1vdldng</bpmn:incoming>
+      <bpmn:outgoing>Flow_03gr7zf</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="Gateway_1b0i6av">
-      <bpmn:incoming>Flow_0w657m4</bpmn:incoming>
-      <bpmn:incoming>Flow_07gthg9</bpmn:incoming>
-      <bpmn:outgoing>Flow_1amiwcb</bpmn:outgoing>
+    <bpmn:serviceTask id="Activity_0dxajre" name="Notify Stakeholder that Feedback was Received" camunda:type="external" camunda:topic="send_feedback_received">
+      <bpmn:incoming>Flow_004qqmq</bpmn:incoming>
+      <bpmn:outgoing>Flow_04y6l0m</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_0ns81hs">
+      <bpmn:incoming>Flow_04y6l0m</bpmn:incoming>
+      <bpmn:incoming>Flow_1umya76</bpmn:incoming>
+      <bpmn:outgoing>Flow_08qoybe</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="Gateway_0mhmgj8">
-      <bpmn:incoming>Flow_0l6ldh7</bpmn:incoming>
-      <bpmn:incoming>Flow_1kivcr5</bpmn:incoming>
-      <bpmn:outgoing>Flow_06ny747</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="Event_1rdw3jw">
-      <bpmn:incoming>Flow_06ny747</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1amiwcb" sourceRef="Gateway_1b0i6av" targetRef="Activity_0ukq9ph" />
-    <bpmn:sequenceFlow id="Flow_0l6ldh7" sourceRef="Activity_0ukq9ph" targetRef="Gateway_0mhmgj8" />
-    <bpmn:sequenceFlow id="Flow_06ny747" sourceRef="Gateway_0mhmgj8" targetRef="Event_1rdw3jw" />
-    <bpmn:serviceTask id="Activity_0asxs1s" name="Prepare Measure Documentation Form" camunda:type="external" camunda:topic="prepare_measure_documentation_form">
-      <bpmn:incoming>Flow_0cnn1ny</bpmn:incoming>
-      <bpmn:outgoing>Flow_10jhxx4</bpmn:outgoing>
+    <bpmn:serviceTask id="Activity_00ox568" name="Send Mail to Respective Department" camunda:type="external" camunda:topic="send_department_email">
+      <bpmn:incoming>Flow_10jhxx4</bpmn:incoming>
+      <bpmn:outgoing>Flow_02h0dtk</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0m4ba6r" name="Supplement Feeedback" camunda:type="external" camunda:topic="append-feedback-text">
-      <bpmn:extensionElements />
-      <bpmn:incoming>Flow_07mpbqx</bpmn:incoming>
-      <bpmn:outgoing>Flow_1umya76</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1fe2jur" sourceRef="Gateway_10e8lke" targetRef="Activity_0d9vnw7" />
+    <bpmn:businessRuleTask id="Activity_0d9vnw7" name="Define Scenario" camunda:resultVariable="scenario" camunda:decisionRef="Decision_DefineScenario" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_1fe2jur</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fyy8os</bpmn:outgoing>
+    </bpmn:businessRuleTask>
     <bpmn:exclusiveGateway id="Gateway_048p2le">
       <bpmn:incoming>Flow_1fyy8os</bpmn:incoming>
       <bpmn:outgoing>Flow_18i7dfk</bpmn:outgoing>
@@ -317,36 +206,151 @@
       <bpmn:outgoing>Flow_0cnn1ny</bpmn:outgoing>
       <bpmn:outgoing>Flow_1nwjopi</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_18i7dfk" name="s4: Positive" sourceRef="Gateway_048p2le" targetRef="Activity_06bitc4">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario4"}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_18dc5wg" name="s1: Low || Medium Urgency" sourceRef="Gateway_048p2le" targetRef="Activity_0126yah">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario1"}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0cnn1ny" name="s2: High Urgency || can&#39;t take measures" sourceRef="Gateway_048p2le" targetRef="Activity_0asxs1s">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario2"}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1nwjopi" name="s3: High Urgency || can take measures" sourceRef="Gateway_048p2le" targetRef="Activity_0b8ibsb">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario3"}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:businessRuleTask id="Activity_0d9vnw7" name="Define Scenario" camunda:resultVariable="scenario" camunda:decisionRef="Decision_DefineScenario" camunda:mapDecisionResult="singleEntry">
-      <bpmn:incoming>Flow_1fe2jur</bpmn:incoming>
-      <bpmn:outgoing>Flow_1fyy8os</bpmn:outgoing>
-    </bpmn:businessRuleTask>
-    <bpmn:sequenceFlow id="Flow_1fyy8os" sourceRef="Activity_0d9vnw7" targetRef="Gateway_048p2le" />
-    <bpmn:serviceTask id="Activity_00ox568" name="Send Mail to Respective Department" camunda:type="external" camunda:topic="send_department_email">
-      <bpmn:incoming>Flow_10jhxx4</bpmn:incoming>
-      <bpmn:outgoing>Flow_02h0dtk</bpmn:outgoing>
+    <bpmn:serviceTask id="Activity_0m4ba6r" name="Supplement Feeedback" camunda:type="external" camunda:topic="append-feedback-text">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_07mpbqx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1umya76</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="Gateway_0ns81hs">
-      <bpmn:incoming>Flow_04y6l0m</bpmn:incoming>
-      <bpmn:incoming>Flow_1umya76</bpmn:incoming>
-      <bpmn:outgoing>Flow_08qoybe</bpmn:outgoing>
+    <bpmn:serviceTask id="Activity_0asxs1s" name="Prepare Measure Documentation Form" camunda:type="external" camunda:topic="prepare_measure_documentation_form">
+      <bpmn:incoming>Flow_0cnn1ny</bpmn:incoming>
+      <bpmn:outgoing>Flow_10jhxx4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1rdw3jw">
+      <bpmn:incoming>Flow_06ny747</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="Gateway_0mhmgj8">
+      <bpmn:incoming>Flow_0l6ldh7</bpmn:incoming>
+      <bpmn:incoming>Flow_1kivcr5</bpmn:incoming>
+      <bpmn:outgoing>Flow_06ny747</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_0dxajre" name="Notify Stakeholder that Feedback was Received" camunda:type="external" camunda:topic="send_feedback_received">
-      <bpmn:incoming>Flow_004qqmq</bpmn:incoming>
-      <bpmn:outgoing>Flow_04y6l0m</bpmn:outgoing>
+    <bpmn:exclusiveGateway id="Gateway_1b0i6av">
+      <bpmn:incoming>Flow_0w657m4</bpmn:incoming>
+      <bpmn:incoming>Flow_07gthg9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1amiwcb</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_0ukq9ph" name="Send Mail that Feedback was Processed including Measures taken" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_1amiwcb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l6ldh7</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_02vfyt4">
+      <bpmn:incoming>Flow_15fixss</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:receiveTask id="Activity_0moh8hk" name="Wait for Documentation of Measures Taken" messageRef="Message_306083u">
+      <bpmn:incoming>Flow_02h0dtk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0w657m4</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:serviceTask id="Activity_1x7pzhv" name="Send Reminder to Department" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_1hbaj8x</bpmn:incoming>
+      <bpmn:outgoing>Flow_15fixss</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sendTask id="Activity_0q9n1f3" name="Inform Feedback Master" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_0mlhq6o</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kivcr5</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:exclusiveGateway id="Gateway_1cem2fi">
+      <bpmn:incoming>Flow_07cqq0i</bpmn:incoming>
+      <bpmn:incoming>Flow_12yx9w0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0mlhq6o</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_06bitc4" name="Set Status &#34;Review Board&#34; in DB" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_18i7dfk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0enjmos</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0126yah" name="Set Status &#34;Review Board&#34; in DB" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_18dc5wg</bpmn:incoming>
+      <bpmn:outgoing>Flow_03usgvb</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1hp7vw3" name="Send Thank You Message" camunda:type="external" camunda:topic="send_thank_you_message">
+      <bpmn:incoming>Flow_0enjmos</bpmn:incoming>
+      <bpmn:outgoing>Flow_12yx9w0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0ai0bev" name="Send Mail that Feedback will be processed soon" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_03usgvb</bpmn:incoming>
+      <bpmn:outgoing>Flow_07cqq0i</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_12l7n12" name="Save  Measures taken in DB" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_00c0oiq</bpmn:incoming>
+      <bpmn:outgoing>Flow_07gthg9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_0dsam57" name="Write Query" camunda:formRef="queryForm" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0f4p51u</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hdqy29</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0gz5sb3" name="Classify Feedback" camunda:formRef="classificationForm" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_08qoybe</bpmn:incoming>
+      <bpmn:outgoing>Flow_10r4bup</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_1m6mbc3" name="Feedback has high Urgency?">
+      <bpmn:incoming>Flow_10r4bup</bpmn:incoming>
+      <bpmn:outgoing>Flow_05yqniz</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1vdldng</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_0mfdu1h" name="Needs Clarification?">
+      <bpmn:incoming>Flow_05yqniz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f4p51u</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1sqnsnf</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_10e8lke">
+      <bpmn:incoming>Flow_1sqnsnf</bpmn:incoming>
+      <bpmn:incoming>Flow_03gr7zf</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fe2jur</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Activity_0b8ibsb" name="Document Measures Taken">
+      <bpmn:incoming>Flow_1nwjopi</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:receiveTask id="Activity_1ywgfly" name="Wait for Stakeholder Response" messageRef="Message_2juj8qq">
+      <bpmn:incoming>Flow_14otp86</bpmn:incoming>
+      <bpmn:outgoing>Flow_07mpbqx</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:serviceTask id="Activity_1oa8tow" name="Prepare Feedback Supplementation Form" camunda:type="external" camunda:topic="prepare_supplementation_form">
+      <bpmn:incoming>Flow_0hdqy29</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rv7iun</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_198js72" name="Send Query-Mail to Stakeholder" camunda:type="external" camunda:topic="send-query-email">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="api_connect_api_variables" />
+          <camunda:inputParameter name="api_connect_result_variables" />
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1rv7iun</bpmn:incoming>
+      <bpmn:outgoing>Flow_14otp86</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0h6crcj" name="Store Feedback in Database" camunda:type="external" camunda:topic="store-feedback-in-db">
+      <bpmn:incoming>Flow_1re9g8v</bpmn:incoming>
+      <bpmn:outgoing>Flow_004qqmq</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="Event_048sgrw" name="Feedback received">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_1re9g8v</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_15jwwn6" messageRef="Message_2tmq0p1" />
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_0bv3ocp" name="Send Reminder" camunda:type="external" camunda:topic="send-reminder">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="reminderSent">true</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_19e5er8</bpmn:incoming>
+      <bpmn:outgoing>Flow_00utfl1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0rr6dfk">
+      <bpmn:incoming>Flow_00utfl1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1tods68" name="Send Message that Feedback was withdrawn" camunda:type="external" camunda:topic="send-withdrawal-message">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0gdoqxz</bpmn:incoming>
+      <bpmn:outgoing>Flow_07m0ea5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0m86ov3" name="Withdraw Feedback" camunda:type="external" camunda:topic="">
+      <bpmn:incoming>Flow_07m0ea5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1npqr6u</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0ullzeq">
+      <bpmn:incoming>Flow_1npqr6u</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="Message_2tmq0p1" name="JOTFORM_SUBMITTED" />
   <bpmn:message id="Message_0c0m845" name="JOTFORM_SUPPLEMENTATION" />
@@ -383,7 +387,7 @@
       <bpmndi:BPMNShape id="Event_1ehyfy7_di" bpmnElement="Event_048sgrw">
         <dc:Bounds x="252" y="652" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="246" y="695" width="49" height="27" />
+          <dc:Bounds x="246" y="695" width="50" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1eway6x_di" bpmnElement="Activity_0h6crcj">
@@ -417,15 +421,11 @@
       <bpmndi:BPMNShape id="BPMNShape_18zr2mn" bpmnElement="Gateway_1m6mbc3" isMarkerVisible="true">
         <dc:Bounds x="965" y="1115" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="955" y="1078" width="71" height="27" />
+          <dc:Bounds x="955" y="1078" width="72" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_193yeeq" bpmnElement="Activity_0gz5sb3">
         <dc:Bounds x="780" y="1100" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_06ilcez_di" bpmnElement="Activity_06ilcez">
-        <dc:Bounds x="1140" y="1245" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0pfldp8" bpmnElement="Activity_0dsam57">
         <dc:Bounds x="1230" y="1000" width="100" height="80" />
@@ -499,6 +499,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1eup2z1_di" bpmnElement="Activity_0dxajre">
         <dc:Bounds x="660" y="630" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u2o7xe_di" bpmnElement="Activity_06ilcez">
+        <dc:Bounds x="1140" y="1245" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1gw20by" bpmnElement="Event_0xa585z">
         <dc:Bounds x="3310" y="722" width="36" height="36" />
@@ -739,16 +742,20 @@
         <dc:Bounds x="160" y="80" width="4260" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1cxnj7g_di" bpmnElement="Association_1cxnj7g">
-        <di:waypoint x="748" y="630" />
-        <di:waypoint x="786" y="590" />
+      <bpmndi:BPMNEdge id="Association_1617iv6_di" bpmnElement="Association_1617iv6">
+        <di:waypoint x="1167" y="1325" />
+        <di:waypoint x="1129" y="1390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1cmwj7c_di" bpmnElement="Association_1cmwj7c">
+        <di:waypoint x="3165" y="390" />
+        <di:waypoint x="3221" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_0lvhlqm" bpmnElement="TextAnnotation_1cmdct2">
         <dc:Bounds x="1290" y="485" width="100" height="41" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0tl1qex" bpmnElement="TextAnnotation_1s4ee53">
-        <dc:Bounds x="2820" y="870" width="209.99603594080338" height="59.989429175475685" />
+        <dc:Bounds x="2820" y="870" width="209.99217257604332" height="26.645768025078368" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1v471th" bpmnElement="TextAnnotation_1jzuvko">
@@ -775,8 +782,8 @@
         <dc:Bounds x="1520" y="242" width="100" height="46" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0ewojiv_di" bpmnElement="TextAnnotation_0ewojiv">
-        <dc:Bounds x="1290" y="1375" width="100" height="30" />
+      <bpmndi:BPMNShape id="TextAnnotation_1bf6w1v_di" bpmnElement="TextAnnotation_1bf6w1v">
+        <dc:Bounds x="760" y="550" width="99.99999822778292" height="26.713124274099883" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_0u1awfr_di" bpmnElement="Association_0u1awfr">
@@ -803,13 +810,13 @@
         <di:waypoint x="1230" y="632" />
         <di:waypoint x="1205" y="640" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1617iv6_di" bpmnElement="Association_1617iv6">
-        <di:waypoint x="1239" y="1319" />
-        <di:waypoint x="1319" y="1375" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_03h66vr" bpmnElement="Association_1mppq1d">
-        <di:waypoint x="3040" y="797" />
-        <di:waypoint x="2925" y="857" />
+        <di:waypoint x="3040" y="799" />
+        <di:waypoint x="2925" y="864" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1cxnj7g_di" bpmnElement="Association_1cxnj7g">
+        <di:waypoint x="748" y="630" />
+        <di:waypoint x="799" y="577" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0aqc1uk_di" bpmnElement="Flow_0aqc1uk">
         <di:waypoint x="270" y="140" />
@@ -835,8 +842,12 @@
         <di:waypoint x="1650" y="350" />
         <di:waypoint x="1650" y="140" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1bf6w1v_di" bpmnElement="TextAnnotation_1bf6w1v">
-        <dc:Bounds x="760" y="550" width="99.99156545209178" height="40.48582995951417" />
+      <bpmndi:BPMNShape id="TextAnnotation_0ewojiv_di" bpmnElement="TextAnnotation_0ewojiv">
+        <dc:Bounds x="1070" y="1390" width="99.99999880417013" height="29.976489028213166" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1wkl0ev_di" bpmnElement="TextAnnotation_1wkl0ev">
+        <dc:Bounds x="3180" y="270" width="99.99999880417013" height="29.996082700532057" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

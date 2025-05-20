@@ -1,14 +1,14 @@
 import requests
-import time, datetime
+import time
 import smtplib
 from email.message import EmailMessage
-from SupportFunctions import get_date
+from art import tprint, art
+
+from SupportFunctions import get_date, get_quote_html_mail
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
 TOPIC = "send_information_ceo"
 WORKER_ID = "python-worker-66"
-
-
 
 
 def fetch_and_lock():
@@ -34,77 +34,66 @@ def complete_task(task_id, variables):
 
 def send_email(data: dict, task_id):
 
-    # email credentials
-    email_address = "digipro-demo@ikmail.com"
+    # compose email
+    message_header = "Information Dringendes Feedback"
 
+    message_before_quote = (
+        f"Hallo Helga Geschäftsführerin\n\n\n"
+        f"Am {get_date(task_id)} wurde uns folgendes Feedback übermittelt und vom Feedback Master mit "
+        f"der Dringlichkeit Hoch versehen:\n\n"
+    )
+
+    quote = data["feedbackText"]
+
+    message_after_quote = (
+        f"\n\n"
+        f"Kontaktdaten Feedbackgeber:in\n"
+        f"{data["firstName"]} {data["lastName"]}\n"
+        f"{data["email"]}\n"
+        f"{data["phone"]}\n\n"
+        f"Beste Grüsse"
+    )
+
+    # create html body
+    html_body = get_quote_html_mail(message_header, message_before_quote, quote, message_after_quote)
+
+    # create the email
     f = open("password.txt")
     password = f.readline()
     f.close()
 
-    # compose email
-    message = (
-        f"An den Geschäftsführer Digipro Demo AG\n\n\n"
-        f"Am {ge} haben Sie uns ein Feedback übermittelt.\n"
-        f"\"{data['feedbackText']}\"\n\n"
-        f"Vielen Dank, dass Sie sich die Zeit genommen haben, uns eine Rückmeldung zu geben. "
-        f"Gerne wachsen wir sowohl an Lob als auch Kritik!.\n\n"
-        f"Freundliche Grüsse\n\n\n"
-        f"Digipro Demo AG\n"
-        f"Teststrasse 1\n"
-        f"6000 Zürich"
-    )
-
-
-
-    Am
-    XX.XX.XXXX
-    wurde
-    uns
-    folgendes
-    Feedback
-    übermittelt
-    und
-    vom
-    Feedback
-    Master
-    mit
-    der
-    Dringlichkeit
-    Hoch
-    versehen:
-    "feedbackText"
-
-    Absender:
-    "Vorname" "Nachname"
-    "E-Mail"
-    "Telefon"
-
-    Freundliche
-    Grüsse
-
-
-    # create the email
     msg = EmailMessage()
-    msg["Subject"] = "Nachfrage zu Ihrem Feedback"
-    msg["From"] = email_address
-    msg["To"] = email_address # for testing send to demo email
-    msg.set_content(message)
+    msg["Subject"] = "Dringendes Feedback"
+    msg["From"] = "digipro-demo@ikmail.com"
+    msg["To"] = "digipro-demo@ikmail.com"
+
+    msg.set_content(html_body, subtype="html")
 
     # send the email
     with smtplib.SMTP_SSL("mail.infomaniak.com", 465) as smtp:
-        smtp.login(email_address, password)
+        smtp.login("digipro-demo@ikmail.com", password)
         smtp.send_message(msg)
 
     print(data)
 
 
-while True:
-    tasks = fetch_and_lock()
-    for task in tasks:
-        task_id = task['id']
-        variables = {k: v['value'] for k, v in task['variables'].items()}
-        print(f"Fetched task {task_id} with variables {variables}")
+if __name__ == "__main__":
+   tprint("25-DIGIBP-1", font="small")
+   print("Worker started — polling Camunda...")
+   print(f"{art("hugger")}\n")
+   while True:
+       try:
+           for task in fetch_and_lock():
+               task_id = task["id"]
+               variables = {k: v["value"] for k, v in task["variables"].items()}
+               print(art("hugger"))
+               print(f"Fetched task {task_id}")
+               try:
+                   send_email(variables, task_id)
+                   complete_task(task_id, variables)
+               except Exception as exc:
+                   print(f"Error in task {task_id}: {exc}")
+       except Exception as exc:
+           print(f"Fetch error: {exc} {art("confused scratch")}")
 
-        send_email(variables, task_id)
-        complete_task(task_id, variables)
-    time.sleep(5)
+       time.sleep(5)
