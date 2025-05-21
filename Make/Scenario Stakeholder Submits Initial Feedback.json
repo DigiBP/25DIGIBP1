@@ -1,18 +1,18 @@
 {
-    "name": "SVK Jotform Submission Supplementation",
+    "name": "SVK Jotform Submission 2",
     "flow": [
         {
             "id": 1,
             "module": "jotform:watchForSubmissions",
             "version": 1,
             "parameters": {
-                "__IMTHOOK__": 2151252
+                "__IMTHOOK__": 2261835
             },
             "mapper": {},
             "metadata": {
                 "designer": {
-                    "x": -437,
-                    "y": 18
+                    "x": 0,
+                    "y": 0
                 },
                 "restore": {
                     "parameters": {
@@ -20,7 +20,7 @@
                             "data": {
                                 "editable": "true"
                             },
-                            "label": "SVK_Feedback_Watcher"
+                            "label": "My Submission watcher webhook"
                         }
                     }
                 },
@@ -129,7 +129,12 @@
                                 "label": "Name"
                             },
                             {
-                                "name": "q5_telefonnummer",
+                                "name": "q5_email",
+                                "type": "email",
+                                "label": "E-Mail"
+                            },
+                            {
+                                "name": "q6_telefonnummer",
                                 "spec": [
                                     {
                                         "name": "full",
@@ -141,9 +146,9 @@
                                 "label": "Telefonnummer"
                             },
                             {
-                                "name": "q6_schreibenSie",
+                                "name": "q7_schreibenSie",
                                 "type": "text",
-                                "label": "Schreiben Sie eine Frage"
+                                "label": "Schreiben Sie Ihr Feedback"
                             }
                         ],
                         "type": "collection",
@@ -158,24 +163,25 @@
             }
         },
         {
-            "id": 5,
-            "module": "http:ActionSendDataBasicAuth",
+            "id": 2,
+            "module": "http:ActionSendData",
             "version": 3,
             "parameters": {
-                "key": 76316,
-                "handleErrors": false,
+                "handleErrors": true,
                 "useNewZLibDeCompress": true
             },
             "mapper": {
                 "ca": "",
                 "qs": [],
                 "url": "https://digibp.engine.martinlab.science/engine-rest/message",
-                "data": "{\t\n\"messageName\": \"JOTFORM_SUPPLEMENTED\",\n\"tenantId\":     \"25DIGIBP12\",  \t\n\"businessKey\": \"{{1.request.q5_feedbackId}}\",\t\n\"processVariables\": \n{\n\"feedbackSupplementationText\":  { \"value\": \"{{1.request.q4_verfassenSie}}\",  \"type\": \"String\" }\n}\n}",
+                "data": "{\t\n\"messageName\": \"JOTFORM_SUBMITTED\",\n\"tenantId\":     \"25DIGIBP12\",  \t\n\"businessKey\": \"{{1.submissionID}}\",\t\n\"processVariables\": \n{\n\"email\":   { \"value\": \"{{1.request.q5_email}}\",        \"type\": \"String\" },\n\"firstName\":   { \"value\": \"{{1.request.q4_name.first}}\",        \"type\": \"String\" },\n\"lastName\":   { \"value\": \"{{1.request.q4_name.last}}\",        \"type\": \"String\" },\n\"phone\":  { \"value\": \"{{1.request.q6_telefonnummer.area}}{{1.request.q6_telefonnummer.phone}}\",  \"type\": \"String\" },\n\"feedbackText\":  { \"value\": \"{{1.request.q7_schreibenSie}}\",  \"type\": \"String\" }\n}\n}",
                 "gzip": true,
                 "method": "post",
                 "headers": [],
                 "timeout": "",
                 "useMtls": false,
+                "authPass": "",
+                "authUser": "",
                 "bodyType": "raw",
                 "contentType": "application/json",
                 "serializeUrl": false,
@@ -188,8 +194,8 @@
             },
             "metadata": {
                 "designer": {
-                    "x": 168,
-                    "y": 12
+                    "x": 582,
+                    "y": 5
                 },
                 "restore": {
                     "expect": {
@@ -209,20 +215,9 @@
                         "contentType": {
                             "label": "JSON (application/json)"
                         }
-                    },
-                    "parameters": {
-                        "key": {
-                            "label": "My HTTP Basic Auth key"
-                        }
                     }
                 },
                 "parameters": [
-                    {
-                        "name": "key",
-                        "type": "keychain:basicauth",
-                        "label": "Credentials",
-                        "required": true
-                    },
                     {
                         "name": "handleErrors",
                         "type": "boolean",
@@ -317,6 +312,16 @@
                         "type": "boolean",
                         "label": "Parse response",
                         "required": true
+                    },
+                    {
+                        "name": "authUser",
+                        "type": "text",
+                        "label": "User name"
+                    },
+                    {
+                        "name": "authPass",
+                        "type": "password",
+                        "label": "Password"
                     },
                     {
                         "name": "timeout",

@@ -1,12 +1,12 @@
 {
-    "name": "SVK Jotform Submission",
+    "name": "SVK Jotform Submission Supplementation 2",
     "flow": [
         {
             "id": 1,
             "module": "jotform:watchForSubmissions",
             "version": 1,
             "parameters": {
-                "__IMTHOOK__": 2149298
+                "__IMTHOOK__": 2261895
             },
             "mapper": {},
             "metadata": {
@@ -170,7 +170,7 @@
                 "ca": "",
                 "qs": [],
                 "url": "https://digibp.engine.martinlab.science/engine-rest/message",
-                "data": "{\t\n\"messageName\": \"JOTFORM_SUBMITTED\",\n\"tenantId\":     \"25DIGIBP12\",  \t\n\"businessKey\": \"{{1.submissionID}}\",\t\n\"processVariables\": \n{\n\"email\":   { \"value\": \"{{1.request.q7_email}}\",        \"type\": \"String\" },\n\"firstName\":   { \"value\": \"{{1.request.q4_name.first}}\",        \"type\": \"String\" },\n\"lastName\":   { \"value\": \"{{1.request.q4_name.last}}\",        \"type\": \"String\" },\n\"phone\":  { \"value\": \"{{1.request.q5_telefonnummer.full}}\",  \"type\": \"String\" },\n\"feedbackText\":  { \"value\": \"{{1.request.q6_schreibenSie}}\",  \"type\": \"String\" }\n}\n}",
+                "data": "{\t\n\"messageName\": \"JOTFORM_SUPPLEMENTED\",\n\"tenantId\":     \"25DIGIBP12\",  \t\n\"businessKey\": \"{{1.request.q3_feedbackId}}\",\t\n\"processVariables\": \n{\n\"queryAnswer\":  { \"value\": \"{{1.request.q6_verfassenSie}}\",  \"type\": \"String\" }\n}\n}",
                 "gzip": true,
                 "method": "post",
                 "headers": [],
@@ -188,8 +188,8 @@
             },
             "metadata": {
                 "designer": {
-                    "x": 168,
-                    "y": 12
+                    "x": 0,
+                    "y": 26
                 },
                 "restore": {
                     "expect": {
