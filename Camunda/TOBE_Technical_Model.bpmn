@@ -264,7 +264,7 @@
       <bpmn:incoming>Flow_0enjmos</bpmn:incoming>
       <bpmn:outgoing>Flow_12yx9w0</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0ai0bev" name="Send Mail that Feedback will be processed soon" camunda:type="external" camunda:topic="">
+    <bpmn:serviceTask id="Activity_0ai0bev" name="Send Mail that Feedback will be processed soon" camunda:type="external" camunda:topic="send_processed_soon">
       <bpmn:incoming>Flow_03usgvb</bpmn:incoming>
       <bpmn:outgoing>Flow_07cqq0i</bpmn:outgoing>
     </bpmn:serviceTask>
