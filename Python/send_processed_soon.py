@@ -1,18 +1,16 @@
-from __future__ import annotations
+import requests
 import time
 import smtplib
-import requests
 import traceback
-from art import tprint, art
 from email.message import EmailMessage
+from art import tprint, art
 
-from SupportFunctions import get_date, get_conversation_html_mail
-
+from SupportFunctions import get_quote_html_mail
 
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC = "send_query_email"
-WORKER_ID = "python-worker-46"
+TOPIC = "send_processed_soon"
+WORKER_ID = "python-worker-99"
 
 
 def fetch_and_lock():
@@ -36,32 +34,23 @@ def complete_task(task_id, variables):
     })
 
 
-
-def send_email(data: dict, business_key):
+def send_email(data: dict):
 
     # compose email
-    message_header = "Nachfrage zu Ihrem Feedback"
+    message_header = "Wir haben Ihr Feedback erhalten"
 
-    message_before_conv = (
+    message_before_quote = (
         f"Guten Tag\n\n\n"
-        f"Am {get_date(int(business_key))} haben Sie uns folgendes Feedback übermittelt:\n\n"
+        f"Vielen Dank für das Einreichen Ihres Feedbacks. Gerne melden wir uns bei Rückfragen und Updates.\n\n"
+        f"Ihr Feedback:\n\n"
     )
 
-    message_after_conv = (
-        f"\n\n"
-        f"Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende zusätzliche Informationen:\n\n"
-        f"{data['query']}\n"
-    )
+    quote = data["feedbackText"]
+
+    message_after_quote = ""
 
     # create html body
-    link = f"https://eu.jotform.com/edit/{data['supplementationJotformSubmissionId']}"
-    html_body = get_conversation_html_mail(message_header=message_header,
-                                           message_before_conv=message_before_conv,
-                                           conversation=data["feedbackText"],
-                                           message_after_conv=message_after_conv,
-                                           button_text="Jetzt Antworten",
-                                           link=link)
-
+    html_body = get_quote_html_mail(message_header, message_before_quote, quote, message_after_quote)
 
     # create the email
     f = open("password.txt")
@@ -69,7 +58,7 @@ def send_email(data: dict, business_key):
     f.close()
 
     msg = EmailMessage()
-    msg["Subject"] = "Nachfrage zu Ihrem Feedback"
+    msg["Subject"] = "Empfangsbestätigung Ihres Feedbacks"
     msg["From"] = "digipro-demo@ikmail.com"
     msg["To"] = data["email"]
 
@@ -80,7 +69,7 @@ def send_email(data: dict, business_key):
         smtp.login("digipro-demo@ikmail.com", password)
         smtp.send_message(msg)
 
-
+    print(data)
 
 
 if __name__ == "__main__":
@@ -95,7 +84,7 @@ if __name__ == "__main__":
                print(f"Fetched task {task_id}")
                try:
                    business_key = task.get("businessKey", "")
-                   send_email(variables, business_key)
+                   send_email(variables)
                    complete_task(task_id, variables)
                except Exception as exc:
                    print(f"Error in task {task_id}: {exc} {art('confused scratch')}")

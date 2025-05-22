@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0oft0v0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.22.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0oft0v0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.34.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.22.0">
   <bpmn:message id="Message_2juj8qq" name="JOTFORM_SUPPLEMENTED" />
   <bpmn:collaboration id="Collaboration_1w0nin8">
     <bpmn:participant id="Participant_1pprxzh" name="Workflow Engine" processRef="Process_0jc9ssk" />
@@ -11,16 +11,16 @@
     <bpmn:messageFlow id="Flow_1u77esg" sourceRef="Activity_0bv3ocp" targetRef="Participant_07nt3gy" />
     <bpmn:messageFlow id="Flow_1nr5y80" sourceRef="Activity_1tods68" targetRef="Participant_07nt3gy" />
     <bpmn:textAnnotation id="TextAnnotation_1cmdct2">
-      <bpmn:text>Automatic Mail Drafting</bpmn:text>
+      <bpmn:text>NEW: TO TEST</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1s4ee53">
-      <bpmn:text>NEW: TO TEST</bpmn:text>
+      <bpmn:text>OK</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1jzuvko">
       <bpmn:text>Add a another event followed by a subprocess for Escalation here?</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1gu67uq">
-      <bpmn:text>Service Implemented</bpmn:text>
+      <bpmn:text>OK</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1dfy55n">
       <bpmn:text>Service Implemented</bpmn:text>
@@ -35,13 +35,13 @@
       <bpmn:text>Service Implemented</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_0ewojiv">
-      <bpmn:text>NEW: TO TEST</bpmn:text>
+      <bpmn:text>OK</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1bf6w1v">
-      <bpmn:text>NEW: TO TEST</bpmn:text>
+      <bpmn:text>OK</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1wkl0ev">
-      <bpmn:text>NEW: TO TEST</bpmn:text>
+      <bpmn:text>TEST</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1617iv6" associationDirection="None" sourceRef="Activity_06ilcez" targetRef="TextAnnotation_0ewojiv" />
     <bpmn:association id="Association_1cxnj7g" associationDirection="None" sourceRef="Activity_0dxajre" targetRef="TextAnnotation_1bf6w1v" />
@@ -228,7 +228,7 @@
       <bpmn:incoming>Flow_07gthg9</bpmn:incoming>
       <bpmn:outgoing>Flow_1amiwcb</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_0ukq9ph" name="Send Mail that Feedback was Processed including Measures taken" camunda:type="external" camunda:topic="">
+    <bpmn:serviceTask id="Activity_0ukq9ph" name="Send Mail that Feedback was Processed including Measures taken" camunda:type="external" camunda:topic="send_department_reminder_email">
       <bpmn:incoming>Flow_1amiwcb</bpmn:incoming>
       <bpmn:outgoing>Flow_0l6ldh7</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -308,7 +308,7 @@
       <bpmn:incoming>Flow_0hdqy29</bpmn:incoming>
       <bpmn:outgoing>Flow_1rv7iun</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_198js72" name="Send Query-Mail to Stakeholder" camunda:type="external" camunda:topic="send-query-email">
+    <bpmn:serviceTask id="Activity_198js72" name="Send Query-Mail to Stakeholder" camunda:type="external" camunda:topic="send_query_email">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="api_connect_api_variables" />
@@ -318,7 +318,7 @@
       <bpmn:incoming>Flow_1rv7iun</bpmn:incoming>
       <bpmn:outgoing>Flow_14otp86</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0h6crcj" name="Store Feedback in Database" camunda:type="external" camunda:topic="store-feedback-in-db">
+    <bpmn:serviceTask id="Activity_0h6crcj" name="Store Feedback in Database" camunda:type="external" camunda:topic="store_feedback_in_db">
       <bpmn:incoming>Flow_1re9g8v</bpmn:incoming>
       <bpmn:outgoing>Flow_004qqmq</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -743,11 +743,11 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0lvhlqm" bpmnElement="TextAnnotation_1cmdct2">
-        <dc:Bounds x="1290" y="485" width="100" height="41" />
+        <dc:Bounds x="1290" y="485" width="99.99999822778292" height="26.713124274099883" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0tl1qex" bpmnElement="TextAnnotation_1s4ee53">
-        <dc:Bounds x="2820" y="870" width="209.99217257604332" height="26.645768025078368" />
+        <dc:Bounds x="2820" y="870" width="209.98943885335459" height="26.98202919506372" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1v471th" bpmnElement="TextAnnotation_1jzuvko">
@@ -755,7 +755,7 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1gu67uq_di" bpmnElement="TextAnnotation_1gu67uq">
-        <dc:Bounds x="520" y="550" width="99.99999822778292" height="40.99883767370563" />
+        <dc:Bounds x="520" y="550" width="99.99999838702018" height="25.36997885835095" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1dfy55n_di" bpmnElement="TextAnnotation_1dfy55n">
@@ -775,15 +775,15 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0ewojiv_di" bpmnElement="TextAnnotation_0ewojiv">
-        <dc:Bounds x="1070" y="1390" width="99.99999880417013" height="29.976489028213166" />
+        <dc:Bounds x="1070" y="1390" width="99.99999838702018" height="29.994714587737842" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1bf6w1v_di" bpmnElement="TextAnnotation_1bf6w1v">
-        <dc:Bounds x="760" y="550" width="99.99999822778292" height="26.713124274099883" />
+        <dc:Bounds x="760" y="550" width="99.99999838702018" height="26.982029195063713" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1wkl0ev_di" bpmnElement="TextAnnotation_1wkl0ev">
-        <dc:Bounds x="3180" y="270" width="99.99999880417013" height="29.996082700532057" />
+        <dc:Bounds x="3180" y="270" width="99.99999838702018" height="25.36997885835095" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1617iv6_di" bpmnElement="Association_1617iv6">
@@ -800,7 +800,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1cmwj7c_di" bpmnElement="Association_1cmwj7c">
         <di:waypoint x="3165" y="390" />
-        <di:waypoint x="3221" y="300" />
+        <di:waypoint x="3224" y="295" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_00gvn2o_di" bpmnElement="Association_00gvn2o">
         <di:waypoint x="1230" y="632" />
@@ -808,11 +808,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_0tkgko6" bpmnElement="Association_16h0so7">
         <di:waypoint x="1301" y="575" />
-        <di:waypoint x="1327" y="526" />
+        <di:waypoint x="1335" y="512" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1kusfry_di" bpmnElement="Association_1kusfry">
         <di:waypoint x="508" y="630" />
-        <di:waypoint x="545" y="591" />
+        <di:waypoint x="560" y="575" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1u2ckzc_di" bpmnElement="Association_1u2ckzc">
         <di:waypoint x="1790" y="469" />

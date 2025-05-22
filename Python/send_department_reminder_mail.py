@@ -3,16 +3,15 @@ import time
 import smtplib
 import requests
 import traceback
-from art import tprint, art
 from email.message import EmailMessage
+from art import tprint, art
 
 from SupportFunctions import get_date, get_conversation_html_mail
 
 
-
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC = "send_query_email"
-WORKER_ID = "python-worker-46"
+TOPIC = "send_department_reminder_email"
+WORKER_ID = "python-worker-25"
 
 
 def fetch_and_lock():
@@ -37,31 +36,34 @@ def complete_task(task_id, variables):
 
 
 
+
 def send_email(data: dict, business_key):
 
     # compose email
-    message_header = "Nachfrage zu Ihrem Feedback"
+    message_header = "Aufforderung zur Umsetzung von Feedback"
 
     message_before_conv = (
-        f"Guten Tag\n\n\n"
-        f"Am {get_date(int(business_key))} haben Sie uns folgendes Feedback übermittelt:\n\n"
+        f"Hallo Zusammen\n\n\n"
+        f"Am {get_date(int(business_key))} wurde uns folgendes Feedback übermittelt:\n\n"
     )
 
     message_after_conv = (
         f"\n\n"
-        f"Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende zusätzliche Informationen:\n\n"
-        f"{data['query']}\n"
+        f"Kontaktdaten Feedbackgeber:in\n"
+        f"{data["firstName"]} {data["lastName"]}\n"
+        f"{data["email"]}\n"
+        f"{data["phone"]}\n\n"
+        f"Bitte bearbeitet dieses Feedback umgehend und dokumentiert die getroffenen Massnahmen in folgendem Formular:\n"
     )
 
     # create html body
-    link = f"https://eu.jotform.com/edit/{data['supplementationJotformSubmissionId']}"
+    link = f"https://eu.jotform.com/edit/{data['documentationJotformSubmissionId']}"
     html_body = get_conversation_html_mail(message_header=message_header,
                                            message_before_conv=message_before_conv,
                                            conversation=data["feedbackText"],
                                            message_after_conv=message_after_conv,
-                                           button_text="Jetzt Antworten",
+                                           button_text="Feedback dokumentieren",
                                            link=link)
-
 
     # create the email
     f = open("password.txt")
@@ -69,9 +71,9 @@ def send_email(data: dict, business_key):
     f.close()
 
     msg = EmailMessage()
-    msg["Subject"] = "Nachfrage zu Ihrem Feedback"
+    msg["Subject"] = "Dringendes Feedback"
     msg["From"] = "digipro-demo@ikmail.com"
-    msg["To"] = data["email"]
+    msg["To"] = "digipro-demo@ikmail.com"
 
     msg.set_content(html_body, subtype="html")
 
@@ -80,6 +82,7 @@ def send_email(data: dict, business_key):
         smtp.login("digipro-demo@ikmail.com", password)
         smtp.send_message(msg)
 
+    print(data)
 
 
 

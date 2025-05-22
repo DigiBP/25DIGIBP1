@@ -1,6 +1,7 @@
 import requests
 import time
 import smtplib
+import traceback
 from email.message import EmailMessage
 from art import tprint, art
 
@@ -33,7 +34,7 @@ def complete_task(task_id, variables):
     })
 
 
-def send_email(data: dict, task_id):
+def send_email(data: dict):
 
     # compose email
     message_header = "Wir haben Ihr Feedback erhalten"
@@ -46,13 +47,7 @@ def send_email(data: dict, task_id):
 
     quote = data["feedbackText"]
 
-    message_after_quote = (
-        f"\n\n"
-        f"Freundliche Grüsse\n\n\n"
-        f"Digipro Demo AG\n"
-        f"Teststrasse 1\n"
-        f"6000 Zürich"
-    )
+    message_after_quote = ""
 
     # create html body
     html_body = get_quote_html_mail(message_header, message_before_quote, quote, message_after_quote)
@@ -80,20 +75,22 @@ def send_email(data: dict, task_id):
 if __name__ == "__main__":
    tprint("25-DIGIBP-1", font="small")
    print("Worker started — polling Camunda...")
-   print(f"{art("hugger")}\n")
+   print(f"{art('hugger')}\n")
    while True:
        try:
            for task in fetch_and_lock():
                task_id = task["id"]
                variables = {k: v["value"] for k, v in task["variables"].items()}
-               print(art("hugger"))
                print(f"Fetched task {task_id}")
                try:
-                   send_email(variables, task_id)
+                   business_key = task.get("businessKey", "")
+                   send_email(variables)
                    complete_task(task_id, variables)
                except Exception as exc:
-                   print(f"Error in task {task_id}: {exc}")
+                   print(f"Error in task {task_id}: {exc} {art('confused scratch')}")
+                   traceback.print_exc()
        except Exception as exc:
-           print(f"Fetch error: {exc} {art("confused scratch")}")
+           print(f"Fetch error: {exc} {art('confused scratch')}")
+           traceback.print_exc()
 
        time.sleep(5)
