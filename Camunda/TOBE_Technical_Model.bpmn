@@ -76,7 +76,6 @@
         <bpmn:flowNodeRef>Activity_198js72</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1oa8tow</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1ywgfly</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_12l7n12</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ai0bev</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1hp7vw3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0126yah</bpmn:flowNodeRef>
@@ -86,8 +85,6 @@
         <bpmn:flowNodeRef>Activity_1x7pzhv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0moh8hk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_02vfyt4</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0ukq9ph</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_1b0i6av</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0mhmgj8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1rdw3jw</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0asxs1s</bpmn:flowNodeRef>
@@ -100,6 +97,9 @@
         <bpmn:flowNodeRef>Event_0xa585z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0s8xcjt</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0j2fomz</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0ukq9ph</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1b0i6av</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_12l7n12</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="Flow_04y6l0m" sourceRef="Activity_0dxajre" targetRef="Gateway_0ns81hs" />
@@ -111,7 +111,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_06ny747" sourceRef="Gateway_0mhmgj8" targetRef="Event_1rdw3jw" />
     <bpmn:sequenceFlow id="Flow_0l6ldh7" sourceRef="Activity_0ukq9ph" targetRef="Gateway_0mhmgj8" />
-    <bpmn:sequenceFlow id="Flow_1amiwcb" sourceRef="Gateway_1b0i6av" targetRef="Activity_0ukq9ph" />
+    <bpmn:sequenceFlow id="Flow_1amiwcb" sourceRef="Gateway_1b0i6av" targetRef="Activity_12l7n12" />
     <bpmn:sequenceFlow id="Flow_0w657m4" sourceRef="Activity_0moh8hk" targetRef="Gateway_1b0i6av" />
     <bpmn:sequenceFlow id="Flow_02h0dtk" sourceRef="Activity_00ox568" targetRef="Activity_0moh8hk" />
     <bpmn:sequenceFlow id="Flow_15fixss" sourceRef="Activity_1x7pzhv" targetRef="Event_02vfyt4" />
@@ -128,7 +128,6 @@
     <bpmn:sequenceFlow id="Flow_0enjmos" sourceRef="Activity_06bitc4" targetRef="Activity_1hp7vw3" />
     <bpmn:sequenceFlow id="Flow_07cqq0i" sourceRef="Activity_0ai0bev" targetRef="Gateway_1cem2fi" />
     <bpmn:sequenceFlow id="Flow_03usgvb" sourceRef="Activity_0126yah" targetRef="Activity_0ai0bev" />
-    <bpmn:sequenceFlow id="Flow_07gthg9" sourceRef="Activity_12l7n12" targetRef="Gateway_1b0i6av" />
     <bpmn:sequenceFlow id="Flow_08qoybe" sourceRef="Gateway_0ns81hs" targetRef="Activity_0gz5sb3" />
     <bpmn:sequenceFlow id="Flow_1vdldng" name="Yes" sourceRef="Gateway_1m6mbc3" targetRef="Activity_06ilcez">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${urgency.equals('uHigh') }</bpmn:conditionExpression>
@@ -145,7 +144,7 @@
     <bpmn:sequenceFlow id="Flow_1sqnsnf" name="No" sourceRef="Gateway_0mfdu1h" targetRef="Gateway_10e8lke">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!needsClarification}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_00c0oiq" sourceRef="Activity_0b8ibsb" targetRef="Activity_12l7n12" />
+    <bpmn:sequenceFlow id="Flow_00c0oiq" sourceRef="Activity_0b8ibsb" targetRef="Gateway_1b0i6av" />
     <bpmn:sequenceFlow id="Flow_1nwjopi" name="s3: High Urgency || can take measures" sourceRef="Gateway_048p2le" targetRef="Activity_0b8ibsb">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${scenario == "scenario3"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -223,15 +222,6 @@
       <bpmn:incoming>Flow_1kivcr5</bpmn:incoming>
       <bpmn:outgoing>Flow_06ny747</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="Gateway_1b0i6av">
-      <bpmn:incoming>Flow_0w657m4</bpmn:incoming>
-      <bpmn:incoming>Flow_07gthg9</bpmn:incoming>
-      <bpmn:outgoing>Flow_1amiwcb</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_0ukq9ph" name="Send Mail that Feedback was Processed including Measures taken" camunda:type="external" camunda:topic="send_department_reminder_email">
-      <bpmn:incoming>Flow_1amiwcb</bpmn:incoming>
-      <bpmn:outgoing>Flow_0l6ldh7</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:endEvent id="Event_02vfyt4">
       <bpmn:incoming>Flow_15fixss</bpmn:incoming>
     </bpmn:endEvent>
@@ -239,7 +229,7 @@
       <bpmn:incoming>Flow_02h0dtk</bpmn:incoming>
       <bpmn:outgoing>Flow_0w657m4</bpmn:outgoing>
     </bpmn:receiveTask>
-    <bpmn:serviceTask id="Activity_1x7pzhv" name="Send Reminder to Department" camunda:type="external" camunda:topic="">
+    <bpmn:serviceTask id="Activity_1x7pzhv" name="Send Reminder to Department" camunda:type="external" camunda:topic="send_department_reminder_email">
       <bpmn:incoming>Flow_1hbaj8x</bpmn:incoming>
       <bpmn:outgoing>Flow_15fixss</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -252,11 +242,11 @@
       <bpmn:incoming>Flow_12yx9w0</bpmn:incoming>
       <bpmn:outgoing>Flow_0mlhq6o</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_06bitc4" name="Set Status &#34;Review Board&#34; in DB" camunda:type="external" camunda:topic="">
+    <bpmn:serviceTask id="Activity_06bitc4" name="Set Status &#34;Review Board&#34; in DB" camunda:type="external" camunda:topic="set_review_board">
       <bpmn:incoming>Flow_18i7dfk</bpmn:incoming>
       <bpmn:outgoing>Flow_0enjmos</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0126yah" name="Set Status &#34;Review Board&#34; in DB" camunda:type="external" camunda:topic="">
+    <bpmn:serviceTask id="Activity_0126yah" name="Set Status &#34;Review Board&#34; in DB" camunda:type="external" camunda:topic="set_review_board">
       <bpmn:incoming>Flow_18dc5wg</bpmn:incoming>
       <bpmn:outgoing>Flow_03usgvb</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -267,10 +257,6 @@
     <bpmn:serviceTask id="Activity_0ai0bev" name="Send Mail that Feedback will be processed soon" camunda:type="external" camunda:topic="send_processed_soon">
       <bpmn:incoming>Flow_03usgvb</bpmn:incoming>
       <bpmn:outgoing>Flow_07cqq0i</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_12l7n12" name="Save  Measures taken in DB" camunda:type="external" camunda:topic="">
-      <bpmn:incoming>Flow_00c0oiq</bpmn:incoming>
-      <bpmn:outgoing>Flow_07gthg9</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:userTask id="Activity_0dsam57" name="Write Query" camunda:formRef="queryForm" camunda:formRefBinding="latest">
       <bpmn:extensionElements />
@@ -327,7 +313,7 @@
       <bpmn:outgoing>Flow_1re9g8v</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_15jwwn6" messageRef="Message_2tmq0p1" />
     </bpmn:startEvent>
-    <bpmn:serviceTask id="Activity_0bv3ocp" name="Send Reminder" camunda:type="external" camunda:topic="send-reminder">
+    <bpmn:serviceTask id="Activity_0bv3ocp" name="Send Reminder" camunda:type="external" camunda:topic="send_reminder">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:outputParameter name="reminderSent">true</camunda:outputParameter>
@@ -339,18 +325,32 @@
     <bpmn:endEvent id="Event_0rr6dfk">
       <bpmn:incoming>Flow_00utfl1</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_1tods68" name="Send Message that Feedback was withdrawn" camunda:type="external" camunda:topic="send-withdrawal-message">
+    <bpmn:serviceTask id="Activity_1tods68" name="Send Message that Feedback was withdrawn" camunda:type="external" camunda:topic="send_withdrawal_message">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_0gdoqxz</bpmn:incoming>
       <bpmn:outgoing>Flow_07m0ea5</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0m86ov3" name="Withdraw Feedback" camunda:type="external" camunda:topic="">
+    <bpmn:serviceTask id="Activity_0m86ov3" name="Withdraw Feedback" camunda:type="external" camunda:topic="withdraw_feedback">
       <bpmn:incoming>Flow_07m0ea5</bpmn:incoming>
       <bpmn:outgoing>Flow_1npqr6u</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_0ullzeq">
       <bpmn:incoming>Flow_1npqr6u</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_0ukq9ph" name="Send Mail that Feedback was Processed including Measures taken" camunda:type="external" camunda:topic="send_measures_taken">
+      <bpmn:incoming>Flow_0mwo9el</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l6ldh7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0mwo9el" sourceRef="Activity_12l7n12" targetRef="Activity_0ukq9ph" />
+    <bpmn:exclusiveGateway id="Gateway_1b0i6av">
+      <bpmn:incoming>Flow_0w657m4</bpmn:incoming>
+      <bpmn:incoming>Flow_00c0oiq</bpmn:incoming>
+      <bpmn:outgoing>Flow_1amiwcb</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_12l7n12" name="Save  Measures taken in DB" camunda:type="external" camunda:topic="save_measures_taken_in_db">
+      <bpmn:incoming>Flow_1amiwcb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0mwo9el</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:message id="Message_2tmq0p1" name="JOTFORM_SUBMITTED" />
   <bpmn:message id="Message_0c0m845" name="JOTFORM_SUPPLEMENTATION" />
@@ -400,12 +400,6 @@
       <bpmndi:BPMNShape id="BPMNShape_07amz4z" bpmnElement="Gateway_0mhmgj8" isMarkerVisible="true">
         <dc:Bounds x="4045" y="825" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0gy8mxd" bpmnElement="Gateway_1b0i6av" isMarkerVisible="true">
-        <dc:Bounds x="3625" y="825" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_13x8z61" bpmnElement="Activity_0ukq9ph">
-        <dc:Bounds x="3740" y="810" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0ulhnjg" bpmnElement="Event_02vfyt4">
         <dc:Bounds x="3582" y="692" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -436,10 +430,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1dx91m2" bpmnElement="Activity_0ai0bev">
         <dc:Bounds x="3090" y="520" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_11whomn" bpmnElement="Activity_12l7n12">
-        <dc:Bounds x="3230" y="880" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0pfldp8" bpmnElement="Activity_0dsam57">
@@ -503,6 +493,16 @@
       <bpmndi:BPMNShape id="BPMNShape_18hou9j" bpmnElement="Event_0ullzeq">
         <dc:Bounds x="2172" y="372" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_13x8z61" bpmnElement="Activity_0ukq9ph">
+        <dc:Bounds x="3820" y="810" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0gy8mxd" bpmnElement="Gateway_1b0i6av" isMarkerVisible="true">
+        <dc:Bounds x="3425" y="825" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_11whomn" bpmnElement="Activity_12l7n12">
+        <dc:Bounds x="3590" y="810" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1gw20by" bpmnElement="Event_0xa585z">
         <dc:Bounds x="3310" y="722" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -553,18 +553,17 @@
         <di:waypoint x="4232" y="850" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_0c6q88o" bpmnElement="Flow_0l6ldh7">
-        <di:waypoint x="3840" y="850" />
+        <di:waypoint x="3920" y="850" />
         <di:waypoint x="4045" y="850" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_0d1cbia" bpmnElement="Flow_1amiwcb">
-        <di:waypoint x="3675" y="850" />
-        <di:waypoint x="3740" y="850" />
+        <di:waypoint x="3475" y="850" />
+        <di:waypoint x="3590" y="850" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_0uo8zod" bpmnElement="Flow_0w657m4">
         <di:waypoint x="3328" y="780" />
-        <di:waypoint x="3480" y="780" />
-        <di:waypoint x="3480" y="850" />
-        <di:waypoint x="3625" y="850" />
+        <di:waypoint x="3450" y="780" />
+        <di:waypoint x="3450" y="825" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_02h0dtk_di" bpmnElement="Flow_02h0dtk">
         <di:waypoint x="3140" y="780" />
@@ -623,12 +622,6 @@
         <di:waypoint x="2950" y="560" />
         <di:waypoint x="3090" y="560" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_07gthg9_di" bpmnElement="Flow_07gthg9">
-        <di:waypoint x="3330" y="920" />
-        <di:waypoint x="3478" y="920" />
-        <di:waypoint x="3478" y="850" />
-        <di:waypoint x="3625" y="850" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08qoybe_di" bpmnElement="Flow_08qoybe">
         <di:waypoint x="830" y="875" />
         <di:waypoint x="830" y="1100" />
@@ -680,8 +673,9 @@
       <bpmndi:BPMNEdge id="BPMNEdge_0g189va" bpmnElement="Flow_00c0oiq">
         <di:waypoint x="2960" y="1360" />
         <di:waypoint x="3095" y="1360" />
-        <di:waypoint x="3095" y="920" />
-        <di:waypoint x="3230" y="920" />
+        <di:waypoint x="3095" y="910" />
+        <di:waypoint x="3450" y="910" />
+        <di:waypoint x="3450" y="875" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_0z8c2ia" bpmnElement="Flow_1nwjopi">
         <di:waypoint x="2690" y="585" />
@@ -738,16 +732,20 @@
         <di:waypoint x="2030" y="390" />
         <di:waypoint x="2172" y="390" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mwo9el_di" bpmnElement="Flow_0mwo9el">
+        <di:waypoint x="3690" y="850" />
+        <di:waypoint x="3820" y="850" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1hm4vaw_di" bpmnElement="Participant_07nt3gy" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="4260" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_03h66vr" bpmnElement="Association_1mppq1d">
+        <di:waypoint x="3079" y="810" />
+        <di:waypoint x="3075" y="823" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_0lvhlqm" bpmnElement="TextAnnotation_1cmdct2">
         <dc:Bounds x="1290" y="485" width="99.99999822778292" height="26.713124274099883" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0tl1qex" bpmnElement="TextAnnotation_1s4ee53">
-        <dc:Bounds x="2820" y="870" width="209.98943885335459" height="26.98202919506372" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1v471th" bpmnElement="TextAnnotation_1jzuvko">
@@ -793,10 +791,6 @@
       <bpmndi:BPMNEdge id="Association_1cxnj7g_di" bpmnElement="Association_1cxnj7g">
         <di:waypoint x="748" y="630" />
         <di:waypoint x="799" y="577" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_03h66vr" bpmnElement="Association_1mppq1d">
-        <di:waypoint x="3040" y="799" />
-        <di:waypoint x="2925" y="864" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1cmwj7c_di" bpmnElement="Association_1cmwj7c">
         <di:waypoint x="3165" y="390" />
@@ -850,6 +844,10 @@
         <di:waypoint x="1650" y="350" />
         <di:waypoint x="1650" y="140" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_0tl1qex" bpmnElement="TextAnnotation_1s4ee53">
+        <dc:Bounds x="3040" y="830" width="70" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

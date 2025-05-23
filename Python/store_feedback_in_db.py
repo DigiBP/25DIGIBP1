@@ -59,6 +59,7 @@ def write_to_excel(data: dict, business_key):
         ws.cell(1, 14, "linkToAdditForm").font = bold
         ws.cell(1, 15, "reminderSent").font = bold
         ws.cell(1, 16, "status").font = bold
+        ws.cell(1, 17, "measuresTaken").font = bold
 
 
     # get next empty row
@@ -69,14 +70,14 @@ def write_to_excel(data: dict, business_key):
     feedback_date = str(date.today().strftime("%d.%m.%Y"))
 
     # write new data to excel
-    ws.cell(row, 1, business_key)
-    ws.cell(row, 2, feedback_date)
-    ws.cell(row, 5, data["email"])
-    ws.cell(row, 6, data["phone"])
-    ws.cell(row, 7, data["firstName"])
-    ws.cell(row, 8, data["lastName"])
-    ws.cell(row,9,data["feedbackText"])
-
+    ws.cell(row,1, business_key)
+    ws.cell(row,2, feedback_date)
+    ws.cell(row,5, data["email"])
+    ws.cell(row,6, data["phone"])
+    ws.cell(row,7, data["firstName"])
+    ws.cell(row,8, data["lastName"])
+    ws.cell(row,9, data["feedbackText"])
+    ws.cell(row,16, "open")
 
     # save excel
     wb.save(EXCEL_FILE)

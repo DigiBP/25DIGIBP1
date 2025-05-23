@@ -1,18 +1,15 @@
 import requests
 import time
-import smtplib
 import traceback
-from email.message import EmailMessage
 from art import tprint, art
+from openpyxl import load_workbook
 
-from SupportFunctions import get_date, get_simple_html_mail
 
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC = "send_thank_you_message"
-WORKER_ID = "python-worker-5"
-
-
+TOPIC = "save_measures_taken_in_db"
+WORKER_ID = "python-worker-444"
+EXCEL_FILE = "form_data.xlsx"
 
 
 def fetch_and_lock():
@@ -36,42 +33,25 @@ def complete_task(task_id, variables):
     })
 
 
-def send_email(data: dict, business_key):
+def save_measures(data: dict, business_key):
 
-    # compose email
-    message_header = "Vielen Dank für Ihr Feedback"
+    wb = load_workbook(EXCEL_FILE)
+    ws = wb.active
 
-    message = (
-        f"Guten Tag\n\n\n"
-        f"Am {get_date(int(business_key))} haben Sie uns ein positives Feedback übermittelt.\n\n"
-        f"Vielen Dank, dass Sie sich die Zeit genommen haben, uns eine Rückmeldung zu geben. "
-        f"Gerne wachsen wir sowohl an Lob als auch Kritik!.\n\n"
-        f"Freundliche Grüsse\n\n"
-        f"Digipro Demo AG\n"
-    )
+    # get row with the business key
+    row_number = None
+    for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
+        cell = row[0]  # business key column
+        if int(cell.value) == business_key:
+            row_number = cell.row
+            break
 
-    # create html body
-    html_body = get_simple_html_mail(message_header, message)
+    ws.cell(row_number,17, data["measuresTaken"])
 
+    # save excel
+    wb.save(EXCEL_FILE)
+    print("Data written to Excel.")
 
-    # create the email
-    f = open("password.txt")
-    password = f.readline()
-    f.close()
-
-    msg = EmailMessage()
-    msg["Subject"] = "Ihr Feedback"
-    msg["From"] = "digipro-demo@ikmail.com"
-    msg["To"] = data["email"]
-
-    msg.set_content(html_body, subtype="html")
-
-    # send the email
-    with smtplib.SMTP_SSL("mail.infomaniak.com", 465) as smtp:
-        smtp.login("digipro-demo@ikmail.com", password)
-        smtp.send_message(msg)
-
-    print(data)
 
 
 if __name__ == "__main__":
@@ -85,8 +65,9 @@ if __name__ == "__main__":
                variables = {k: v["value"] for k, v in task["variables"].items()}
                print(f"Fetched task {task_id}")
                try:
+                   print(variables)
                    business_key = task.get("businessKey", "")
-                   send_email(variables, business_key)
+                   save_measures(variables, business_key)
                    complete_task(task_id, variables)
                except Exception as exc:
                    print(f"Error in task {task_id}: {exc} {art('confused scratch')}")

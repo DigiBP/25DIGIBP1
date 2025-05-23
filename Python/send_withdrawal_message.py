@@ -4,7 +4,7 @@ import smtplib
 from email.message import EmailMessage
 
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC = "send-withdrawal-message"
+TOPIC = "send_withdrawal_message"
 WORKER_ID = "python-worker-4"
 
 

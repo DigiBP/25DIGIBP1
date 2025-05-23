@@ -267,5 +267,3 @@ def get_conversation_html_mail(message_header, message_before_conv, conversation
     return html_body
 
 
-
-print(get_date(6237336537214213147))
