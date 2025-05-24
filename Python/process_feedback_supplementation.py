@@ -51,7 +51,7 @@ except Exception:
 
 # ── Camunda / worker settings ────────────────────────────────────────────────
 CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
-TOPIC      = "append-feedback-text"
+TOPIC      = "append_feedback_text"
 WORKER_ID  = "python-worker-append-45"
 TENANT_ID  = "25DIGIBP12"
 
