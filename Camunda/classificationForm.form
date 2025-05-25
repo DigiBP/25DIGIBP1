@@ -62,7 +62,7 @@
       },
       "id": "Field_1r0i8f1",
       "key": "feedbackText",
-      "readonly": "true"
+      "readonly": true
     },
     {
       "text": "## Classification",
@@ -187,7 +187,8 @@
       },
       "validate": {
         "required": false
-      }
+      },
+      "defaultValue": "fmYes"
     },
     {
       "label": "Forward Feedback to whom?",
@@ -210,7 +211,8 @@
       },
       "validate": {
         "required": false
-      }
+      },
+      "defaultValue": "testDepartment"
     },
     {
       "text": "### On submit you’ll get a task to draft the stakeholder query; you can update this classification later.",
