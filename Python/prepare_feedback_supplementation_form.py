@@ -1,84 +1,27 @@
-#!/usr/bin/env python3
-"""
-Camunda 7 external-task worker
-──────────────────────────────
-Creates a Jotform submission for form 251103903332039 and writes the returned
-`submissionID` back to the process as variable `supplementationJotformSubmissionId`.
-
-Field mapping (Camunda → Jotform):
-  businessKey            → submission[5]
-  feedbackText variable  → submission[6]
-  query variable         → submission[3]
-"""
-
-import os
 import time
-import requests
+import traceback
+
 from urllib.parse import quote_plus
+from pathlib import Path
+from art import art
 
-# ─── Configuration ────────────────────────────────────────────────────────────
-CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
+from SupportFunctions import *
+
+
+
 TOPIC      = "prepare_supplementation_form"
-WORKER_ID  = "python-worker-2"
-TENANT_ID  = "25DIGIBP12"
-
+WORKER_ID  = "python-worker-1"
 FORM_ID = "251256180381049"
-API_KEY = os.getenv(                 # < set JOTFORM_API_KEY env-var in prod!
-    "JOTFORM_API_KEY",
-    "e82fe0e1901aa0dff42c1c8592ecd21c",
-)
 
-JOTFORM_URL = (
-    f"https://eu-api.jotform.com/form/{FORM_ID}/submissions?apiKey={quote_plus(API_KEY)}"
-)
-
-POLL_INTERVAL = 5      # seconds between polling cycles
-LOCK_DURATION = 10_000 # ms – must exceed worst-case handling time
-# ──────────────────────────────────────────────────────────────────────────────
+JOTFORM_URL = f"https://eu-api.jotform.com/form/{FORM_ID}/submissions?apiKey={quote_plus(API_KEY)}"
 
 
-# ─── Camunda helpers ──────────────────────────────────────────────────────────
-def fetch_and_lock(max_tasks: int = 1):
-    """Fetch at most `max_tasks` external tasks for our topic."""
-    resp = requests.post(
-        f"{CAMUNDA_ENGINE_URL}/external-task/fetchAndLock",
-        json={
-            "workerId": WORKER_ID,
-            "maxTasks": max_tasks,
-            "usePriority": False,
-            "topics": [
-                {
-                    "topicName": TOPIC,
-                    "lockDuration": LOCK_DURATION,
-                    "tenantId": TENANT_ID,
-                    "includeBusinessKey": True,
-                }
-            ],
-        },
-        timeout=10,
-    )
-    resp.raise_for_status()
-    return resp.json()
 
-
-def complete_task(task_id: str, variables: dict | None = None):
-    """Complete the external task and (optionally) store new variables."""
-    requests.post(
-        f"{CAMUNDA_ENGINE_URL}/external-task/{task_id}/complete",
-        json={
-            "workerId": WORKER_ID,
-            "variables": variables or {},
-        },
-        timeout=10,
-    ).raise_for_status()
-
-
-# ─── Business logic ───────────────────────────────────────────────────────────
 def handle_task(task: dict):
-    """Create Jotform submission, return submissionID to Camunda."""
-    task_id      = task["id"]
+
+    task_id = task["id"]
     business_key = task.get("businessKey", "")
-    vars_        = {k: v["value"] for k, v in task["variables"].items()}
+    vars_ = {k: v["value"] for k, v in task["variables"].items()}
 
     payload = {
         "submission[3]": business_key,
@@ -102,24 +45,33 @@ def handle_task(task: dict):
         }
     }
 
-    complete_task(task_id, camunda_vars)
-    print(f"✓ Completed Camunda task {task_id} (saved supplementationJotformSubmissionId)")
+    complete_task(task_id=task_id, variables=camunda_vars, worker_id=WORKER_ID)
+    print(f"Worker \"{Path(__file__).name} completed task {task_id} with business key {business_key}")
 
 
-# ─── Main loop ────────────────────────────────────────────────────────────────
+
 if __name__ == "__main__":
-    print("Jotform worker started — polling Camunda for tasks …")
-    while True:
-        try:
-            for t in fetch_and_lock():
-                try:
-                    handle_task(t)
-                except requests.HTTPError as exc:
-                    # The lock will expire, Camunda will retry.
-                    print(f"HTTP error in task {t['id']}: {exc}")
-                except Exception as exc:
-                    print(f"Unexpected error in task {t['id']}: {exc}")
-        except Exception as exc:
-            print(f"Fetch error: {exc}")
+    print(f"Worker \"{Path(__file__).name}\" started — polling Camunda...")
+    try:
+        while True:
+            try:
+                for task in fetch_and_lock(worker_id=WORKER_ID, topic=TOPIC):
+                    business_key = task.get("businessKey", "")
+                    task_id = task["id"]
+                    variables = {k: v["value"] for k, v in task["variables"].items()}
+                    print(f"Worker \"{Path(__file__).name} fetched task {task_id} with business key {business_key}")
+                    try:
+                        handle_task(task)
+                    except Exception as exc:
+                        print(f"Error in task {task_id}: {exc} {art('confused scratch')}")
+                        traceback.print_exc()
 
-        time.sleep(POLL_INTERVAL)
+            except Exception as exc:
+                print(f"Fetch error: {exc} {art('table flip2')}")
+                traceback.print_exc()
+
+            time.sleep(5)
+
+    except KeyboardInterrupt:
+        time.sleep(0.1)
+        print(f"Worker \"{Path(__file__).name}\" stopped")

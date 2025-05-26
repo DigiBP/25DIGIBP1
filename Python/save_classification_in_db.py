@@ -1,51 +1,41 @@
 import time
-import smtplib
 import traceback
 from pathlib import Path
-from email.message import EmailMessage
 from art import art
+from openpyxl import load_workbook
 
 from SupportFunctions import *
 
-
-
-TOPIC = "send_feedback_received"
-WORKER_ID = "python-worker-8"
+TOPIC = "save_classification_in_db"
+WORKER_ID = "python-worker-4"
 
 
 
-def send_email(data: dict):
+def save_classification(data: dict, business_key):
 
-    # compose email
-    message_header = "Wir haben Ihr Feedback erhalten"
+    wb = load_workbook(EXCEL_FILE)
+    ws = wb.active
 
-    message_before_quote = (
-        f"Guten Tag\n\n\n"
-        f"Vielen Dank für das Einreichen Ihres Feedbacks. Gerne melden wir uns bei Rückfragen und Updates.\n\n"
-        f"Ihr Feedback:\n\n"
-    )
+    # get row with the business key
+    row_number = None
 
-    quote = data["feedbackText"]
-
-    message_after_quote = ""
-
-    # create html body
-    html_body = get_quote_html_mail(message_header, message_before_quote, quote, message_after_quote)
+    for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
+        cell = row[0]  # business key column
+        if int(cell.value) == int(business_key):
+            row_number = cell.row
+            break
 
 
-    msg = EmailMessage()
-    msg["Subject"] = "Empfangsbestätigung Ihres Feedbacks"
-    msg["From"] = "digipro-demo@ikmail.com"
-    msg["To"] = data["email"]
+    ws.cell(row_number, 3, data["feedbackType"])
+    ws.cell(row_number,11, data["urgency"])
+    ws.cell(row_number,12, data["impactScope"])
+    ws.cell(row_number,12, data["impactScope"])
 
-    msg.set_content(html_body, subtype="html")
 
-    # send the email
-    with smtplib.SMTP_SSL("mail.infomaniak.com", 465) as smtp:
-        smtp.login("digipro-demo@ikmail.com", PASSWORD)
-        smtp.send_message(msg)
+    # save excel
+    wb.save(EXCEL_FILE)
+    print("Data written to Excel.")
 
-    print(data)
 
 
 if __name__ == "__main__":
@@ -59,7 +49,7 @@ if __name__ == "__main__":
                     variables = {k: v["value"] for k, v in task["variables"].items()}
                     print(f"Worker \"{Path(__file__).name} fetched task {task_id} with business key {business_key}")
                     try:
-                        send_email(data=variables)
+                        save_classification(data=variables, business_key=business_key)
                         complete_task(task_id=task_id, variables=variables, worker_id=WORKER_ID)
                         print(f"Worker \"{Path(__file__).name} completed task {task_id} with business key {business_key}")
                     except Exception as exc:
@@ -73,5 +63,5 @@ if __name__ == "__main__":
             time.sleep(5)
 
     except KeyboardInterrupt:
-        time.sleep(0.8)
+        time.sleep(0.4)
         print(f"Worker \"{Path(__file__).name}\" stopped")

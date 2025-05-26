@@ -1,39 +1,17 @@
-import requests
 import time
 import smtplib
 import traceback
+from pathlib import Path
 from email.message import EmailMessage
-from art import tprint, art
+from art import art
 
-from SupportFunctions import get_date, get_simple_html_mail
+from SupportFunctions import *
 
 
-CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
+
 TOPIC = "send_thank_you_message"
-WORKER_ID = "python-worker-5"
+WORKER_ID = "python-worker-13"
 
-
-
-
-def fetch_and_lock():
-    response = requests.post(f"{CAMUNDA_ENGINE_URL}/external-task/fetchAndLock", json={
-        "workerId": WORKER_ID,
-        "maxTasks": 1,
-        "usePriority": False,
-        "topics": [{
-            "topicName": TOPIC,
-            "lockDuration": 10000,
-            "tenantId": "25DIGIBP12"
-        }]
-    })
-    return response.json()
-
-
-def complete_task(task_id, variables):
-    requests.post(f"{CAMUNDA_ENGINE_URL}/external-task/{task_id}/complete", json={
-        "workerId": WORKER_ID,
-        "variables": {}
-    })
 
 
 def send_email(data: dict, business_key):
@@ -54,11 +32,6 @@ def send_email(data: dict, business_key):
     html_body = get_simple_html_mail(message_header, message)
 
 
-    # create the email
-    f = open("password.txt")
-    password = f.readline()
-    f.close()
-
     msg = EmailMessage()
     msg["Subject"] = "Ihr Feedback"
     msg["From"] = "digipro-demo@ikmail.com"
@@ -68,31 +41,36 @@ def send_email(data: dict, business_key):
 
     # send the email
     with smtplib.SMTP_SSL("mail.infomaniak.com", 465) as smtp:
-        smtp.login("digipro-demo@ikmail.com", password)
+        smtp.login("digipro-demo@ikmail.com", PASSWORD)
         smtp.send_message(msg)
 
     print(data)
 
 
 if __name__ == "__main__":
-   tprint("25-DIGIBP-1", font="small")
-   print("Worker started — polling Camunda...")
-   print(f"{art('hugger')}\n")
-   while True:
-       try:
-           for task in fetch_and_lock():
-               task_id = task["id"]
-               variables = {k: v["value"] for k, v in task["variables"].items()}
-               print(f"Fetched task {task_id}")
-               try:
-                   business_key = task.get("businessKey", "")
-                   send_email(variables, business_key)
-                   complete_task(task_id, variables)
-               except Exception as exc:
-                   print(f"Error in task {task_id}: {exc} {art('confused scratch')}")
-                   traceback.print_exc()
-       except Exception as exc:
-           print(f"Fetch error: {exc} {art('confused scratch')}")
-           traceback.print_exc()
+    print(f"Worker \"{Path(__file__).name}\" started — polling Camunda...")
+    try:
+        while True:
+            try:
+                for task in fetch_and_lock(worker_id=WORKER_ID, topic=TOPIC):
+                    business_key = task.get("businessKey", "")
+                    task_id = task["id"]
+                    variables = {k: v["value"] for k, v in task["variables"].items()}
+                    print(f"Worker \"{Path(__file__).name} fetched task {task_id} with business key {business_key}")
+                    try:
+                        send_email(data=variables, business_key=business_key)
+                        complete_task(task_id=task_id, variables=variables, worker_id=WORKER_ID)
+                        print(f"Worker \"{Path(__file__).name} completed task {task_id} with business key {business_key}")
+                    except Exception as exc:
+                        print(f"Error in task {task_id}: {exc} {art('confused scratch')}")
+                        traceback.print_exc()
 
-       time.sleep(5)
+            except Exception as exc:
+                print(f"Fetch error: {exc} {art('table flip2')}")
+                traceback.print_exc()
+
+            time.sleep(5)
+
+    except KeyboardInterrupt:
+        time.sleep(1.3)
+        print(f"Worker \"{Path(__file__).name}\" stopped")

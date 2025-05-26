@@ -2,51 +2,49 @@ import time
 import smtplib
 import traceback
 from pathlib import Path
-from email.message import EmailMessage
 from art import art
+from email.message import EmailMessage
 
 from SupportFunctions import *
 
 
 
-TOPIC = "send_department_email"
-WORKER_ID = "python-worker-6"
+TOPIC = "send_reminder"
+WORKER_ID = "python-worker-12"
 
 
 
 def send_email(data: dict, business_key):
 
     # compose email
-    message_header = "Aufforderung zur Umsetzung von Feedback"
+    message_header = "Nachfrage zu Ihrem Feedback"
 
     message_before_conv = (
-        f"Hallo Zusammen\n\n\n"
-        f"Am {get_date(int(business_key))} wurde uns Feedback übermittelt:\n\n"
+        f"Guten Tag\n\n\n"
+        f"Am {get_date(int(business_key))} haben Sie uns ein Feedback übermittelt:\n\n"
     )
 
     message_after_conv = (
         f"\n\n"
-        f"Kontaktdaten Feedbackgeber:in\n"
-        f"{data["firstName"]} {data["lastName"]}\n"
-        f"{data["email"]}\n"
-        f"{data["phone"]}\n\n"
-        f"Bitte bearbeitet dieses Feedback umgehend und dokumentiert die getroffenen Massnahmen in folgendem Formular:\n"
+        f"Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende zusätzliche Informationen:\n\n"
+        f"{data['query']}\n"
     )
 
     # create html body
-    link = f"https://eu.jotform.com/edit/{data['documentationJotformSubmissionId']}"
+    link = f"https://eu.jotform.com/edit/{data['supplementationJotformSubmissionId']}"
     html_body = get_conversation_html_mail(message_header=message_header,
                                            message_before_conv=message_before_conv,
                                            conversation=data["feedbackText"],
                                            message_after_conv=message_after_conv,
-                                           button_text="Feedback dokumentieren",
-                                           link=link)
+                                           button_text="Jetzt Antworten",
+                                           link=link,
+                                           only_show_initial=False)
 
 
     msg = EmailMessage()
-    msg["Subject"] = "Dringendes Feedback"
+    msg["Subject"] = "Nachfrage zu Ihrem Feedback"
     msg["From"] = "digipro-demo@ikmail.com"
-    msg["To"] = "digipro-demo@ikmail.com"
+    msg["To"] = data["email"]
 
     msg.set_content(html_body, subtype="html")
 
@@ -55,7 +53,6 @@ def send_email(data: dict, business_key):
         smtp.login("digipro-demo@ikmail.com", PASSWORD)
         smtp.send_message(msg)
 
-    print(data)
 
 
 
@@ -84,5 +81,5 @@ if __name__ == "__main__":
             time.sleep(5)
 
     except KeyboardInterrupt:
-        time.sleep(0.6)
+        time.sleep(1.2)
         print(f"Worker \"{Path(__file__).name}\" stopped")

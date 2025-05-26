@@ -1,38 +1,23 @@
-import requests
 import time
+import traceback
+from pathlib import Path
+from art import art
 from datetime import date
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font
 from os.path import exists
 
-CAMUNDA_ENGINE_URL = "https://digibp.engine.martinlab.science/engine-rest"
+from SupportFunctions import *
+
+
+
 TOPIC = "store_feedback_in_db"
-WORKER_ID = "python-worker-1"
-EXCEL_FILE = "form_data.xlsx"
+WORKER_ID = "python-worker-17"
+
+
 
 # openpyxl formating
 bold = Font(bold=True)
-
-
-def fetch_and_lock():
-    response = requests.post(f"{CAMUNDA_ENGINE_URL}/external-task/fetchAndLock", json={
-        "workerId": WORKER_ID,
-        "maxTasks": 1,
-        "usePriority": False,
-        "topics": [{
-            "topicName": TOPIC,
-            "lockDuration": 10000,
-            "tenantId": "25DIGIBP12"
-        }]
-    })
-    return response.json()
-
-
-def complete_task(task_id, variables):
-    requests.post(f"{CAMUNDA_ENGINE_URL}/external-task/{task_id}/complete", json={
-        "workerId": WORKER_ID,
-        "variables": {}
-    })
 
 
 def write_to_excel(data: dict, business_key):
@@ -84,14 +69,31 @@ def write_to_excel(data: dict, business_key):
     print("Data written to Excel.")
 
 
-while True:
-    tasks = fetch_and_lock()
-    for task in tasks:
-        task_id = task['id']
-        business_key = task.get("businessKey", "")
-        variables = {k: v['value'] for k, v in task['variables'].items()}
-        print(f"Fetched task {task_id} with variables {variables}")
 
-        write_to_excel(variables, business_key)
-        complete_task(task_id, variables)
-    time.sleep(5)
+if __name__ == "__main__":
+    print(f"Worker \"{Path(__file__).name}\" started — polling Camunda...")
+    try:
+        while True:
+            try:
+                for task in fetch_and_lock(worker_id=WORKER_ID, topic=TOPIC):
+                    business_key = task.get("businessKey", "")
+                    task_id = task["id"]
+                    variables = {k: v["value"] for k, v in task["variables"].items()}
+                    print(f"Worker \"{Path(__file__).name} fetched task {task_id} with business key {business_key}")
+                    try:
+                        write_to_excel(data=variables, business_key=business_key)
+                        complete_task(task_id=task_id, variables=variables, worker_id=WORKER_ID)
+                        print(f"Worker \"{Path(__file__).name} completed task {task_id} with business key {business_key}")
+                    except Exception as exc:
+                        print(f"Error in task {task_id}: {exc} {art('confused scratch')}")
+                        traceback.print_exc()
+
+            except Exception as exc:
+                print(f"Fetch error: {exc} {art('table flip2')}")
+                traceback.print_exc()
+
+            time.sleep(5)
+
+    except KeyboardInterrupt:
+        time.sleep(1.7)
+        print(f"Worker \"{Path(__file__).name}\" stopped")

@@ -1,7 +1,29 @@
 import pandas as pd
 import html
 import re
+import requests
+import json
 from datetime import datetime
+
+
+# read config file
+with open("config.json", "r") as f:
+    config = json.load(f)
+f.close()
+
+
+# get constants that are imported by worker python files
+with open(config["passwordFilePath"]) as f:
+    PASSWORD = f.readline()
+f.close()
+
+with open(config["apiKeyPath"]) as f:
+    API_KEY = f.readline()
+f.close()
+
+EXCEL_FILE = config["excelFilePath"]
+
+
 
 def get_date(business_key):
 
@@ -10,6 +32,28 @@ def get_date(business_key):
 
     return data.loc[business_key, "feedbackDate"]
 
+
+
+def fetch_and_lock(worker_id, topic):
+    response = requests.post(url=f"{config["camundaEngineUrl"]}/external-task/fetchAndLock",
+                             json={
+                                   "workerId": worker_id,
+                                   "maxTasks": 1,
+                                   "usePriority": False,
+                                   "topics": [{
+                                        "topicName": topic,
+                                        "lockDuration": 10000,
+                                        "tenantId": "25DIGIBP12"
+                                        }]
+                                   })
+    return response.json()
+
+
+def complete_task(task_id, variables, worker_id):
+    requests.post(f"{config["camundaEngineUrl"]}/external-task/{task_id}/complete", json={
+        "workerId": worker_id,
+        "variables": variables or {}
+    })
 
 
 
@@ -186,29 +230,59 @@ def get_quote_html_mail(message_header, message_before_quote, quote, message_aft
 
 
 
-def get_conversation_html_mail(message_header, message_before_conv, conversation, message_after_conv, button_text, link):
+def get_conversation_html_mail(message_header, message_before_conv, conversation, message_after_conv,
+                               button_text = "", link = "", only_show_initial = False):
 
     year = datetime.now().year
 
     initial, convs = split_conversation(conversation)
 
     conv_html = ""
-    for query_text, ts, answer in convs:
+
+    if not only_show_initial:
         conv_html += f"""
             <h3 style="margin:24px 0 8px;color:#0073b3;font-weight:normal;">
-              Unsere&nbsp;Rückfrage&nbsp;an&nbsp;Sie
-            </h3>
-            <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3; padding:16px;background-color:#f0f8ff;">
-              {newline_to_br(query_text)}
-            </blockquote>
-            <h3 style="margin:0 0 8px;color:#0073b3;font-weight:normal;">
-              Rückmeldung&nbsp;vom&nbsp;{ts}
+                {space_to_nbsp("Ihr initiales Feedback:")}
             </h3>
             <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
-                               padding:16px;background-color:#f0f8ff;">
-              {newline_to_br(answer)}
+            padding:16px;background-color:#f0f8ff;">
+                {newline_to_br(initial)}
             </blockquote>
-        """
+            """
+        for query_text, ts, answer in convs:
+            conv_html += f"""
+                <h3 style="margin:24px 0 8px;color:#0073b3;font-weight:normal;">
+                    {space_to_nbsp("Unsere Rückfrage an Sie")}
+                </h3>
+                <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                padding:16px;background-color:#f0f8ff;">
+                    {newline_to_br(query_text)}
+                </blockquote>
+                <h3 style="margin:0 0 8px;color:#0073b3;font-weight:normal;">
+                    {space_to_nbsp("Rückmeldung vom ")}{ts}
+                </h3>
+                <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                                   padding:16px;background-color:#f0f8ff;">
+                    {newline_to_br(answer)}
+                </blockquote>
+            """
+    else:
+        conv_html += f"""
+                    <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                    padding:16px;background-color:#f0f8ff;">
+                        {newline_to_br(initial)}
+                    </blockquote>
+                    """
+
+
+
+    link_html = ""
+
+    if link:
+        link_html = f"""<p style="text-align:center;margin:32px 0;">
+                            <a href="{link}" style="background-color:#0073b3;color:#ffffff;text-decoration:none;
+        padding:12px 24px;border-radius:4px;font-weight:bold;display:inline-block;">{space_to_nbsp(button_text)}</a>
+                        </p>"""
 
 
     content_card = f"""
@@ -223,17 +297,13 @@ def get_conversation_html_mail(message_header, message_before_conv, conversation
       <tr>
         <td style="padding:32px;color:#333333;">
           <p>{newline_to_br(message_before_conv)}</p>
-            <blockquote style="margin:0;border-left:4px solid #0073b3; padding:16px;background-color:#f0f8ff;">
-                <em>{newline_to_br(initial)}</em>
-            </blockquote>
           
             {conv_html}
             
           <p>{newline_to_br(message_after_conv)}</p>
-          <p style="text-align:center;margin:32px 0;">
-            <a href="{link}" style="background-color:#0073b3;color:#ffffff;text-decoration:none;
-            padding:12px 24px;border-radius:4px;font-weight:bold;display:inline-block;">{space_to_nbsp(button_text)}</a>
-          </p>
+          
+          {link_html}
+          
         </td>
       </tr>
     """

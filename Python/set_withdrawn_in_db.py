@@ -1,51 +1,38 @@
 import time
-import smtplib
 import traceback
-from pathlib import Path
-from email.message import EmailMessage
 from art import art
+from openpyxl import load_workbook
+from pathlib import Path
 
 from SupportFunctions import *
 
 
-
-TOPIC = "send_feedback_received"
-WORKER_ID = "python-worker-8"
-
+TOPIC = "withdraw_feedback"
+WORKER_ID = "python-worker-16"
 
 
-def send_email(data: dict):
 
-    # compose email
-    message_header = "Wir haben Ihr Feedback erhalten"
+def set_status(business_key):
 
-    message_before_quote = (
-        f"Guten Tag\n\n\n"
-        f"Vielen Dank für das Einreichen Ihres Feedbacks. Gerne melden wir uns bei Rückfragen und Updates.\n\n"
-        f"Ihr Feedback:\n\n"
-    )
+    wb = load_workbook(EXCEL_FILE)
+    ws = wb.active
 
-    quote = data["feedbackText"]
+    # get row with the business key
+    row_number = None
 
-    message_after_quote = ""
+    for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
+        cell = row[0]  # business key column
+        if int(cell.value) == int(business_key):
+            row_number = cell.row
+            break
 
-    # create html body
-    html_body = get_quote_html_mail(message_header, message_before_quote, quote, message_after_quote)
+    ws.cell(row_number,16, "withdrawn")
+
+    # save excel
+    wb.save(EXCEL_FILE)
+    print("Data written to Excel.")
 
 
-    msg = EmailMessage()
-    msg["Subject"] = "Empfangsbestätigung Ihres Feedbacks"
-    msg["From"] = "digipro-demo@ikmail.com"
-    msg["To"] = data["email"]
-
-    msg.set_content(html_body, subtype="html")
-
-    # send the email
-    with smtplib.SMTP_SSL("mail.infomaniak.com", 465) as smtp:
-        smtp.login("digipro-demo@ikmail.com", PASSWORD)
-        smtp.send_message(msg)
-
-    print(data)
 
 
 if __name__ == "__main__":
@@ -59,7 +46,7 @@ if __name__ == "__main__":
                     variables = {k: v["value"] for k, v in task["variables"].items()}
                     print(f"Worker \"{Path(__file__).name} fetched task {task_id} with business key {business_key}")
                     try:
-                        send_email(data=variables)
+                        set_status(business_key=business_key)
                         complete_task(task_id=task_id, variables=variables, worker_id=WORKER_ID)
                         print(f"Worker \"{Path(__file__).name} completed task {task_id} with business key {business_key}")
                     except Exception as exc:
@@ -73,5 +60,5 @@ if __name__ == "__main__":
             time.sleep(5)
 
     except KeyboardInterrupt:
-        time.sleep(0.8)
+        time.sleep(1.6)
         print(f"Worker \"{Path(__file__).name}\" stopped")
