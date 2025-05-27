@@ -97,6 +97,25 @@ As a first step, different Handling Scenarios for different types of feedback ha
 - **Scenario 4**: Positive feedback (e.g., praise or kudos) is stored in the Review Board backlog for potential sharing and celebration during regular review meetings.
 
 
+## Scripts
+
+| Script Name  | Explanation                   | ......                                 | ...............                        |
+| ------------ | ----------------------------- | -------------------------------------- | -------------------------------------- |
+|              |                               |                                        | —                                      |
+
+
+
+
+## Status Coventions
+
+| Status value | Meaning in lifecycle          | Set by                                 | Picked up by                           |
+| ------------ | ----------------------------- | -------------------------------------- | -------------------------------------- |
+| `open`       | Initial, still running        | `store_feedback_in_db.py`              | —                                      |
+| `withdrawn`  | User withdrew feedback        | `set_withdrawn_in_db.py`               | —                                      |
+| `terminate`  | **Marker**: request full stop | Any script / UI that decides to cancel | **`terminate_cancelled_instances.py`** |
+| `cancelled`  | Instance already killed       | `terminate_cancelled_instances.py`     | —                                      |
+
+
 ---
 
 ## Team Members
