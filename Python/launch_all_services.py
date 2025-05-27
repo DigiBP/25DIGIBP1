@@ -21,7 +21,8 @@ if __name__ == "__main__":
         "send_withdrawal_message.py",
         "set_review_board_in_db.py",
         "set_withdrawn_in_db.py",
-        "store_feedback_in_db.py"
+        "store_feedback_in_db.py",
+        "terminate_terminated_instances.py"
     ]
 
     # Store subprocesses to manage them later if needed

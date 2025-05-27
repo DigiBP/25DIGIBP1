@@ -35,7 +35,7 @@ def get_date(business_key):
 
 
 def fetch_and_lock(worker_id, topic):
-    response = requests.post(url=f"{config["camundaEngineUrl"]}/external-task/fetchAndLock",
+    response = requests.post(url=f"{config['camundaEngineUrl']}/external-task/fetchAndLock",
                              json={
                                    "workerId": worker_id,
                                    "maxTasks": 1,
@@ -57,7 +57,7 @@ def complete_task(task_id, variables, worker_id):
                "workerId": worker_id,
                "variables": {}
                }
-    response = requests.post(url=f"{config["camundaEngineUrl"]}/external-task/{task_id}/complete",
+    response = requests.post(url=f"{config['camundaEngineUrl']}/external-task/{task_id}/complete",
                              json=payload)
     print(response.text)
     print(json.dumps(payload, indent=2))

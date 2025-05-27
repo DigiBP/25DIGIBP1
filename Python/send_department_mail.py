@@ -27,9 +27,9 @@ def send_email(data: dict, business_key):
     message_after_conv = (
         f"\n\n"
         f"Kontaktdaten Feedbackgeber:in\n"
-        f"{data["firstName"]} {data["lastName"]}\n"
-        f"{data["email"]}\n"
-        f"{data["phone"]}\n\n"
+        f"{data['firstName']} {data['lastName']}\n"
+        f"{data['email']}\n"
+        f"{data['phone']}\n\n"
         f"Bitte bearbeitet dieses Feedback umgehend und dokumentiert die getroffenen Massnahmen in folgendem Formular:\n"
     )
 
