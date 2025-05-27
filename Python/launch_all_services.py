@@ -37,12 +37,12 @@ if __name__ == "__main__":
             processes.append(p)
 
         while True:
-            time.sleep(1)
+            time.sleep(5)
 
     except KeyboardInterrupt:
         print("\nStopping all workers...")
         for p in processes:
-            p.terminate()
+            p.kill()
 
         for p in processes:
             p.wait()

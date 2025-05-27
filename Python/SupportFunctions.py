@@ -46,14 +46,21 @@ def fetch_and_lock(worker_id, topic):
                                         "tenantId": "25DIGIBP12"
                                         }]
                                    })
+    print(response.json())
     return response.json()
 
 
+
+
 def complete_task(task_id, variables, worker_id):
-    requests.post(f"{config["camundaEngineUrl"]}/external-task/{task_id}/complete", json={
-        "workerId": worker_id,
-        "variables": variables or {}
-    })
+    payload = {
+               "workerId": worker_id,
+               "variables": {}
+               }
+    response = requests.post(url=f"{config["camundaEngineUrl"]}/external-task/{task_id}/complete",
+                             json=payload)
+    print(response.text)
+    print(json.dumps(payload, indent=2))
 
 
 

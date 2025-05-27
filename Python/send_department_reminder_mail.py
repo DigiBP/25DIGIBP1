@@ -63,6 +63,7 @@ def send_email(data: dict, business_key):
 if __name__ == "__main__":
     print(f"Worker \"{Path(__file__).name}\" started — polling Camunda...")
     try:
+        time.sleep(2)
         while True:
             try:
                 for task in fetch_and_lock(worker_id=WORKER_ID, topic=TOPIC):
@@ -85,5 +86,4 @@ if __name__ == "__main__":
             time.sleep(5)
 
     except KeyboardInterrupt:
-        time.sleep(0.7)
-        print(f"Worker \"{Path(__file__).name}\" stopped")
+        pass

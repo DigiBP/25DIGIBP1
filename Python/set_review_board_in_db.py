@@ -60,5 +60,4 @@ if __name__ == "__main__":
             time.sleep(5)
 
     except KeyboardInterrupt:
-        time.sleep(1.5)
-        print(f"Worker \"{Path(__file__).name}\" stopped")
+        pass
