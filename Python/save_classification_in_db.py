@@ -13,7 +13,7 @@ WORKER_ID = "python-worker-4"
 
 def save_classification(data: dict, business_key):
 
-    wb = load_workbook(EXCEL_FILE)
+    wb = load_workbook(EXCEL_FILE, keep_vba=True)
     ws = wb.active
 
     # get row with the business key

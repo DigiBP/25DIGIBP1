@@ -27,7 +27,7 @@ EXCEL_FILE = config["excelFilePath"]
 
 def get_date(business_key):
 
-    data = pd.read_excel("form_data.xlsx")
+    data = pd.read_excel("form_data.xlsm")
     data = data.set_index("businessKey")
 
     return data.loc[business_key, "feedbackDate"]

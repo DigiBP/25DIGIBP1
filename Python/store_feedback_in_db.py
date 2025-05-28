@@ -1,72 +1,117 @@
 import time
 import traceback
 from pathlib import Path
+from shutil import copyfile
 from art import art
 from datetime import date
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font
+from openpyxl.utils import get_column_letter, range_boundaries
 from os.path import exists
 
 from SupportFunctions import *
 
 
 
-TOPIC = "store_feedback_in_db"
+TOPIC     = "store_feedback_in_db"
 WORKER_ID = "python-worker-17"
 
+TEMPLATE_FILE = Path(__file__).parent / "feedback_db_template.xlsm"
+BOLD          = Font(bold=True)
 
 
-# openpyxl formating
-bold = Font(bold=True)
+TABLE_NAME = "tblFeedback"
+KEY_COL    = 1
 
 
-def write_to_excel(data: dict, business_key):
-    if exists(EXCEL_FILE):
-        wb = load_workbook(EXCEL_FILE)
-        ws = wb.active
-    else:
-        wb = Workbook()
-        ws = wb.active
-
-        ws.cell(1, 1, "businessKey").font = bold
-        ws.cell(1, 2, "feedbackDate").font = bold
-        ws.cell(1, 3, "feedbackType").font = bold
-        ws.cell(1, 4, "query").font = bold
-        ws.cell(1, 5, "email").font = bold
-        ws.cell(1, 6, "phone").font = bold
-        ws.cell(1, 7, "firstName").font = bold
-        ws.cell(1, 8, "lastName").font = bold
-        ws.cell(1, 9, "feedbackText").font = bold
-        ws.cell(1, 10, "needsClarification").font = bold
-        ws.cell(1, 11, "urgency").font = bold
-        ws.cell(1, 12, "impactScope").font = bold
-        ws.cell(1, 13, "forwardToDepartment").font = bold
-        ws.cell(1, 14, "linkToAdditForm").font = bold
-        ws.cell(1, 15, "reminderSent").font = bold
-        ws.cell(1, 16, "status").font = bold
-        ws.cell(1, 17, "measuresTaken").font = bold
+def next_data_row(ws) -> int:
+    """
+    Returns the first row *after* the last row that has data in KEY_COL.
+    Ignores rows that are only styled by the table.
+    """
+    for r in range(ws.max_row, 1, -1):
+        if ws.cell(row=r, column=KEY_COL).value not in (None, ""):
+            return r + 1
+    return 2                      # sheet is empty except header
 
 
-    # get next empty row
-    row = ws.max_row + 1
+def get_or_create_workbook() -> "openpyxl.workbook.Workbook":
+    """
+    Returns an openpyxl workbook, always with keep_vba=True so macros survive.
+    If the file does not exist it copies the TEMPLATE_FILE first.
+    """
+    db_path = Path(EXCEL_FILE)
 
-    print(data)
+    if db_path.exists():
+        return load_workbook(db_path, keep_vba=True)
 
-    feedback_date = str(date.today().strftime("%d.%m.%Y"))
+    # ---------- first-time initialisation ----------
+    if TEMPLATE_FILE.exists():
+        copyfile(TEMPLATE_FILE, db_path)
+        print(f"Created new DB from template → {db_path.name}")
+        return load_workbook(db_path, keep_vba=True)
 
-    # write new data to excel
-    ws.cell(row,1, business_key)
-    ws.cell(row,2, feedback_date)
-    ws.cell(row,5, data["email"])
-    ws.cell(row,6, data["phone"])
-    ws.cell(row,7, data["firstName"])
-    ws.cell(row,8, data["lastName"])
-    ws.cell(row,9, data["feedbackText"])
-    ws.cell(row,16, "open")
+    # Fallback: build a blank workbook (no VBA project)
+    print("Template file not found – creating a blank .xlsm without macros.")
+    wb = Workbook()
+    ws = wb.active
 
-    # save excel
+    headers = [
+        "businessKey",
+        "feedbackDate",
+        "feedbackType",
+        "query",
+        "email",
+        "phone",
+        "firstName",
+        "lastName",
+        "feedbackText",
+        "needsClarification",
+        "urgency",
+        "impactScope",
+        "forwardToDepartment",
+        "linkToAdditForm",
+        "reminderSent",
+        "status",
+        "measuresTaken"
+    ]
+
+    for col, name in enumerate(headers, start=1):
+        ws.cell(1, col, name).font = BOLD
+
+    wb.save(db_path)
+    return wb
+
+
+def write_to_excel(data: dict, business_key: str) -> None:
+    wb = get_or_create_workbook()
+    ws = wb.active
+
+    row = next_data_row(ws)
+    feedback_date = date.today().strftime("%d.%m.%Y")
+
+    # ---- write cells ----
+    ws.cell(row, 1,  business_key)
+    ws.cell(row, 2,  feedback_date)
+    ws.cell(row, 5,  data.get("email"))
+    ws.cell(row, 6,  data.get("phone"))
+    ws.cell(row, 7,  data.get("firstName"))
+    ws.cell(row, 8,  data.get("lastName"))
+    ws.cell(row, 9,  data.get("feedbackText"))
+    ws.cell(row, 16, "open")
+
+    # ---- if we outran the table, grow it ----
+    if TABLE_NAME in ws.tables:
+        tbl = ws.tables[TABLE_NAME]
+        min_col, min_row, max_col, max_row = range_boundaries(tbl.ref)
+        if row > max_row:
+            tbl.ref = (
+                f"{get_column_letter(min_col)}{min_row}:"
+                f"{get_column_letter(max_col)}{row}"
+            )
+
     wb.save(EXCEL_FILE)
-    print("Data written to Excel.")
+    print(f"Data written on row {row}.")
 
 
 
