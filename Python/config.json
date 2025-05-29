@@ -2,5 +2,8 @@
   "camundaEngineUrl": "https://digibp.engine.martinlab.science/engine-rest",
   "excelFilePath": "form_data.xlsm",
   "passwordFilePath": "password.txt",
-  "apiKeyPath": "api_key.txt"
+  "apiKeyPath": "api_key.txt",
+  "tenantID": "25DIGIBP12",
+  "documentationFormID": "251324255618051",
+  "supplementationFormID": "251256180381049"
 }

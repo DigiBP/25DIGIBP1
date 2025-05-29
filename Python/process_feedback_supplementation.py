@@ -7,10 +7,15 @@ from art import art
 from SupportFunctions import *
 
 
+# read config file
+with open("config.json", "r") as f:
+    config = json.load(f)
+f.close()
+
 
 TOPIC      = "append_feedback_text"
 WORKER_ID  = "python-worker-3"
-TENANT_ID  = "25DIGIBP12"
+TENANT_ID  = config["tenantID"]
 
 
 

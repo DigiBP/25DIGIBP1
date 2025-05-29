@@ -27,7 +27,7 @@ EXCEL_FILE = config["excelFilePath"]
 
 def get_date(business_key):
 
-    data = pd.read_excel("form_data.xlsm")
+    data = pd.read_excel("form_data.xlsm", sheet_name="feedbackData")
     data = data.set_index("businessKey")
 
     return data.loc[business_key, "feedbackDate"]
@@ -43,29 +43,114 @@ def fetch_and_lock(worker_id, topic):
                                    "topics": [{
                                         "topicName": topic,
                                         "lockDuration": 10000,
-                                        "tenantId": "25DIGIBP12"
+                                        "tenantId": config["tenantID"]
                                         }]
                                    })
-    print(response.json())
+    #print(response.json())
     return response.json()
 
 
 
 
-def complete_task(task_id, variables, worker_id):
+def complete_task(task_id, variables, worker_id, send_variables = False):
+
+    if send_variables:
+        new_variables = {
+                        "feedbackText": {
+                            "type": "String",
+                            "value": variables["feedbackText"],
+                            "valueInfo": {}
+                        },
+                        "firstName": {
+                            "type": "String",
+                            "value": variables["firstName"],
+                            "valueInfo": {}
+                        },
+                        "lastName": {
+                            "type": "String",
+                            "value": variables["lastName"],
+                            "valueInfo": {}
+                        },
+                        "needsClarification": {
+                            "type": "Boolean",
+                            "value": variables["needsClarification"],
+                            "valueInfo": {}
+                        },
+                        "phone": {
+                            "type": "String",
+                            "value": variables["phone"],
+                            "valueInfo": {}
+                        },
+                        "feedbackType": {
+                            "type": "String",
+                            "value": variables["feedbackType"],
+                            "valueInfo": {}
+                        },
+                        "email": {
+                            "type": "String",
+                            "value": variables["email"],
+                            "valueInfo": {}
+                        }
+                    }
+        print(variables["needsClarification"])
+        print(type(variables["needsClarification"]))
+        if "urgency" in variables:
+            new_variables["urgency"] = {
+                            "type": "String",
+                            "value": variables["urgency"],
+                            "valueInfo": {}
+                        }
+        else:
+            new_variables["urgency"] = {
+                "type": "String",
+                "value": "NA",
+                "valueInfo": {}
+            }
+
+        if "impactScope" in variables:
+            new_variables["impactScope"] = {
+                            "type": "String",
+                            "value": variables["impactScope"],
+                            "valueInfo": {}
+                        }
+        else:
+            new_variables["impactScope"] = {
+                "type": "String",
+                "value": "NA",
+                "valueInfo": {}
+            }
+
+        if "immediateAction" in variables:
+            new_variables["immediateAction"] = {
+                "type": "String",
+                "value": variables["immediateAction"],
+                "valueInfo": {}
+            }
+        else:
+            new_variables["immediateAction"] = {
+                "type": "String",
+                "value": "NA",
+                "valueInfo": {}
+            }
+
+
+    else:
+        new_variables = {}
+
+
     payload = {
                "workerId": worker_id,
-               "variables": {}
+               "variables": new_variables
                }
     response = requests.post(url=f"{config['camundaEngineUrl']}/external-task/{task_id}/complete",
                              json=payload)
-    print(response.text)
+    #print(response.text)
     print(json.dumps(payload, indent=2))
 
 
 
 
-# Marker regexes
+# Marker regexes for split_conversation
 RE_QUERY_HEAD = re.compile(r"\n{0,2}Unsere Rückfrage an Sie:\n", re.MULTILINE)
 RE_RESPONSE_HEAD = re.compile(r"\n{0,2}Rückmeldung vom (\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}:\d{2}):\n", re.MULTILINE)
 

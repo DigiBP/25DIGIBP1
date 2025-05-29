@@ -1,27 +1,23 @@
-"""
-Watches the feedback Excel every 5 min.
-Skips the scan when the database does not yet exist.
-
-If a row’s status == "terminate", it:
-    1.  correlates the message  PROCESS_CANCELLED with the
-        row’s businessKey
-    2.  switches the status to "cancelled" so it is never triggered twice
-"""
-
 import time
 import traceback
 from pathlib import Path
 from openpyxl import load_workbook
 import requests
+
 from SupportFunctions import *
 
-EXCEL_FILE = EXCEL_FILE
-CONFIG     = config
-CAMUNDA_MESSAGE_URL = f"{CONFIG['camundaEngineUrl']}/message"
-TENANT_ID  = "25DIGIBP12"
+
+# read config file
+with open("config.json", "r") as f:
+    config = json.load(f)
+f.close()
+
+
+CAMUNDA_MESSAGE_URL = f"{config['camundaEngineUrl']}/message"
+TENANT_ID  = config["tenantID"]
 MESSAGE    = "PROCESS_TERMINATED"
-POLL_SEC   = 30                    # 5 min
-STATUS_COL = 16                    # column P
+POLL_SEC   = 30
+STATUS_COL = 16 # column P
 
 def scan_and_terminate() -> None:
     db_path = Path(EXCEL_FILE)
@@ -59,14 +55,19 @@ def scan_and_terminate() -> None:
         wb.save(db_path)
         print("Excel updated.\n")
 
+
+
 if __name__ == "__main__":
-    print(f"Worker \"{Path(__file__).name}\" started — watching for terminate requests …")
+    print(f"Worker \"{Path(__file__).name}\" started — watching for terminate requests...")
     try:
+        time.sleep(2)
         while True:
-            time.sleep(POLL_SEC)
             try:
                 scan_and_terminate()
             except Exception:
                 traceback.print_exc()
+
+            time.sleep(POLL_SEC)
+
     except KeyboardInterrupt:
-        print("Stopping worker.")
+        pass

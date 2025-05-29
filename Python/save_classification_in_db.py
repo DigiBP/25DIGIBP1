@@ -25,11 +25,20 @@ def save_classification(data: dict, business_key):
             row_number = cell.row
             break
 
+    if "feedbackType" in data:
+        ws.cell(row_number, 3, data["feedbackType"])
+    else:
+        ws.cell(row_number, 3, "N/A")
 
-    ws.cell(row_number, 3, data["feedbackType"])
-    ws.cell(row_number,11, data["urgency"])
-    ws.cell(row_number,12, data["impactScope"])
-    ws.cell(row_number,12, data["impactScope"])
+    if "urgency" in data:
+        ws.cell(row_number, 11, data["urgency"])
+    else:
+        ws.cell(row_number, 11, "N/A")
+
+    if "impactScope" in data:
+        ws.cell(row_number, 12, data["impactScope"])
+    else:
+        ws.cell(row_number, 12, "N/A")
 
 
     # save excel
@@ -51,7 +60,7 @@ if __name__ == "__main__":
                     print(f"Worker \"{Path(__file__).name} fetched task {task_id} with business key {business_key}")
                     try:
                         save_classification(data=variables, business_key=business_key)
-                        complete_task(task_id=task_id, variables=variables, worker_id=WORKER_ID)
+                        complete_task(task_id=task_id, variables=variables, worker_id=WORKER_ID, send_variables=True)
                         print(f"Worker \"{Path(__file__).name} completed task {task_id} with business key {business_key}")
                     except Exception as exc:
                         print(f"Error in task {task_id}: {exc} {art('confused scratch')}")

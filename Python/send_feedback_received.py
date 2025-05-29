@@ -20,7 +20,7 @@ def send_email(data: dict):
     message_header = "Wir haben Ihr Feedback erhalten"
 
     message_before_quote = (
-        f"Guten Tag\n\n\n"
+        f"Guten Tag {data['firstName']} {data['lastName']}\n\n\n"
         f"Vielen Dank für das Einreichen Ihres Feedbacks. Gerne melden wir uns bei Rückfragen und Updates.\n\n"
         f"Ihr Feedback:\n\n"
     )

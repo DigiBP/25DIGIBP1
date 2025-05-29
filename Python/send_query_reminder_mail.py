@@ -20,7 +20,7 @@ def send_email(data: dict, business_key):
     message_header = "Nachfrage zu Ihrem Feedback"
 
     message_before_conv = (
-        f"Guten Tag\n\n\n"
+        f"Guten Tag {data['firstName']} {data['lastName']}\n\n\n"
         f"Am {get_date(int(business_key))} haben Sie uns ein Feedback übermittelt:\n\n"
     )
 

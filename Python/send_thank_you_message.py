@@ -20,10 +20,10 @@ def send_email(data: dict, business_key):
     message_header = "Vielen Dank für Ihr Feedback"
 
     message = (
-        f"Guten Tag\n\n\n"
+        f"Guten Tag {data['firstName']} {data['lastName']}\n\n\n"
         f"Am {get_date(int(business_key))} haben Sie uns ein positives Feedback übermittelt.\n\n"
         f"Vielen Dank, dass Sie sich die Zeit genommen haben, uns eine Rückmeldung zu geben. "
-        f"Gerne wachsen wir sowohl an Lob als auch Kritik!.\n\n"
+        f"Gerne wachsen wir sowohl an Lob als auch Kritik!\n\n"
         f"Freundliche Grüsse\n\n"
         f"Digipro Demo AG\n"
     )

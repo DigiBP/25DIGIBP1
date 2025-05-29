@@ -8,10 +8,15 @@ from art import art
 from SupportFunctions import *
 
 
+# read config file
+with open("config.json", "r") as f:
+    config = json.load(f)
+f.close()
+
 
 TOPIC      = "prepare_supplementation_form"
 WORKER_ID  = "python-worker-1"
-FORM_ID = "251256180381049"
+FORM_ID = config["supplementationFormID"]
 
 JOTFORM_URL = f"https://eu-api.jotform.com/form/{FORM_ID}/submissions?apiKey={quote_plus(API_KEY)}"
 

@@ -7,11 +7,16 @@ from art import art
 from SupportFunctions import *
 
 
+# read config file
+with open("config.json", "r") as f:
+    config = json.load(f)
+f.close()
+
 
 TOPIC      = "prepare_measure_documentation_form"
 WORKER_ID  = "python-worker-2"
-TENANT_ID  = "25DIGIBP12"
-FORM_ID = "251324255618051"
+TENANT_ID  = config['tenantID']
+FORM_ID = config["documentationFormID"]
 
 JOTFORM_URL = f"https://eu-api.jotform.com/form/{FORM_ID}/submissions?apiKey={quote_plus(API_KEY)}"
 
