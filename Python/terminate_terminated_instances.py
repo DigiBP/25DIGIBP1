@@ -2,7 +2,7 @@ import time
 import traceback
 from pathlib import Path
 from openpyxl import load_workbook
-import requests
+from art import art
 
 from SupportFunctions import *
 
@@ -64,7 +64,11 @@ if __name__ == "__main__":
         while True:
             try:
                 scan_and_terminate()
-            except Exception:
+            except PermissionError:
+                print("Excel in use, try again later")
+                time.sleep(30)
+            except Exception as exc:
+                print(f"Fetch error: {exc} {art('table flip2')}")
                 traceback.print_exc()
 
             time.sleep(POLL_SEC)
