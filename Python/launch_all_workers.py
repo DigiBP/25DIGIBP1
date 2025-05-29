@@ -31,7 +31,7 @@ if __name__ == "__main__":
     processes = []
 
     tprint("25-DIGIBP-1", font="small")
-    print(f"Starting all workers...\n{art('hugger')}\n")
+    print(f"Starting all workers...\n\n{art('hugger')}\n\n")
     time.sleep(2)
 
     try:

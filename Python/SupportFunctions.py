@@ -46,7 +46,7 @@ def fetch_and_lock(worker_id, topic):
                                         "tenantId": config["tenantID"]
                                         }]
                                    })
-    print(response.json())
+    #print(response.json())
     return response.json()
 
 
@@ -147,7 +147,7 @@ def complete_task(task_id, variables, worker_id, send_variables = "none"):
     response = requests.post(url=f"{config['camundaEngineUrl']}/external-task/{task_id}/complete",
                              json=payload)
     print(response.text)
-    print(json.dumps(payload, indent=2))
+    #print(json.dumps(payload, indent=2))
 
 
 

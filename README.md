@@ -198,10 +198,11 @@ Then run:
 
 ```powershell
 docker run --rm `
+  -v "${PWD}\config.json:/app/config.json" `
   -v "${PWD}\api_key.txt:/app/api_key.txt" `
   -v "${PWD}\password.txt:/app/password.txt" `
-  -v "${PWD}\config.json:/app/config.json" `
-  my-python-app
+  -v "C:\Test:/host" `
+  feedback-management-app
 ```
 
 > ✅ `${PWD}` in PowerShell is equivalent to `$(pwd)` in Bash.
@@ -217,3 +218,69 @@ docker run --rm `
 ---
 
 Let me know if you also want to package the image for transfer (`docker save`) or push it to Docker Hub.
+
+```json
+{
+  "camundaEngineUrl": "https://digibp.engine.martinlab.science/engine-rest",
+  "excelFilePath": "/host/form_data.xlsm",
+  "passwordFilePath": "password.txt",
+  "apiKeyPath": "api_key.txt",
+  "tenantID": "25DIGIBP12",
+  "documentationFormID": "251324255618051",
+  "supplementationFormID": "251256180381049"
+}
+```
+
+
+
+To **export your Docker image** so it can be moved to another computer (e.g., via USB or file transfer), you'll use the `docker save` command.
+
+---
+
+## ✅ Step-by-Step: Export the Image to a `.tar` File
+
+### 1. Save the image as a tarball
+
+```powershell
+docker save -o feedback-management-app.tar feedback-management-app
+```
+
+* `-o feedback-management-app.tar`: output file
+* `feedback-management-app`: name of your image (no `:tag` defaults to `latest`)
+
+This creates a portable `.tar` file you can transfer.
+
+
+
+
+
+---
+
+## ✅ To Import It on Another Computer
+
+After transferring the `.tar` file:
+
+```powershell
+docker load -i feedback-management-app.tar
+```
+
+This will load the image into Docker’s local image registry on the new machine.
+
+---
+
+## ✅ Verify It’s There
+
+```powershell
+docker images
+```
+
+You should see:
+
+```
+REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+feedback-management-app  latest    abc123456789   ...             ...
+```
+
+Then you can run it like before.
+
+---
