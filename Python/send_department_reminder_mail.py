@@ -41,7 +41,8 @@ def send_email(data: dict, business_key):
                                            conversation=data["feedbackText"],
                                            message_after_conv=message_after_conv,
                                            button_text="Feedback dokumentieren",
-                                           link=link)
+                                           link=link,
+                                           internal=True)
 
 
     msg = EmailMessage()

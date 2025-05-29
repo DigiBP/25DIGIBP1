@@ -54,7 +54,7 @@ def handle_task(task: dict):
         }
     }
 
-    complete_task(task_id=task_id, variables=camunda_vars, worker_id=WORKER_ID)
+    complete_task(task_id=task_id, variables=camunda_vars, worker_id=WORKER_ID, send_variables="yes")
     print(f"Worker \"{Path(__file__).name} completed task {task_id} with business key {business_key}")
 
 

@@ -26,7 +26,7 @@ def send_email(data: dict, business_key):
 
     message_after_conv = (
         f"\n\n"
-        f"Um Ihr Feedback bearbeiten zu können, bitten wir Sie um folgende zusätzliche Informationen:\n\n"
+        f"Um Ihr Feedback weiter bearbeiten zu können, bitten wir Sie um folgende zusätzliche Informationen:\n\n"
         f"{data['query']}\n"
     )
 

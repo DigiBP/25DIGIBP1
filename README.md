@@ -141,3 +141,79 @@ As a first step, different Handling Scenarios for different types of feedback ha
 
 If an error arises when trying to open the excel for the first time:
 https://support.microsoft.com/de-de/topic/ein-potenziell-gef%C3%A4hrliches-makro-wurde-blockiert-0952faa0-37e7-4316-b61d-5b5ed6024216
+
+
+
+
+## Docker
+docker run \
+  -v "$(pwd)/api_key.txt:/app/api_key.txt" \
+  -v "$(pwd)/password.txt:/app/password.txt" \
+  -v "$(pwd)/config.json:/app/config.json" \
+  my-python-app
+
+Yes — exactly! 🎯
+
+Here’s a step-by-step summary of what to do on a **new computer**:
+
+---
+
+## ✅ What You Need on the New Computer
+
+1. **Docker installed**
+2. **Your Docker image**, either:
+
+   * Built locally again (with your project files), **or**
+   * Pulled from a registry (e.g., Docker Hub)
+3. A folder with:
+
+   * `api_key.txt`
+   * `password.txt`
+   * `config.json`
+
+---
+
+## 📁 Example Folder Layout on New Computer
+
+```
+my_run_folder/
+├── api_key.txt
+├── password.txt
+├── config.json
+```
+
+Assume the image is already available locally (e.g., `my-python-app`).
+
+---
+
+## 🖥️ PowerShell: How to Run It
+
+Open PowerShell, go into the folder:
+
+```powershell
+cd path\to\my_run_folder
+```
+
+Then run:
+
+```powershell
+docker run --rm `
+  -v "${PWD}\api_key.txt:/app/api_key.txt" `
+  -v "${PWD}\password.txt:/app/password.txt" `
+  -v "${PWD}\config.json:/app/config.json" `
+  my-python-app
+```
+
+> ✅ `${PWD}` in PowerShell is equivalent to `$(pwd)` in Bash.
+
+---
+
+## 🧼 Clean, Secure, Portable
+
+* Secrets stay outside the image 🔐
+* You don’t need to modify the image on each computer 💻
+* Works in production, staging, or testing just by changing the mounted files 🧪
+
+---
+
+Let me know if you also want to package the image for transfer (`docker save`) or push it to Docker Hub.

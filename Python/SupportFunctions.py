@@ -46,15 +46,15 @@ def fetch_and_lock(worker_id, topic):
                                         "tenantId": config["tenantID"]
                                         }]
                                    })
-    #print(response.json())
+    print(response.json())
     return response.json()
 
 
 
 
-def complete_task(task_id, variables, worker_id, send_variables = False):
+def complete_task(task_id, variables, worker_id, send_variables = "none"):
 
-    if send_variables:
+    if send_variables == "new":
         new_variables = {
                         "feedbackText": {
                             "type": "String",
@@ -92,8 +92,7 @@ def complete_task(task_id, variables, worker_id, send_variables = False):
                             "valueInfo": {}
                         }
                     }
-        print(variables["needsClarification"])
-        print(type(variables["needsClarification"]))
+
         if "urgency" in variables:
             new_variables["urgency"] = {
                             "type": "String",
@@ -134,6 +133,9 @@ def complete_task(task_id, variables, worker_id, send_variables = False):
             }
 
 
+    elif send_variables == "yes":
+        new_variables = variables
+
     else:
         new_variables = {}
 
@@ -144,7 +146,7 @@ def complete_task(task_id, variables, worker_id, send_variables = False):
                }
     response = requests.post(url=f"{config['camundaEngineUrl']}/external-task/{task_id}/complete",
                              json=payload)
-    #print(response.text)
+    print(response.text)
     print(json.dumps(payload, indent=2))
 
 
@@ -322,9 +324,9 @@ def get_quote_html_mail(message_header, message_before_quote, quote, message_aft
 
 
 
-def get_conversation_html_mail(message_header, message_before_conv, conversation, message_after_conv,
-                               button_text = "", link = "", only_show_initial = False):
 
+def get_conversation_html_mail(message_header, message_before_conv, conversation, message_after_conv,
+                               button_text="", link="", only_show_initial=False, internal=False):
     year = datetime.now().year
 
     initial, convs = split_conversation(conversation)
@@ -332,32 +334,61 @@ def get_conversation_html_mail(message_header, message_before_conv, conversation
     conv_html = ""
 
     if not only_show_initial:
-        conv_html += f"""
-            <h3 style="margin:24px 0 8px;color:#0073b3;font-weight:normal;">
-                {space_to_nbsp("Ihr initiales Feedback:")}
-            </h3>
-            <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
-            padding:16px;background-color:#f0f8ff;">
-                {newline_to_br(initial)}
-            </blockquote>
-            """
-        for query_text, ts, answer in convs:
+        if not internal:
             conv_html += f"""
                 <h3 style="margin:24px 0 8px;color:#0073b3;font-weight:normal;">
-                    {space_to_nbsp("Unsere Rückfrage an Sie")}
+                    {space_to_nbsp("Ihr initiales Feedback:")}
                 </h3>
                 <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
                 padding:16px;background-color:#f0f8ff;">
-                    {newline_to_br(query_text)}
+                    {newline_to_br(initial)}
                 </blockquote>
-                <h3 style="margin:0 0 8px;color:#0073b3;font-weight:normal;">
-                    {space_to_nbsp("Rückmeldung vom ")}{ts}
-                </h3>
-                <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
-                                   padding:16px;background-color:#f0f8ff;">
-                    {newline_to_br(answer)}
-                </blockquote>
-            """
+                """
+            for query_text, ts, answer in convs:
+                conv_html += f"""
+                    <h3 style="margin:24px 0 8px;color:#0073b3;font-weight:normal;">
+                        {space_to_nbsp("Unsere Rückfrage an Sie")}
+                    </h3>
+                    <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                    padding:16px;background-color:#f0f8ff;">
+                        {newline_to_br(query_text)}
+                    </blockquote>
+                    <h3 style="margin:0 0 8px;color:#0073b3;font-weight:normal;">
+                        {space_to_nbsp("Rückmeldung vom ")}{ts}
+                    </h3>
+                    <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                                       padding:16px;background-color:#f0f8ff;">
+                        {newline_to_br(answer)}
+                    </blockquote>
+                """
+        else:
+            conv_html += f"""
+                            <h3 style="margin:24px 0 8px;color:#0073b3;font-weight:normal;">
+                                {space_to_nbsp("Initiales Feedback:")}
+                            </h3>
+                            <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                            padding:16px;background-color:#f0f8ff;">
+                                {newline_to_br(initial)}
+                            </blockquote>
+                            """
+            for query_text, ts, answer in convs:
+                conv_html += f"""
+                                <h3 style="margin:24px 0 8px;color:#0073b3;font-weight:normal;">
+                                    {space_to_nbsp("Unsere Rückfrage")}
+                                </h3>
+                                <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                                padding:16px;background-color:#f0f8ff;">
+                                    {newline_to_br(query_text)}
+                                </blockquote>
+                                <h3 style="margin:0 0 8px;color:#0073b3;font-weight:normal;">
+                                    {space_to_nbsp("Rückmeldung vom ")}{ts}
+                                </h3>
+                                <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
+                                                   padding:16px;background-color:#f0f8ff;">
+                                    {newline_to_br(answer)}
+                                </blockquote>
+                            """
+
     else:
         conv_html += f"""
                     <blockquote style="margin:0 0 24px;border-left:4px solid #0073b3;
@@ -366,8 +397,6 @@ def get_conversation_html_mail(message_header, message_before_conv, conversation
                     </blockquote>
                     """
 
-
-
     link_html = ""
 
     if link:
@@ -375,7 +404,6 @@ def get_conversation_html_mail(message_header, message_before_conv, conversation
                             <a href="{link}" style="background-color:#0073b3;color:#ffffff;text-decoration:none;
         padding:12px 24px;border-radius:4px;font-weight:bold;display:inline-block;">{space_to_nbsp(button_text)}</a>
                         </p>"""
-
 
     content_card = f"""
       <tr>
@@ -389,13 +417,13 @@ def get_conversation_html_mail(message_header, message_before_conv, conversation
       <tr>
         <td style="padding:32px;color:#333333;">
           <p>{newline_to_br(message_before_conv)}</p>
-          
+
             {conv_html}
-            
+
           <p>{newline_to_br(message_after_conv)}</p>
-          
+
           {link_html}
-          
+
         </td>
       </tr>
     """
@@ -427,5 +455,3 @@ def get_conversation_html_mail(message_header, message_before_conv, conversation
     """
 
     return html_body
-
-

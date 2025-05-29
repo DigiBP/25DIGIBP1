@@ -9,45 +9,41 @@ from SupportFunctions import *
 
 
 
-TOPIC = "send_department_email"
-WORKER_ID = "python-worker-6"
+TOPIC = "send_feedback_implemented"
+WORKER_ID = "python-worker-19"
 
 
 
 def send_email(data: dict, business_key):
 
     # compose email
-    message_header = "Aufforderung zur Umsetzung von Feedback"
+    message_header = "Ihr Feedback wurde verarbeitet"
 
     message_before_conv = (
-        f"Hallo Zusammen\n\n\n"
-        f"Am {get_date(int(business_key))} wurde uns Feedback übermittelt:\n\n"
+        f"Guten Tag {data['firstName']} {data['lastName']}\n\n\n"
+        f"Am {get_date(int(business_key))} haben Sie uns ein Feedback übermittelt.\n\n"
+        f"Vielen Dank, dass Sie sich die Zeit genommen haben, uns eine Rückmeldung zu geben. "
+        f"Ihr Feedback wurde verarbeitet.\n\n"
     )
 
+
     message_after_conv = (
-        f"\n\n"
-        f"Kontaktdaten Feedbackgeber:in\n"
-        f"{data['firstName']} {data['lastName']}\n"
-        f"{data['email']}\n"
-        f"{data['phone']}\n\n"
-        f"Bitte bearbeitet dieses Feedback umgehend und dokumentiert die getroffenen Massnahmen in folgendem Formular:\n"
+        f"Freundliche Grüsse\n\n"
+        f"Digipro Demo AG\n"
     )
 
     # create html body
-    link = f"https://eu.jotform.com/edit/{data['documentationJotformSubmissionId']}"
     html_body = get_conversation_html_mail(message_header=message_header,
                                            message_before_conv=message_before_conv,
                                            conversation=data["feedbackText"],
                                            message_after_conv=message_after_conv,
-                                           button_text="Feedback dokumentieren",
-                                           link=link,
-                                           internal=True)
+                                           only_show_initial=True)
 
 
     msg = EmailMessage()
-    msg["Subject"] = "Dringendes Feedback"
+    msg["Subject"] = "Ihr Feedback"
     msg["From"] = "digipro-demo@ikmail.com"
-    msg["To"] = "digipro-demo@ikmail.com"
+    msg["To"] = data["email"]
 
     msg.set_content(html_body, subtype="html")
 
@@ -57,7 +53,6 @@ def send_email(data: dict, business_key):
         smtp.send_message(msg)
 
     print(data)
-
 
 
 if __name__ == "__main__":

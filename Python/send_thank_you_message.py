@@ -19,17 +19,23 @@ def send_email(data: dict, business_key):
     # compose email
     message_header = "Vielen Dank für Ihr Feedback"
 
-    message = (
+    message_before_conv = (
         f"Guten Tag {data['firstName']} {data['lastName']}\n\n\n"
         f"Am {get_date(int(business_key))} haben Sie uns ein positives Feedback übermittelt.\n\n"
         f"Vielen Dank, dass Sie sich die Zeit genommen haben, uns eine Rückmeldung zu geben. "
-        f"Gerne wachsen wir sowohl an Lob als auch Kritik!\n\n"
+        f"Gerne wachsen wir sowohl an Lob als auch Kritik!\n\n")
+
+    message_after_conv= (
         f"Freundliche Grüsse\n\n"
         f"Digipro Demo AG\n"
     )
 
     # create html body
-    html_body = get_simple_html_mail(message_header, message)
+    html_body = get_conversation_html_mail(message_header=message_header,
+                                           message_before_conv=message_before_conv,
+                                           conversation=data["feedbackText"],
+                                           message_after_conv=message_after_conv,
+                                           only_show_initial=True)
 
 
     msg = EmailMessage()
