@@ -63,6 +63,9 @@ if __name__ == "__main__":
                         send_email(data=variables)
                         complete_task(task_id=task_id, variables=variables, worker_id=WORKER_ID)
                         print(f"Worker \"{Path(__file__).name} completed task {task_id} with business key {business_key}")
+                    except PermissionError:
+                        print("Excel in use, try again later")
+                        time.sleep(30)
                     except Exception as exc:
                         print(f"Error in task {task_id}: {exc} {art('confused scratch')}")
                         traceback.print_exc()
