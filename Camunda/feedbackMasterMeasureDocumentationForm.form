@@ -81,16 +81,20 @@
         "columns": null
       },
       "id": "Field_0ldbiqr",
-      "key": "measuresTaken"
+      "key": "measuresTaken",
+      "disabled": false,
+      "validate": {
+        "required": true
+      }
     }
   ],
   "type": "default",
   "id": "FMMesasureDocumentationForm",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.29.0"
+    "version": "5.34.0"
   },
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.22.0",
-  "schemaVersion": 17
+  "schemaVersion": 18
 }

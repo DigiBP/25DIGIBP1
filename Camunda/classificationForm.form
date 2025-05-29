@@ -95,7 +95,11 @@
         "columns": 5
       },
       "id": "Field_0j5ukvq",
-      "key": "feedbackType"
+      "key": "feedbackType",
+      "validate": {
+        "required": true
+      },
+      "defaultValue": "ftPositive"
     },
     {
       "label": "Urgency",
@@ -122,6 +126,10 @@
       "key": "urgency",
       "conditional": {
         "hide": "=feedbackType = \"ftPositive\""
+      },
+      "defaultValue": "uLow",
+      "validate": {
+        "required": true
       }
     },
     {
@@ -149,6 +157,10 @@
       "key": "impactScope",
       "conditional": {
         "hide": "=feedbackType = \"ftPositive\""
+      },
+      "defaultValue": "isSpecific",
+      "validate": {
+        "required": true
       }
     },
     {
@@ -186,7 +198,7 @@
         "hide": "=(feedbackType = null) or needsClarification\n  or (\n       (feedbackType != \"ftNegative\")\n    and (feedbackType != \"ftSuggestion\")\n    and (feedbackType  = \"ftPositive\")\n  )"
       },
       "validate": {
-        "required": false
+        "required": true
       },
       "defaultValue": "fmYes"
     },
@@ -210,7 +222,7 @@
         "hide": "=(immediateAction = null) or (immediateAction = \"fmYes\")"
       },
       "validate": {
-        "required": false
+        "required": true
       },
       "defaultValue": "testDepartment"
     },
@@ -231,9 +243,9 @@
   "id": "classificationForm",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.29.0"
+    "version": "5.34.0"
   },
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.22.0",
-  "schemaVersion": 17
+  "schemaVersion": 18
 }
