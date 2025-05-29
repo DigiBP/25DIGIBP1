@@ -116,6 +116,7 @@ As a first step, different Handling Scenarios for different types of feedback ha
 | `cancelled`  | Instance already killed       | `terminate_cancelled_instances.py`     | —                                      |
 
 
+
 ---
 
 ## Team Members
@@ -133,3 +134,10 @@ As a first step, different Handling Scenarios for different types of feedback ha
 | Andreas Martin | andreas.martin@fhnw.ch |
 | Charuta Pande | charuta.pande@fhnw.ch |
 | Devid Montecchiari  | devid.montecchiari@fhnw.ch |
+
+
+
+## Deployment
+
+If an error arises when trying to open the excel for the first time:
+https://support.microsoft.com/de-de/topic/ein-potenziell-gef%C3%A4hrliches-makro-wurde-blockiert-0952faa0-37e7-4316-b61d-5b5ed6024216
