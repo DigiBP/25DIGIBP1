@@ -65,7 +65,7 @@
       "readonly": true
     },
     {
-      "text": "## Please write your Query",
+      "text": "## Query Documentation",
       "type": "text",
       "layout": {
         "row": "Row_01p03bq",
@@ -74,23 +74,26 @@
       "id": "Field_1xjirnu"
     },
     {
-      "label": "",
+      "label": "Please write your Query",
       "type": "textarea",
       "layout": {
         "row": "Row_0vflsuy",
         "columns": null
       },
       "id": "Field_1jz41y8",
-      "key": "query"
+      "key": "query",
+      "validate": {
+        "required": true
+      }
     }
   ],
   "type": "default",
   "id": "queryForm",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.29.0"
+    "version": "5.34.0"
   },
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.22.0",
-  "schemaVersion": 17
+  "schemaVersion": 18
 }
