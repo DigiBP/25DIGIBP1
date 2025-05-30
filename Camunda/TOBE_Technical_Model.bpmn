@@ -220,12 +220,7 @@
       <bpmn:incoming>Flow_1npqr6u</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:serviceTask id="Activity_198js72" name="Send Query-Mail to Stakeholder" camunda:type="external" camunda:topic="send_query_email">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="api_connect_api_variables" />
-          <camunda:inputParameter name="api_connect_result_variables" />
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_1rv7iun</bpmn:incoming>
       <bpmn:outgoing>Flow_14otp86</bpmn:outgoing>
     </bpmn:serviceTask>
