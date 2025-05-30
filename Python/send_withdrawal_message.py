@@ -40,14 +40,14 @@ def send_email(data: dict, business_key):
 
     msg = EmailMessage()
     msg["Subject"] = "Empfangsbestätigung Ihres Feedbacks"
-    msg["From"] = "digipro-demo@ikmail.com"
+    msg["From"] = EMAIL_USER
     msg["To"] = data["email"]
 
     msg.set_content(html_body, subtype="html")
 
     # send the email
-    with smtplib.SMTP_SSL("mail.infomaniak.com", 465) as smtp:
-        smtp.login("digipro-demo@ikmail.com", PASSWORD)
+    with smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT) as smtp:
+        smtp.login(EMAIL_USER, EMAIL_PASSWORD)
         smtp.send_message(msg)
 
     print(data)

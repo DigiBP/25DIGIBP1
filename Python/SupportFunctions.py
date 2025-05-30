@@ -14,7 +14,7 @@ f.close()
 
 # get constants that are imported by worker python files
 with open(config["passwordFilePath"]) as f:
-    PASSWORD = f.readline()
+    EMAIL_PASSWORD = f.readline()
 f.close()
 
 with open(config["apiKeyPath"]) as f:
@@ -22,12 +22,15 @@ with open(config["apiKeyPath"]) as f:
 f.close()
 
 EXCEL_FILE = config["excelFilePath"]
+EMAIL_HOST = config["emailHost"]
+EMAIL_USER = config["emailUser"]
+EMAIL_PORT = config["emailPort"]
 
 
 
 def get_date(business_key):
 
-    data = pd.read_excel("form_data.xlsm", sheet_name="feedbackData")
+    data = pd.read_excel(EXCEL_FILE, sheet_name="feedbackData")
     data = data.set_index("businessKey")
 
     return data.loc[business_key, "feedbackDate"]

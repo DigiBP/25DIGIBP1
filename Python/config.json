@@ -5,5 +5,8 @@
   "apiKeyPath": "api_key.txt",
   "tenantID": "25DIGIBP12",
   "documentationFormID": "251324255618051",
-  "supplementationFormID": "251256180381049"
+  "supplementationFormID": "251256180381049",
+  "emailHost": "mail.infomaniak.com",
+  "emailUser": "digipro-demo@ikmail.com",
+  "emailPort": 465
 }
