@@ -15,12 +15,6 @@
 | Devid Montecchiari  | devid.montecchiari@fhnw.ch |
 
 
-
-# Executive Summary
-
----- TBD
-
-
 # Description of the Project
 
 This project aims to implement a standardized and digitized customer feedback management process for the **Schweizerische Verband für Gemeinschaftsaufgaben der Krankenversicherer (SVK)**. 
