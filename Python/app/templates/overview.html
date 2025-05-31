@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- === Dashboard === -->
+<div class="row mb-5 align-items-stretch">
+  <!-- Status-Verteilung (1/4) -->
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 p-3 shadow-sm">
+      <small>Status-Verteilung</small>
+      <canvas id="chartStatus"></canvas>
+    </div>
+  </div>
+  <!-- Feedback-Typen (1/4) -->
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 p-3 shadow-sm">
+      <small>Feedback-Typen</small>
+      <canvas id="chartType"></canvas>
+    </div>
+  </div>
+  <!-- Zeitreihe (1/2) -->
+  <div class="col-md-6 mb-4">
+    <div class="card h-100 p-3 shadow-sm">
+      <small>Feedbacks über Zeit</small>
+      <canvas id="chartTime"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Charts.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const statusLabels = {{ chart_data.status.labels|tojson }};
+  const statusCounts = {{ chart_data.status.counts|tojson }};
+  const typeLabels   = {{ chart_data.type.labels|tojson }};
+  const typeCounts   = {{ chart_data.type.counts|tojson }};
+  const timeLabels   = {{ chart_data.time.labels|tojson }};
+  const timeCounts   = {{ chart_data.time.counts|tojson }};
+
+  // Doughnut: Status
+  new Chart(document.getElementById('chartStatus'), {
+    type: 'doughnut',
+    data: {
+      labels: statusLabels,
+      datasets: [{
+        data: statusCounts,
+        backgroundColor: [
+          getComputedStyle(document.documentElement).getPropertyValue('--green-500').trim(),
+          getComputedStyle(document.documentElement).getPropertyValue('--gray-600').trim(),
+          getComputedStyle(document.documentElement).getPropertyValue('--gray-400').trim()
+        ]
+      }]
+    }
+  });
+
+  // Pie: Feedback-Typ
+  new Chart(document.getElementById('chartType'), {
+    type: 'pie',
+    data: {
+      labels: typeLabels,
+      datasets: [{
+        data: typeCounts,
+        backgroundColor: typeLabels.map((_, i) =>
+          [
+            getComputedStyle(document.documentElement).getPropertyValue('--green-500'),
+            getComputedStyle(document.documentElement).getPropertyValue('--green-400'),
+            getComputedStyle(document.documentElement).getPropertyValue('--gray-500')
+          ][i % 3].trim()
+        )
+      }]
+    }
+  });
+
+  // Line: Zeitreihe
+  new Chart(document.getElementById('chartTime'), {
+    type: 'line',
+    data: {
+      labels: timeLabels,
+      datasets: [{
+        label: 'Anzahl Feedbacks',
+        data: timeCounts,
+        tension: 0.3,
+        borderWidth: 2,
+        fill: false,
+        borderColor: getComputedStyle(document.documentElement).getPropertyValue('--green-500').trim()
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+<!-- === Ende Dashboard === -->
+
+<h4>Offene Feedbacks</h4>
+<table class="table table-dark table-striped table-hover small">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Datum</th>
+      <th>E-Mail</th>
+      <th>Status</th>
+      <th>Feedback</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in open %}
+      <tr>
+        <td>{{ r.name }}</td>
+        <td>{{ r.feedbackDate.date() if r.feedbackDate }}</td>
+        <td>{{ r.email }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.preview }}</td>
+        <td>
+          <a class="btn btn-sm btn-outline-info" href="{{ url_for('detail', idx=r._idx) }}">Ansehen</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h4 class="mt-4">Abgeschlossene & Abgebrochene</h4>
+<table class="table table-secondary table-striped table-hover table-sm">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Datum</th>
+      <th>E-Mail</th>
+      <th>Status</th>
+      <th>Feedback</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in closed %}
+      <tr>
+        <td>{{ r.name }}</td>
+        <td>{{ r.feedbackDate.date() if r.feedbackDate }}</td>
+        <td>{{ r.email }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.preview }}</td>
+        <td>
+          <a class="btn btn-sm btn-outline-info" href="{{ url_for('detail', idx=r._idx) }}">Ansehen</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

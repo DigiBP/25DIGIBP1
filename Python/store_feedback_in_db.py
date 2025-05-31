@@ -16,7 +16,7 @@ from SupportFunctions import *
 TOPIC     = "store_feedback_in_db"
 WORKER_ID = "python-worker-17"
 
-TEMPLATE_FILE = Path(__file__).parent / "feedback_db_template.xlsm"
+TEMPLATE_FILE = Path(__file__).parent / "feedback_db_template.xlsx"
 BOLD          = Font(bold=True)
 
 
@@ -52,7 +52,7 @@ def get_or_create_workbook() -> "openpyxl.workbook.Workbook":
         return load_workbook(db_path, keep_vba=True)
 
     # Fallback: build a blank workbook (no VBA project)
-    print("Template file not found – creating a blank .xlsm without macros.")
+    print("Template file not found – creating a blank .xlsx from scratch")
     wb = Workbook()
     ws = wb.active
 

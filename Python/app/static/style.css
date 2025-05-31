@@ -1,0 +1,147 @@
+/* ----------------------------
+   Farb- und Design-Variablen
+   ---------------------------- */
+:root {
+  /* Grautöne */
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+
+  /* Grüntöne (angelehnt an SVK-Branding) */
+  --green-500: #4f9a58;
+  --green-600: #428149;
+  --green-400: #6dc066;
+
+  /* Eckenradius und Schatten */
+  --border-radius: 0.5rem;
+  --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+  --transition-fast: 0.2s ease-in-out;
+}
+
+/* ----------------------------
+   Grundlayout
+   ---------------------------- */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--gray-200) !important;
+  color: var(--gray-800) !important;
+}
+
+/* Override Bootstrap Dark/Text-Light */
+.bg-dark {
+  background-color: var(--gray-700) !important;
+}
+.text-light {
+  color: var(--gray-100) !important;
+}
+
+/* ----------------------------
+   Navbar
+   ---------------------------- */
+.navbar {
+  padding: 0.75rem 1rem;
+  background-color: #FFFFFF;
+  box-shadow: var(--box-shadow);
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  color: var(--green-400) !important;
+}
+.navbar-brand img {
+  height: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+/* ----------------------------
+   Tabellen
+   ---------------------------- */
+.table {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
+.table thead {
+  background-color: var(--gray-800);
+}
+.table-dark tbody tr:hover,
+.table-secondary tbody tr:hover {
+  background-color: var(--gray-700);
+  transition: background-color var(--transition-fast);
+}
+.table a.btn-outline-info {
+  border-color: var(--green-500);
+  color: var(--green-500);
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+.table a.btn-outline-info:hover {
+  background-color: var(--green-500);
+  color: var(--gray-100);
+}
+
+/* ----------------------------
+   Formulare & Inputs
+   ---------------------------- */
+.form-control {
+  border-radius: var(--border-radius);
+  box-shadow: inset 0 0.0625rem 0.125rem rgba(0,0,0,0.05);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.form-control:focus {
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 0.2rem rgba(79,154,88,0.25);
+}
+textarea[readonly] {
+  background-color: var(--gray-200) !important;
+}
+
+/* ----------------------------
+   Buttons
+   ---------------------------- */
+.btn {
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+.btn-primary {
+  background-color: var(--green-500);
+  border-color: var(--green-500);
+}
+.btn-primary:hover {
+  background-color: var(--green-600);
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  background-color: var(--gray-600);
+  border-color: var(--gray-600);
+  color: var(--gray-100);
+}
+.btn-secondary:hover {
+  background-color: var(--gray-700);
+}
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* ----------------------------
+   sonstige Utilities
+   ---------------------------- */
+.container {
+  max-width: 960px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
