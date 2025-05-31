@@ -2,20 +2,20 @@
 {% block content %}
 <div class="container-fluid">
 <div class="row g-3">
+  <div class="col-md-2"><label>Datum</label><input class="form-control" value="{{ row.feedbackDate.date() if row.feedbackDate }}" readonly></div>
   <div class="col-md-2"><label>Vorname</label><input class="form-control" value="{{ row.firstName }}" readonly></div>
   <div class="col-md-2"><label>Nachname</label><input class="form-control" value="{{ row.lastName }}" readonly></div>
-  <div class="col-md-3"><label>E-Mail</label><input class="form-control" value="{{ row.email }}" readonly></div>
+  <div class="col-md-4"><label>E-Mail</label><input class="form-control" value="{{ row.email }}" readonly></div>
   <div class="col-md-2"><label>Telefon</label><input class="form-control" value="{{ row.phone }}" readonly></div>
 
   <div class="col-md-2"><label>Feedback Typ</label><input class="form-control" value="{{ row.feedbackType }}" readonly></div>
   <div class="col-md-2"><label>Dringlichkeit</label><input class="form-control" value="{{ row.urgency }}" readonly></div>
   <div class="col-md-2"><label>Auswirkung</label><input class="form-control" value="{{ row.impactScope }}" readonly></div>
-  <div class="col-md-2"><label>Datum</label><input class="form-control" value="{{ row.feedbackDate.date() if row.feedbackDate }}" readonly></div>
 
   <div class="col-md-2"><label>Status</label><input class="form-control" value="{{ row.status }}" readonly></div>
   <div class="col-md-4">
     <label>Getroffene Massnahmen</label>
-    <textarea name="measures" class="form-control bg-info-subtle" rows="3">{{ row.measuresTaken }}</textarea>
+    <textarea name="measuresTaken" class="form-control bg-info-subtle" rows="3">{{ row.measuresTaken }}</textarea>
   </div>
 </div>
 

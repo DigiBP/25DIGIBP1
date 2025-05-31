@@ -116,7 +116,8 @@ def terminate(idx):
 
 @app.post("/update_measures/<int:idx>")
 def update_measures(idx):
-    measures = request.form.get("measures", "").strip()
+    measures = request.form.get("measuresTaken", "").strip()
+
     if measures == "":
         flash("Bitte geben Sie getroffene Massnahmen ein.", "warning")
         return redirect(url_for("detail", idx=idx))
