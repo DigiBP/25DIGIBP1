@@ -57,7 +57,7 @@ def index():
     status_counts = Counter(r["status"] for r in records)
 
     # 2) Feedback-Type-Verteilung (nun ohne doppeltes NaN)
-    type_counts   = Counter(r["feedbackType"] for r in records)
+    type_counts = Counter(r["feedbackType"] for r in records)
 
     # 3) Zeitreihe: Anzahl Feedbacks pro Tag
     date_counts = defaultdict(int)
@@ -87,10 +87,14 @@ def index():
 def detail(idx):
     df = read_data()
     try:
-        row = df.loc[idx]
+        row = df.loc[idx].copy()
     except KeyError:
         flash("Datensatz nicht gefunden.", "danger")
         return redirect(url_for("index"))
+
+    # Convert all NaN values to empty strings
+    row = row.where(pd.notnull(row), "")
+
     return render_template("detail.html", row=row.to_dict(), idx=idx)
 
 @app.post("/terminate/<int:idx>")
@@ -117,9 +121,8 @@ def terminate(idx):
 
 @app.post("/update_measures/<int:idx>")
 def update_measures(idx):
-    measures = request.form.get("measuresTaken", "").strip()
-
-    if measures == "":
+    measures = (request.form.get("measuresTaken") or "").strip()
+    if not measures or measures.lower() == "nan":
         flash("Bitte geben Sie getroffene Massnahmen ein.", "warning")
         return redirect(url_for("detail", idx=idx))
 
@@ -129,9 +132,10 @@ def update_measures(idx):
     flash("Massnahmen gespeichert.", "success")
     return redirect(url_for("detail", idx=idx))
 
+
 @app.post("/complete_feedback/<int:idx>")
 def complete_feedback(idx):
-    measures = request.form.get("measures", "").strip()
+    measures = request.form.get("measuresTaken", "").strip()
     df = read_data()
     status = str(df.at[idx, "status"]).lower()
 
@@ -139,7 +143,7 @@ def complete_feedback(idx):
         flash("Das Feedback muss im Status 'Review-Board' sein, bevor es abgeschlossen werden kann.", "warning")
         return redirect(url_for("detail", idx=idx))
 
-    if not measures:
+    if not measures or measures.lower() == "nan":
         flash("Dokumentieren Sie Massnahmen, um das Feedback abzuschliessen.", "warning")
         return redirect(url_for("detail", idx=idx))
 
