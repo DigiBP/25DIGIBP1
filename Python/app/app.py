@@ -15,17 +15,18 @@ app.secret_key = "any-pgp-wordlist-here"          # necessary for flash messages
 
 # ---------- Helper functions --------------------------------------------------
 def read_data() -> pd.DataFrame:
-    df = pd.read_excel(FILE, sheet_name=SHEET)
-    df["feedbackDate"] = pd.to_datetime(
-        df["feedbackDate"],
-        dayfirst=True,
-        errors="coerce"
+    df = pd.read_excel(
+        FILE,
+        sheet_name=SHEET,
+        dtype={"businessKey": str},
     )
+    df["feedbackDate"] = pd.to_datetime(df["feedbackDate"],
+                                        dayfirst=True,
+                                        errors="coerce")
     return df
 
-
-
 def write_data(df: pd.DataFrame):
+    df["businessKey"] = df["businessKey"].astype(str)
     df.to_excel(FILE, sheet_name=SHEET, index=False)
 
 def render_lists(df: pd.DataFrame):
