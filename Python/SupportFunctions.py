@@ -14,7 +14,7 @@ f.close()
 
 # get constants that are imported by worker python files
 with open(config["passwordFilePath"]) as f:
-    PASSWORD = f.readline()
+    EMAIL_PASSWORD = f.readline()
 f.close()
 
 with open(config["apiKeyPath"]) as f:
@@ -22,6 +22,9 @@ with open(config["apiKeyPath"]) as f:
 f.close()
 
 EXCEL_FILE = config["excelFilePath"]
+EMAIL_USER = config["emailUser"]
+EMAIL_HOST = config["emailHost"]
+EMAIL_PORT = config["emailPort"]
 
 
 
