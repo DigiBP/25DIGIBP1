@@ -1,23 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<!-- === Dashboard === -->
+<!-- === Dashboard Start === -->
 <div class="row mb-5 align-items-stretch">
-  <!-- Status-Verteilung (1/4) -->
+  <!-- Status distribution -->
   <div class="col-md-3 mb-4">
     <div class="card h-100 p-3 shadow-sm">
       <small>Status-Verteilung</small>
       <canvas id="chartStatus"></canvas>
     </div>
   </div>
-  <!-- Feedback-Typen (1/4) -->
+  <!-- Feedback types -->
   <div class="col-md-3 mb-4">
     <div class="card h-100 p-3 shadow-sm">
       <small>Feedback-Typen</small>
       <canvas id="chartType"></canvas>
     </div>
   </div>
-  <!-- Zeitreihe (1/2) -->
+  <!-- Time series -->
   <div class="col-md-6 mb-4">
     <div class="card h-100 p-3 shadow-sm">
       <small>Feedbacks über Zeit</small>
@@ -31,9 +31,11 @@
 <script>
   const statusLabels = {{ chart_data.status.labels|tojson }};
   const statusCounts = {{ chart_data.status.counts|tojson }};
+  const statusColors = {{ chart_data.status.colors|tojson }};
   const typeLabels   = {{ chart_data.type.labels|tojson }};
   const typeCounts   = {{ chart_data.type.counts|tojson }};
   const timeLabels   = {{ chart_data.time.labels|tojson }};
+  const typeColors   = {{ chart_data.type.colors|tojson }};
   const timeCounts   = {{ chart_data.time.counts|tojson }};
 
   // Doughnut: Status
@@ -43,11 +45,7 @@
       labels: statusLabels,
       datasets: [{
         data: statusCounts,
-        backgroundColor: [
-          getComputedStyle(document.documentElement).getPropertyValue('--green-500').trim(),
-          getComputedStyle(document.documentElement).getPropertyValue('--gray-600').trim(),
-          getComputedStyle(document.documentElement).getPropertyValue('--gray-400').trim()
-        ]
+        backgroundColor: statusColors
       }]
     }
   });
@@ -59,13 +57,7 @@
       labels: typeLabels,
       datasets: [{
         data: typeCounts,
-        backgroundColor: typeLabels.map((_, i) =>
-          [
-            getComputedStyle(document.documentElement).getPropertyValue('--green-500'),
-            getComputedStyle(document.documentElement).getPropertyValue('--green-400'),
-            getComputedStyle(document.documentElement).getPropertyValue('--gray-500')
-          ][i % 3].trim()
-        )
+        backgroundColor: typeColors
       }]
     }
   });
@@ -91,7 +83,7 @@
     }
   });
 </script>
-<!-- === Ende Dashboard === -->
+<!-- === Dashboard End === -->
 
 <h4>Offene Feedbacks</h4>
 <table class="table table-dark table-striped table-hover small">

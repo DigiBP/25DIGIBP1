@@ -9,6 +9,31 @@ SHEET = "feedbackData"
 #  Statuses that count as completed
 CLOSED_STATES = {"completed", "cancelled", "terminate"}
 
+# Mapping of feedback type values to more understandable values
+FEEDBACK_TYPE_MAP = {
+    "ftNegative":   "Negativ",
+    "ftPositive":   "Positiv",
+    "ftSuggestion": "Vorschlag"
+}
+
+# Mapping of colors to specific statuses and feedback types for the dashboard
+STATUS_COLOR_MAP = {
+    "open":         "#81d4fa",   # light blue
+    "review-board": "#fff59d",   # light yellow
+    "terminate":    "#90a4ae",   # medium grey
+    "cancelled":    "#cfd8dc",   # light grey
+    "withdrawn":    "#ef9a9a",   # light red
+    "closed":       "#4f9a58",   # SVK green
+    "completed":    "#4f9a58"    # SVK green
+}
+
+TYPE_COLOR_MAP = {
+    "Negativ":     "#ef9a9a",   # light red
+    "Positiv":     "#4f9a58",   # SVK green
+    "Vorschlag":   "#aed581",   # light green
+    "Undefiniert": "#eceff1"    # light grey
+}
+
 app = Flask(__name__)
 app.secret_key = "any-pgp-wordlist-here"          # necessary for flash messages
 
@@ -23,6 +48,11 @@ def read_data() -> pd.DataFrame:
     df["feedbackDate"] = pd.to_datetime(df["feedbackDate"],
                                         dayfirst=True,
                                         errors="coerce")
+
+    # Apply mapping of feedbackType
+    df["feedbackTypeDE"] = df["feedbackType"].map(FEEDBACK_TYPE_MAP) \
+        .fillna(df["feedbackType"])
+
     return df
 
 def write_data(df: pd.DataFrame):
@@ -32,7 +62,7 @@ def write_data(df: pd.DataFrame):
 def render_lists(df: pd.DataFrame):
     closed = df[df["status"].str.lower().isin(CLOSED_STATES)].copy()
     open_  = df[~df["status"].str.lower().isin(CLOSED_STATES)].copy()
-    # Name & Preview erzeugen, um nicht im Template zu loopen
+    # Create name & preview to avoid looping in the template
     for frame in (open_, closed):
         frame["name"]    = frame["firstName"].fillna("") + " " + frame["lastName"].fillna("")
         frame["preview"] = frame["feedbackText"].str[:60].fillna("") + "…"
@@ -44,22 +74,27 @@ def index():
     df = read_data().reset_index(names="_idx")
     open_, closed = render_lists(df)
 
-    # Dashboard-Daten sammeln
+    # Collect dashboard data
     all_df = pd.concat([open_, closed], ignore_index=True)
 
-    # ---- alle NaN in feedbackType zu "Unbekannt" ----
-    all_df["feedbackType"] = all_df["feedbackType"].fillna("Unbekannt")
-    # ------------------------------------------------------------------------------
+    # all NaN in feedbackType to "Undefiniert" for visualization purposes
+    all_df["feedbackTypeDE"] = all_df["feedbackTypeDE"].fillna("Undefiniert")
 
     records = all_df.to_dict("records")
 
-    # 1) Status-Verteilung
+    # 1) Status distribution  + colors
     status_counts = Counter(r["status"] for r in records)
+    status_labels = list(status_counts.keys())
+    status_values = list(status_counts.values())
+    status_colors = [STATUS_COLOR_MAP.get(s, "#cccccc") for s in status_labels]
 
-    # 2) Feedback-Type-Verteilung (nun ohne doppeltes NaN)
-    type_counts = Counter(r["feedbackType"] for r in records)
+    # 2) Feedback type distribution + colors
+    type_counts = Counter(r["feedbackTypeDE"] for r in records)
+    type_labels = list(type_counts.keys())
+    type_values = list(type_counts.values())
+    type_colors = [TYPE_COLOR_MAP.get(t, "#cccccc") for t in type_labels]
 
-    # 3) Zeitreihe: Anzahl Feedbacks pro Tag
+    # 3) Time series: Number of feedbacks per day
     date_counts = defaultdict(int)
     for r in records:
         dt = r["feedbackDate"]
@@ -71,9 +106,11 @@ def index():
     time_counts  = [date_counts[d] for d in sorted_dates]
 
     chart_data = {
-        "status": {"labels": list(status_counts.keys()), "counts": list(status_counts.values())},
-        "type":   {"labels": list(type_counts.keys()),   "counts": list(type_counts.values())},
-        "time":   {"labels": time_labels,                "counts": time_counts}
+        "status": {"labels": status_labels, "counts": status_values,
+                   "colors": status_colors},
+        "type": {"labels": type_labels, "counts": type_values,
+                 "colors": type_colors},
+        "time": {"labels": time_labels, "counts": time_counts}
     }
 
     return render_template(

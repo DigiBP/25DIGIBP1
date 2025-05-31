@@ -1,8 +1,8 @@
 /* ----------------------------
-   Farb- und Design-Variablen
+   Color and design variables
    ---------------------------- */
 :root {
-  /* Grautöne */
+  /* Shades of gray */
   --gray-100: #f8f9fa;
   --gray-200: #e9ecef;
   --gray-300: #dee2e6;
@@ -13,19 +13,19 @@
   --gray-800: #343a40;
   --gray-900: #212529;
 
-  /* Grüntöne (angelehnt an SVK-Branding) */
+  /* Shades of green */
   --green-500: #4f9a58;
   --green-600: #428149;
   --green-400: #6dc066;
 
-  /* Eckenradius und Schatten */
+  /* Corner radius and shadow */
   --border-radius: 0.5rem;
   --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
   --transition-fast: 0.2s ease-in-out;
 }
 
 /* ----------------------------
-   Grundlayout
+   Base layout
    ---------------------------- */
 body {
   font-family: "Segoe UI", sans-serif;
@@ -63,7 +63,7 @@ body {
 }
 
 /* ----------------------------
-   Tabellen
+   Tables
    ---------------------------- */
 .table {
   border-radius: var(--border-radius);
@@ -90,7 +90,7 @@ body {
 }
 
 /* ----------------------------
-   Formulare & Inputs
+   Forms & Inputs
    ---------------------------- */
 .form-control {
   border-radius: var(--border-radius);
@@ -138,7 +138,7 @@ textarea[readonly] {
 }
 
 /* ----------------------------
-   sonstige Utilities
+   other Utilities
    ---------------------------- */
 .container {
   max-width: 960px;
