@@ -37,19 +37,19 @@ def next_data_row(ws) -> int:
 
 def get_or_create_workbook() -> "openpyxl.workbook.Workbook":
     """
-    Returns an openpyxl workbook, always with keep_vba=True so macros survive.
+    Returns an openpyxl workbook.
     If the file does not exist it copies the TEMPLATE_FILE first.
     """
     db_path = Path(EXCEL_FILE)
 
     if db_path.exists():
-        return load_workbook(db_path, keep_vba=True)
+        return load_workbook(db_path)
 
     # ---------- first-time initialisation ----------
     if TEMPLATE_FILE.exists():
         copyfile(TEMPLATE_FILE, db_path)
         print(f"Created new DB from template → {db_path.name}")
-        return load_workbook(db_path, keep_vba=True)
+        return load_workbook(db_path)
 
     # Fallback: build a blank workbook (no VBA project)
     print("Template file not found – creating a blank .xlsx from scratch")

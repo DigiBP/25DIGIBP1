@@ -14,7 +14,7 @@ WORKER_ID = "python-worker-16"
 
 def set_status(business_key):
 
-    wb = load_workbook(EXCEL_FILE, keep_vba=True)
+    wb = load_workbook(EXCEL_FILE)
     ws = wb.active
 
     # get row with the business key

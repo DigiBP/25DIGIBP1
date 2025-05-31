@@ -14,7 +14,7 @@ WORKER_ID = "python-worker-5"
 
 def save_measures(data: dict, business_key):
 
-    wb = load_workbook(EXCEL_FILE, keep_vba=True)
+    wb = load_workbook(EXCEL_FILE)
     ws = wb.active
 
     # get row with the business key

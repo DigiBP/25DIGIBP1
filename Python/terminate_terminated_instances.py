@@ -28,7 +28,7 @@ def scan_and_terminate() -> None:
         return
 
     # open and process
-    wb = load_workbook(db_path, keep_vba=True)
+    wb = load_workbook(db_path)
     ws = wb.active
     rows_changed = False
 
