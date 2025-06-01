@@ -110,21 +110,21 @@ During classification the Feedback Master records three attributes:
 Please see **"25DIGIBP1/Readme - Appendix/Classification Guardrails.md"** for additional information.
 
 If essential information is missing, the Feedback Master sets the Boolean `needsClarification`.  
-She or he also indicates—via `immediateAction`—whether the feedback can be resolved immediately; otherwise the responsible department(s) are selected from a list.
+She or he also indicates - via `immediateAction` - whether the feedback can be resolved immediately; otherwise the responsible department is selected from a drop-down menu which contains SVKs department names.
 
-After these entries, the record is re-written to the database. An **inclusive gateway** checks `urgency`; if the value is *high*, an escalation e-mail is sent automatically to the CEO.  
+After these entries, the record is re-written to the database. An **inclusive gateway** checks `urgency`; if the value is *high*, an escalation e-mail is sent to the CEO.  
 An **exclusive gateway** then directs the token either to a *Clarification* sub-flow or to scenario determination, depending on `needsClarification`.
 
 ![Save → CEO alert → decision](25DIGIBP1/Readme - Appendix/DataFlow_saveCEOqueryDecision.png)
 
 ### Clarification sub-flow  
 If clarification is required, Camunda generates a new task for the Feedback Master to phrase a query to the submitter.  
-The query text is added to the database and the status changes to **`clarification_requested`**.  
-A pre-filled JotForm—including the original submission and the query—is generated, and the submitter receives an e-mail with the link.
+The query text is added to the database and the status changes to **`clarification`**.  
+A pre-filled JotForm - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
 
 ![Querying the submitter](25DIGIBP1/Readme - Appendix/DataFlow_querying.png)
 
-Camunda then waits at a *Receive Task* for the supplementary submission. A reminder is e-mailed after **7 days**; if no response arrives within **14 days**, the case is marked **`withdrawn`** and the process instance ends.
+Camunda then waits at a *Receive Task* for the supplementary submission. A reminder is e-mailed after **7 days**; if no response arrives within **14 days**, the case is marked **`withdrawn`** and the process instance is terminated.
 
 ![Receive supplementary data](25DIGIBP1/Readme - Appendix/DataFlow_ReceiveQueryAnswer.png)
 
@@ -132,19 +132,19 @@ When the submitter answers, another Make scenario correlates the message to Camu
 
 ![Supplementary form submission](25DIGIBP1/Readme - Appendix/DataFlow_supplementarySubmission.png)
 
-The reply and the original query are appended—timestamped—to the process variable `feedbackText`. Control returns to the **Classify Feedback** user task; the sub-flow may loop until all clarifications are complete. The final classification clears `needsClarification`, allowing the main flow to continue.
+The query and the reply are appended - timestamped - to the process variable `feedbackText`. Control returns to the **Classify Feedback** user task; the sub-flow may loop until all clarifications are complete. The final classification is submitted when  `needsClarification` is cleared, allowing the main flow to continue to define the appropriate scenario for the feedback.
 
 ### Scenario selection  
-A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (see *FeedbackScenarios.md*). An exclusive gateway routes accordingly:
+A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (**see *FeedbackScenarios.md***). An exclusive gateway routes accordingly:
 
 *Scenario 1 and 4 – Non-critical items*  
-Status is set to **`under_review`**; the submitter receives an acknowledgement e-mail (gratitude in Scenario 4, processing notice in Scenario 1). The item is placed on the agenda of the bi-weekly **Feedback Review Board**.
+Status is set to **`review-board`**; the submitter receives an acknowledgement e-mail (gratitude in Scenario 4, processing notice in Scenario 1). The item is placed on the agenda of the bi-weekly **Feedback Review Board**.
 
 ![Scenario 1 & 4 path](25DIGIBP1/Readme - Appendix/Dataflow_scenario1Scenario4.png)
 
 *Scenario 2 – Department measure required*  
-A **Department Measure Documentation** JotForm is pre-populated with `feedbackText` and contact data. An e-mail with the form link is sent to each department selected earlier.  
-If no response is received within **3 days**, Camunda sends cyclic reminders (3-day interval) until submission arrives.
+A **Department Measure Documentation** JotForm is pre-populated with `feedbackText` and the submitters contact data (provided with the initial submission form). An e-mail with the form link is sent to the department selected earlier.  
+If no response is received within **3 days**, Camunda sends cyclic reminders (3-day interval) until submission arrives. If the department does not respond, feedback review board will get aware of the case.
 
 ![Scenario 2 & 3 path](25DIGIBP1/Readme - Appendix/Dataflow_scenario2Scenario3.png)  
 ![Receive department measure](25DIGIBP1/Readme - Appendix/DataFlow_ReceiveDepartmentMeasureForm.png)
@@ -156,7 +156,7 @@ For Scenarios 2 and 3 the documented measures are persisted to the database, and
 
 ### Review Board approval and lifecycle management  
 Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case.  
-The web-app provides dashboards, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminated`**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone).
+The web-app provides dashboards, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminate` and `cancelled`**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone).
 
 ![Feedback Manager web-app](25DIGIBP1/Readme - Appendix/webapp.png)
 
