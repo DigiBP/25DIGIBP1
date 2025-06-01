@@ -6,11 +6,11 @@
 - **Quick Action for Urgent Feedback**
   - Responds to urgent or far-reaching feedback within a defined timeframe.  
   - Initiates emergency measures or escalates them.  
-  - Informs the Sounding Board about escalated cases.
-- **Administration of Sounding Board Meetings**
+  - Informs the Review Board about escalated cases.
+- **Administration of Review Board Meetings**
   - Prioritises topics and prepares meetings.
 - **Communication and Transparency**
-  - Communicates decisions and measures of the Sounding Board.
+  - Communicates decisions and measures of the Review Board.
 - **Process Control and Optimisation**
   - Reviews the feedback process and suggests improvements.  
   - Analyses feedback patterns for long-term optimisations.
