@@ -91,7 +91,7 @@ Historically, stakeholders submitted feedback by e-mail, phone or paper. Each un
 
 The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario (**LINK TO SCENARIO EXPORT**) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
 
-![Initial data flow](25DIGIBP1/Readme - Appendix/DataFlow_initialSubmission.png)
+![Initial data flow](/Readme - Appendix/DataFlow_initialSubmission.png)
 
 Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`**. A confirmation e-mail is dispatched to the submitter.
 
