@@ -87,111 +87,76 @@ Historically, stakeholders submitted feedback by e-mail, phone or paper. Each un
 
 # To-Be Process
 
----- INTRO
+## Description of the To-Be Process  
 
-The new system leverages **Camunda 7** for workflow orchestration and **BPMN 2.0 / DMN** for structured process and decision modeling. The goal is to systematically **collect**, **classify**, **process**, and **analyze** customer feedback while improving transparency, accountability, and responsiveness across departments.
+The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** embedded on the SVK website. The submission payload is forwarded through a **Make** scenario (see *DataFlow_initialSubmission.json*) which instantiates a Camunda process instance; the JotForm *submission ID* serves as the **business key**.
 
+![Initial data flow](25DIGIBP1/Readme - Appendix/DataFlow_initialSubmission.png)
 
----- SCREENSHOT OF STRATEGIC MODEL (Here it is not clearly defined how specific feedbacktypes are processed) ----
+Immediately after instantiation, the feedback is persisted in SVK’s central data store—an Excel workbook on the local server—and assigned the status **`open`**. A confirmation e-mail is dispatched to the submitter.
 
+![Database save + confirmation](25DIGIBP1/Readme - Appendix/Dataflow_initialSubmissionSaveConfirm.png)
 
----- DESCRIBE THE IDEA IN DETAIL -> WHO DOES WHAT (INCLUDING THE DESCRIPTION OF THE NEW ROLE AND ENTITY)
+The case is then routed to the newly created role **Feedback Master** (see Section _XX_ for a full role profile). The Feedback Master works exclusively in **Camunda Tasklist**, where a form displays all submission details.
 
-              -- New Role: Feedback Master
+![Classification task](25DIGIBP1/Readme - Appendix/Dataflow_classification.png)
 
-              A dedicated employee (or team) who is responsible for:
+During classification the Feedback Master records three attributes:  
 
-              - Receiving and classifying all feedback
-              - Routing feedback to the appropriate department
-              - Managing SLA deadlines, follow-ups, and escalations
-              - Ensuring communication with stakeholders
-              - Maintaining data quality and traceability
+* `feedbackType` – semantic category (e.g., praise, complaint, suggestion)  
+* `urgency` – low, normal, or high  
+* `impactScope` – local, departmental, enterprise-wide  
 
-              -- New Entity: Review Board
+If essential information is missing, the Feedback Master sets the Boolean `needsClarification`.  
+She or he also indicates—via `immediateAction`—whether the feedback can be resolved immediately; otherwise the responsible department(s) are selected from a list.
 
-              A cross-functional board that:
+After these entries, the record is re-written to the database. An **inclusive gateway** checks `urgency`; if the value is *high*, an escalation e-mail is sent automatically to the CEO.  
+An **exclusive gateway** then directs the token either to a *Clarification* sub-flow or to scenario determination, depending on `needsClarification`.
 
-              - Meets **biweekly** to review all feedback (processed and open)
-              - Identifies trends, recurring issues, or systemic opportunities
-              - Oversees feedback categories like praise and complaints
-              - Ensures the ISO 9001:2015 cycle of improvement is embedded
-  
+![Save → CEO alert → decision](25DIGIBP1/Readme - Appendix/DataFlow_saveCEOqueryDecision.png)
 
+### Clarification sub-flow  
+If clarification is required, Camunda generates a new task for the Feedback Master to phrase a query to the submitter.  
+The query text is added to the database and the status changes to **`clarification_requested`**.  
+A pre-filled JotForm—including the original submission and the query—is generated, and the submitter receives an e-mail with the link.
 
-              Handling Scenarios
-              As a first step, different Handling Scenarios for different types of feedback have been defined.
+![Querying the submitter](25DIGIBP1/Readme - Appendix/DataFlow_querying.png)
 
-              - **Scenario 1**: Low-urgency suggestions or negative feedback are added to the Review Board backlog for periodic review. They might still be handled operationally but are tracked to identify recurring themes.
+Camunda then waits at a *Receive Task* for the supplementary submission. A reminder is e-mailed after **7 days**; if no response arrives within **14 days**, the case is marked **`withdrawn`** and the process instance ends.
 
-              - **Scenario 2**: High-impact or complex feedback is forwarded to the appropriate department. The Feedback Master identifies and assigns the responsible team during classification.
+![Receive supplementary data](25DIGIBP1/Readme - Appendix/DataFlow_ReceiveQueryAnswer.png)
 
-              - **Scenario 3**: Routine issues that the Feedback Master can resolve directly are implemented immediately. The stakeholder is notified, and the resolution is logged.
+When the submitter answers, another Make scenario correlates the message to Camunda.
 
-              - **Scenario 4**: Positive feedback (e.g., praise or kudos) is stored in the Review Board backlog for potential sharing and celebration during regular review meetings.
+![Supplementary form submission](25DIGIBP1/Readme - Appendix/DataFlow_supplementarySubmission.png)
 
-    ---- SCREENSHOT OF Decision Tree
+The reply and the original query are appended—timestamped—to the process variable `feedbackText`. Control returns to the **Classify Feedback** user task; the sub-flow may loop until all clarifications are complete. The final classification clears `needsClarification`, allowing the main flow to continue.
 
+### Scenario selection  
+A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (see *FeedbackScenarios.md*). An exclusive gateway routes accordingly:
 
+*Scenario 1 and 4 – Non-critical items*  
+Status is set to **`under_review`**; the submitter receives an acknowledgement e-mail (gratitude in Scenario 4, processing notice in Scenario 1). The item is placed on the agenda of the bi-weekly **Feedback Review Board**.
 
----- SCREENSHOT OF OPERATIONAL PROCESS MODEL
+![Scenario 1 & 4 path](25DIGIBP1/Readme - Appendix/Dataflow_scenario1Scenario4.png)
 
+*Scenario 2 – Department measure required*  
+A **Department Measure Documentation** JotForm is pre-populated with `feedbackText` and contact data. An e-mail with the form link is sent to each department selected earlier.  
+If no response is received within **3 days**, Camunda sends cyclic reminders (3-day interval) until submission arrives.
 
----- TRANSITION TO "TECHNICAL IMPLEMENTATION
+![Scenario 2 & 3 path](25DIGIBP1/Readme - Appendix/Dataflow_scenario2Scenario3.png)  
+![Receive department measure](25DIGIBP1/Readme - Appendix/DataFlow_ReceiveDepartmentMeasureForm.png)
 
+*Scenario 3 – Immediate action by Feedback Master*  
+A follow-up user task prompts the Feedback Master to document the actions taken directly.
 
+For Scenarios 2 and 3 the documented measures are persisted to the database, and the submitter is informed that the feedback has been resolved.
 
-## Technical Implementation
+### Review Board approval and lifecycle management  
+Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case.  
+The web-app provides dashboards, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminated`**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone).
 
-----  DESCRIBE THE TECHNOLOGICAL FRAMEWORK AND WHY WE USE WHICH TECHNOLOGY AND FOR WHAT WE USE IT (PURPOSE)
-
-
-
-| Component       | Purpose                                   |
-|-----------------|-------------------------------------------|
-| **Camunda 7**   | Workflow automation and BPM execution     |
-| **BPMN 2.0**    | Process modeling language                 |
-| **DMN**         | Business rule modeling for routing/classification |
-| **JotForm**     | Frontend for stakeholder feedback capture |
-| **MAKE**        | Bridge between JotForm and Workflow Engine|
-| **Python Scripts** | Implement Service Tasks                |
-
-
-
-----  INSERT A SCREENSHOT OF THE OPERATIONAL PROCESS MODEL AND INSERT SOME ICONS OF THE COMPONENTS ON THE PLACE WHERE THEY BELONG
-
-
-
-
-### MAKE Scenarios
-
-
-### Database
-
-Database is excel file -> argue why
-
-is created automatically with first submission
-
-
-#### Status Coventions
-
-| Status value | Meaning in lifecycle          | Set by                                 | Picked up by                           |
-| ------------ | ----------------------------- | -------------------------------------- | -------------------------------------- |
-| `open`       | Initial, still running        | `store_feedback_in_db.py`              | —                                      |
-| `withdrawn`  | User withdrew feedback        | `set_withdrawn_in_db.py`               | —                                      |
-| `terminate`  | **Marker**: request full stop | Any script / UI that decides to cancel | **`terminate_cancelled_instances.py`** |
-| `cancelled`  | Instance already killed       | `terminate_cancelled_instances.py`     | —                                      |
-
-
-
-
-### Service Tasks
-
-| Script Name  | Explanation                   | Connected Camunda Element (s)          | ...............                        |
-| ------------ | ----------------------------- | -------------------------------------- | -------------------------------------- |
-|              |                               |                                        | —                                      |
-
-
-
+![Feedback Manager web-app](25DIGIBP1/Readme - Appendix/webapp.png)
 
 
 
