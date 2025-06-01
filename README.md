@@ -89,23 +89,25 @@ Historically, stakeholders submitted feedback by e-mail, phone or paper. Each un
 
 ## Description of the To-Be Process  
 
-The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** embedded on the SVK website. The submission payload is forwarded through a **Make** scenario (see *DataFlow_initialSubmission.json*) which instantiates a Camunda process instance; the JotForm *submission ID* serves as the **business key**.
+The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario (**LINK TO SCENARIO EXPORT**) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
 
 ![Initial data flow](25DIGIBP1/Readme - Appendix/DataFlow_initialSubmission.png)
 
-Immediately after instantiation, the feedback is persisted in SVK’s central data store—an Excel workbook on the local server—and assigned the status **`open`**. A confirmation e-mail is dispatched to the submitter.
+Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`**. A confirmation e-mail is dispatched to the submitter.
 
 ![Database save + confirmation](25DIGIBP1/Readme - Appendix/Dataflow_initialSubmissionSaveConfirm.png)
 
-The case is then routed to the newly created role **Feedback Master** (see Section _XX_ for a full role profile). The Feedback Master works exclusively in **Camunda Tasklist**, where a form displays all submission details.
+The case is then routed to the newly created role **Feedback Master** (**see Section _XX_ for a full role profile**). The Feedback Master works exclusively in **Camunda Tasklist**, where a Camunda form displays all submission details.
 
 ![Classification task](25DIGIBP1/Readme - Appendix/Dataflow_classification.png)
 
 During classification the Feedback Master records three attributes:  
 
-* `feedbackType` – semantic category (e.g., praise, complaint, suggestion)  
-* `urgency` – low, normal, or high  
-* `impactScope` – local, departmental, enterprise-wide  
+* `feedbackType` – semantic category (positive, negative, suggestion)  
+* `urgency` – low, medium, or high  
+* `impactScope` – specific, small, large
+
+Please see **"25DIGIBP1/Readme - Appendix/Classification Guardrails.md"** for additional information.
 
 If essential information is missing, the Feedback Master sets the Boolean `needsClarification`.  
 She or he also indicates—via `immediateAction`—whether the feedback can be resolved immediately; otherwise the responsible department(s) are selected from a list.
