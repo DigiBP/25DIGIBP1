@@ -61,7 +61,7 @@ Since the client had the requirement of running the process on premises – with
 Because the project team did not have access to the client's internal network, which hindered testing, the web app has not been put in a Docker image yet. This will be done if the client decides to implement the process.
 
 
-### Step 1: Set the folders
+### Step 1: Set up the folders
 
 The first step is to create a folder that contains the files, that the container requires to run. In this document this folder will from now on be referred to as the Docker folder.
 The required files are:
