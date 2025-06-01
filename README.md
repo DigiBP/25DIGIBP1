@@ -89,11 +89,11 @@ The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN eng
 
 ![Initial data flow](Readme%20-%20Appendix/Pictures/DataFlow_initialSubmission.png)
 
-Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`**. A confirmation e-mail is dispatched to the submitter.
+Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`** (see [Database & web App](Readme%20-%20Appendix/Database%20and%20Web%20App.md) for further details to statuses). A confirmation e-mail is dispatched to the submitter.
 
 ![Database save + confirmation](Readme%20-%20Appendix/Pictures/Dataflow_initialSubmissionSaveConfirm.png)
 
-The case is then routed to the newly created role **Feedback Master** (**see Section _XX_ for a full role profile**). The Feedback Master works exclusively in **Camunda Tasklist**, where a Camunda form displays all submission details.
+The case is then routed to the newly created role **Feedback Master** (see [Role Profiles](Readme%20-%20Appendix/Roles%20Profiles.md)). The Feedback Master works exclusively in the **Camunda Tasklist**, where a Camunda form displays all submission details.
 
 ![Classification task](Readme%20-%20Appendix/Pictures/Dataflow_classification.png)
 
@@ -103,7 +103,7 @@ During classification the Feedback Master records three attributes:
 * `urgency` – low, medium, or high  
 * `impactScope` – specific, small, large
 
-Please see **"25DIGIBP1/Readme - Appendix/Classification Guardrails.md"** for additional information.
+Please see ([Classification Guardrails.md](Readme%20-%20Appendix/Classification%20Guardrails.md)) for additional information.
 
 If essential information is missing, the Feedback Master sets the Boolean `needsClarification`.  
 She or he also indicates - via `immediateAction` - whether the feedback can be resolved immediately; otherwise the responsible department is selected from a drop-down menu which contains SVKs department names.
@@ -131,7 +131,7 @@ When the submitter answers, another Make scenario ([Make - submission supplement
 The query and the reply are appended - timestamped - to the process variable `feedbackText`. Control returns to the **Classify Feedback** user task; the sub-flow may loop until all clarifications are complete. The final classification is submitted when  `needsClarification` is cleared, allowing the main flow to continue to define the appropriate scenario for the feedback.
 
 ### Scenario selection  
-A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (**see *FeedbackScenarios.md***). An exclusive gateway routes accordingly:
+A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (see [Handling Scenarios.md](Readme%20-%20Appendix/Handling%20Scenarios.md) for further details). An exclusive gateway routes accordingly:
 
 *Scenario 1 and 4 – Non-critical items*  
 Status is set to **`review-board`**; the submitter receives an acknowledgement e-mail (gratitude in Scenario 4, processing notice in Scenario 1). The item is placed on the agenda of the bi-weekly **Feedback Review Board**.
@@ -154,7 +154,7 @@ A follow-up user task prompts the Feedback Master to document the actions taken 
 For Scenarios 2 and 3 the documented measures are persisted to the database, and the submitter is informed that the feedback has been resolved.
 
 ### Review Board approval and lifecycle management  
-Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case. The web-app provides a dashboard, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminate` and `cancelled`**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone). See [Database & web App](Readme%20-%20Appendix/Database%20and%20Web%20App.md) for further details.
+Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case. The web-app provides a dashboard, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminate` and `cancelled`**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone). See [Database & web App.md](Readme%20-%20Appendix/Database%20and%20Web%20App.md) for further details.
 
 ![Feedback Manager web-app](Readme%20-%20Appendix/Pictures/webapp.png)
 
