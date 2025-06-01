@@ -52,18 +52,26 @@ The overarching goal is to **digitally transform SVK’s feedback management** b
 
 ---- DESCRIBE PROCESS TEXTUALLY (USE TEXT FROM BPM PROJECT)
 
+  - Feedback is collected **informally** via email, phone, or paper
+  - There is **no central system or responsible role**
+  - Processing is **inconsistent and undocumented**
+  - No escalation exists for unresolved or critical feedback
+  - Stakeholders **receive no updates or closure**
+  - There is **no structured categorization** or trend reporting
+
+Below is an example of how feedback might have been handled:
+
 ---- SCREENSHOT OF AS IS PROCESS MODEL ----
 
-The current feedback process at SVK has significant structural weaknesses:
+Historically, stakeholders submitted feedback by e-mail, phone or paper. Each unit handled its own inbox, resulting in **fragmented ownership**. Issues were forwarded informally, follow-up dates were tracked in personal calendars, and once a matter was ‘handled’ no structured record remained. Consequently SVK could not demonstrate:
 
-- Feedback is collected **informally** via email, phone, or paper
-- There is **no central system or responsible role**
-- Processing is **inconsistent and undocumented**
-- No escalation exists for unresolved or critical feedback
-- Stakeholders **receive no updates or closure**
-- There is **no structured categorization** or trend reporting
+* **Traceability** – who did what, when, and with what outcome
+* **Timeliness** – whether response times met internal or ISO targets
+* **Trend analysis** – aggregated data for management review
+
 
 ---- CONCLUSIVE TEXT WHICH TRANSITIONS SEAMLESSSLY TO TO-BE CHAPTER
+  In summary, the legacy workflow lacks both governance and measurable performance indicators. These deficits defined the mandatory requirements for the redesigned (TO-BE) process presented in the next chapter.
 
 
 ## Requirements for To-Be Process
