@@ -93,7 +93,7 @@ Immediately after instantiation, the feedback is persisted in SVK’s central da
 
 ![Database save + confirmation](Readme%20-%20Appendix/Pictures/Dataflow_initialSubmissionSaveConfirm.png)
 
-The case is then routed to the newly created role **Feedback Master** (see [Role Definitions.md](Readme%20-%20Appendix/Roles%20Definitions.md)). The Feedback Master works exclusively in the **Camunda Tasklist**, where a Camunda form displays all submission details.
+The case is then routed to the newly created role **Feedback Master** (see [Role Definitions.md](Readme%20-%20Appendix/Role%20Definitions.md)). The Feedback Master works exclusively in the **Camunda Tasklist**, where a Camunda form displays all submission details.
 
 ![Classification task](Readme%20-%20Appendix/Pictures/Dataflow_classification.png)
 
