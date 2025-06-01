@@ -2,7 +2,7 @@
 
 Different Handling Scenarios for different types of feedback have been defined. As soon as the token arrives at the Business Rule Task, one of the following scenarios is defined by using the input of the Feedback Masters classification output:
 
-  ---- SCREENSHOT OF DMN TABLE
+  ---- SCREENSHOT OF DMN TABLE (pictures/dmnTable.png)
 
 - **Scenario 1**: Low-urgency suggestions or negative feedback that the feedback master can not resolve directly are added to the Review Board backlog for periodic review.
 
