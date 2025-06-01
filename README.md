@@ -153,7 +153,7 @@ For Scenarios 2 and 3 the documented measures are persisted to the database, and
 Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case.  
 The web-app provides dashboards, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminate` and `cancelled`**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone).
 
-![Feedback Manager web-app](Readme%20-%20Appendix/webapp.png)
+![Feedback Manager web-app](Readme%20-%20Appendix/Pictures/webapp.png)
 
 
 
