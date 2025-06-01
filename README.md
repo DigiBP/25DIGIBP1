@@ -85,7 +85,7 @@ bla bla...
 
 ## Description of the To-Be Process
 
-The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario (**LINK TO SCENARIO EXPORT**) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
+The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([Make - initial Submission](Make/)) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
 
 ![Initial data flow](Readme%20-%20Appendix/Pictures/DataFlow_initialSubmission.png)
 
@@ -124,7 +124,7 @@ Camunda then waits at a *Receive Task* for the supplementary submission. A remin
 
 ![Receive supplementary data](Readme%20-%20Appendix/Pictures/DataFlow_ReceiveQueryAnswer.png)
 
-When the submitter answers, another Make scenario correlates the message to Camunda.
+When the submitter answers, another Make scenario ([Make - submission supplementation](Make/)) correlates the message to Camunda.
 
 ![Supplementary form submission](Readme%20-%20Appendix/Pictures/DataFlow_supplementarySubmission.png)
 
@@ -144,7 +144,7 @@ If no response is received within **3 days**, Camunda sends cyclic reminders (3-
 
 ![Receive department measure](Readme%20-%20Appendix/Pictures/DataFlow_ReceiveDepartmentMeasureForm.png)
 
-As soon as the departments responsible person submits the form, the form values will again be posted to the camunda workflow engine with the measure documentation by a make scenario.
+As soon as the departments responsible person submits the form, the form values will again be posted to the camunda workflow engine with the measure documentation by another Make scenario ([Make - Documentation of department measures](Make/)).
 
 ![Scenario 2 & 3 path](Readme%20-%20Appendix/Pictures/Dataflow_scenario2Scenario3.png)
 
