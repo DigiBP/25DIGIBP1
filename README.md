@@ -79,7 +79,11 @@ Historically, stakeholders submitted feedback by e-mail, phone or paper. Each un
 
 # To-Be Process
 
-## Description of the To-Be Process  
+bla bla...
+
+![To-Be Process Model](Readme%20-%20Appendix/Pictures/To-Be%20Process%20Model.png)
+
+## Description of the To-Be Process
 
 The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario (**LINK TO SCENARIO EXPORT**) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
 
