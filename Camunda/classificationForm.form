@@ -203,7 +203,7 @@
       "defaultValue": "fmYes"
     },
     {
-      "label": "Forward Feedback to whom?",
+      "label": "Applicable Department",
       "values": [
         {
           "label": "testDepartment",
@@ -217,7 +217,7 @@
       },
       "id": "Field_11q2jjr",
       "key": "forwardToDepartment",
-      "description": "If Feedback Master can't take immediate action, select respective department",
+      "description": "If Feedback Master can't take immediate action, select applicable department",
       "conditional": {
         "hide": "=(immediateAction = null) or (immediateAction = \"fmYes\")"
       },
@@ -237,15 +237,27 @@
       "conditional": {
         "hide": "=(needsClarification = null) or (needsClarification = false)"
       }
+    },
+    {
+      "text": "### In urgent cases feedback is forwarded to applicable department",
+      "type": "text",
+      "layout": {
+        "row": "Row_1rthast",
+        "columns": null
+      },
+      "id": "Field_14drc09",
+      "conditional": {
+        "hide": "=(immediateAction = \"fmYes\")"
+      }
     }
   ],
   "type": "default",
   "id": "classificationForm",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.34.0"
+    "version": "5.29.0"
   },
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.22.0",
-  "schemaVersion": 18
+  "schemaVersion": 17
 }
