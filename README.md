@@ -87,11 +87,11 @@ The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN eng
 
 Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`**. A confirmation e-mail is dispatched to the submitter.
 
-![Database save + confirmation](25DIGIBP1/Readme - Appendix/Dataflow_initialSubmissionSaveConfirm.png)
+![Database save + confirmation](Readme%20-%20Appendix/Pictures/Dataflow_initialSubmissionSaveConfirm.png)
 
 The case is then routed to the newly created role **Feedback Master** (**see Section _XX_ for a full role profile**). The Feedback Master works exclusively in **Camunda Tasklist**, where a Camunda form displays all submission details.
 
-![Classification task](25DIGIBP1/Readme - Appendix/Dataflow_classification.png)
+![Classification task](Readme%20-%20Appendix/Pictures/Dataflow_classification.png)
 
 During classification the Feedback Master records three attributes:  
 
@@ -107,22 +107,22 @@ She or he also indicates - via `immediateAction` - whether the feedback can be r
 After these entries, the record is re-written to the database. An **inclusive gateway** checks `urgency`; if the value is *high*, an escalation e-mail is sent to the CEO.  
 An **exclusive gateway** then directs the token either to a *Clarification* sub-flow or to scenario determination, depending on `needsClarification`.
 
-![Save → CEO alert → decision](25DIGIBP1/Readme - Appendix/DataFlow_saveCEOqueryDecision.png)
+![Save → CEO alert → decision](Readme%20-%20Appendix/Pictures/DataFlow_saveCEOqueryDecision.png)
 
 ### Clarification sub-flow  
 If clarification is required, Camunda generates a new task for the Feedback Master to phrase a query to the submitter.  
 The query text is added to the database and the status changes to **`clarification`**.  
 A pre-filled JotForm - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
 
-![Querying the submitter](25DIGIBP1/Readme - Appendix/DataFlow_querying.png)
+![Querying the submitter](Readme%20-%20Appendix/Pictures/DataFlow_querying.png)
 
 Camunda then waits at a *Receive Task* for the supplementary submission. A reminder is e-mailed after **7 days**; if no response arrives within **14 days**, the case is marked **`withdrawn`** and the process instance is terminated.
 
-![Receive supplementary data](25DIGIBP1/Readme - Appendix/DataFlow_ReceiveQueryAnswer.png)
+![Receive supplementary data](Readme%20-%20Appendix/Pictures/DataFlow_ReceiveQueryAnswer.png)
 
 When the submitter answers, another Make scenario correlates the message to Camunda.
 
-![Supplementary form submission](25DIGIBP1/Readme - Appendix/DataFlow_supplementarySubmission.png)
+![Supplementary form submission](Readme%20-%20Appendix/Pictures/DataFlow_supplementarySubmission.png)
 
 The query and the reply are appended - timestamped - to the process variable `feedbackText`. Control returns to the **Classify Feedback** user task; the sub-flow may loop until all clarifications are complete. The final classification is submitted when  `needsClarification` is cleared, allowing the main flow to continue to define the appropriate scenario for the feedback.
 
@@ -132,14 +132,17 @@ A **Business Rule Task** evaluates the classified variables and outputs one of f
 *Scenario 1 and 4 – Non-critical items*  
 Status is set to **`review-board`**; the submitter receives an acknowledgement e-mail (gratitude in Scenario 4, processing notice in Scenario 1). The item is placed on the agenda of the bi-weekly **Feedback Review Board**.
 
-![Scenario 1 & 4 path](25DIGIBP1/Readme - Appendix/Dataflow_scenario1Scenario4.png)
+![Scenario 1 & 4 path](Readme%20-%20Appendix/Pictures/Dataflow_scenario1Scenario4.png)
 
 *Scenario 2 – Department measure required*  
 A **Department Measure Documentation** JotForm is pre-populated with `feedbackText` and the submitters contact data (provided with the initial submission form). An e-mail with the form link is sent to the department selected earlier.  
 If no response is received within **3 days**, Camunda sends cyclic reminders (3-day interval) until submission arrives. If the department does not respond, feedback review board will get aware of the case.
 
-![Scenario 2 & 3 path](25DIGIBP1/Readme - Appendix/Dataflow_scenario2Scenario3.png)  
-![Receive department measure](25DIGIBP1/Readme - Appendix/DataFlow_ReceiveDepartmentMeasureForm.png)
+![Receive department measure](Readme%20-%20Appendix/Pictures/DataFlow_ReceiveDepartmentMeasureForm.png)
+
+As soon as the departments responsible person submits the form, the form values will again be posted to the camunda workflow engine with the measure documentation by a make scenario.
+
+![Scenario 2 & 3 path](Readme%20-%20Appendix/Pictures/Dataflow_scenario2Scenario3.png)
 
 *Scenario 3 – Immediate action by Feedback Master*  
 A follow-up user task prompts the Feedback Master to document the actions taken directly.
@@ -150,7 +153,7 @@ For Scenarios 2 and 3 the documented measures are persisted to the database, and
 Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case.  
 The web-app provides dashboards, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminate` and `cancelled`**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone).
 
-![Feedback Manager web-app](25DIGIBP1/Readme - Appendix/webapp.png)
+![Feedback Manager web-app](Readme%20-%20Appendix/webapp.png)
 
 
 
