@@ -17,7 +17,7 @@ WORKER_ID = "python-worker-12"
 def send_email(data: dict, business_key):
 
     # compose email
-    message_header = "Nachfrage zu Ihrem Feedback"
+    message_header = "Reminder: Nachfrage zu Ihrem Feedback"
 
     message_before_conv = (
         f"Guten Tag {data['firstName']} {data['lastName']}\n\n\n"
@@ -42,7 +42,7 @@ def send_email(data: dict, business_key):
 
 
     msg = EmailMessage()
-    msg["Subject"] = "Nachfrage zu Ihrem Feedback"
+    msg["Subject"] = "Reminder: Nachfrage zu Ihrem Feedback"
     msg["From"] = EMAIL_USER
     msg["To"] = data["email"]
 
