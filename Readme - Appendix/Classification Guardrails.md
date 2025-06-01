@@ -1,6 +1,6 @@
 # SVK Feedback Classification Guide
 
-This document outlines the classification criteria for feedback received by SVK. It defines how to categorize feedback based on type, impact scope, urgency, implementability, and appropriate ownership. Use these guidelines to ensure consistent handling and timely resolution of feedback.
+This document outlines the classification criteria for feedback. It defines how to categorize feedback.
 
 ---
 
@@ -72,48 +72,4 @@ Confirm whether you have the competence and authority to handle the feedback:
   The feedback falls outside your area of expertise or authority and should be forwarded to the responsible department or individual.
 
 ---
-
-## Usage Workflow
-
-1. **Receive Feedback**  
-   - Log the feedback into the tracking system.
-
-2. **Classify by Feedback Type**  
-   - Determine whether it is positive, negative, or a suggestion.
-
-3. **Assess Impact Scope**  
-   - Identify how many stakeholders or departments are affected.
-
-4. **Assign Urgency Level**  
-   - Decide if the issue is Low, Medium, or High priority.
-
-5. **Check Implementability**  
-   - Can the action be taken immediately, or does it require further resources?
-
-6. **Confirm Ownership**  
-   - Verify if you are the right employee to handle this feedback.  
-   - If **Yes**, proceed with action or response.  
-   - If **No**, forward to the appropriate team or manager.
-
-7. **Document and Track**  
-   - Record all steps taken, including any handoffs or escalations.
-   - Update the feedback status as it moves through the resolution process.
-
----
-
-## Example Classification
-
-> **Feedback Received:** “We’ve experienced multiple delays in receiving quarterly reports. Our department can’t plan effectively without timely data.”  
->
-> 1. **Feedback Type:** Negative  
-> 2. **Impact Scope:** Small Stakeholder Group (affected department)  
-> 3. **Urgency:** High (delays are blocking planning)  
-> 4. **Can You Implement Immediately?** No (requires coordination with the reporting team)  
-> 5. **Are You the Right Employee?** No (forward to Reporting Manager)
-
----
-
-## Revision History
-
-- **v1.0** — Initial creation of classification guide.
 
