@@ -279,7 +279,7 @@ Camunda artefacts already run on Tenant **`25DIGIBP12`**, JotForms are available
 
 ## 2 Functional Test Walk-Through  
 
-1. **Submit feedback** — open the public JotForm “Initial Feedback”, fill in your own e-mail, and press *Submit*.  
+1. **Submit feedback** — open the public JotForm <a href="https://form.jotform.com/251255809932058">“Initial Feedback”</a>, fill in your own e-mail, and press *Submit*.  
 2. **Classify** — log into Camunda Cockpit (tenant `25DIGIBP12`), open the new task, and complete the classification form.  
    * Optionally tick **needsClarification** and author a query to see the clarification loop.  
 3. **Clarification loop** (conditional) — check your mailbox, follow the Supplementation link, answer the query, and submit.  
