@@ -103,6 +103,11 @@ The following operational process model provides the holistic visual representat
 
 ![To-Be Process Model](Readme%20-%20Appendix/Pictures/To-Be%20Process%20Model.png)
 
+## Exemplary process instance
+
+https://github.com/user-attachments/assets/c1368ce6-763b-48c5-84a6-0831ab784a37
+
+
 ## Intake
 A new case begins when a stakeholder submits feedback via a **Jotform** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) which instantiates a Camunda process instance; the Jotform *submission ID* (created by Jotform on submission) serves as the **business key**.
 
