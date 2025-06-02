@@ -92,7 +92,7 @@ bla bla...
 
 ## Description of the To-Be Process
 
-The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **Jotform** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([Make - initial Submission](Make/)) which instantiates a Camunda process instance; the Jotform *submission ID* (created by Jotform on submission) serves as the **business key**.
+The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
 
 ![Initial data flow](Readme%20-%20Appendix/Pictures/DataFlow_initialSubmission.png)
 
@@ -123,7 +123,7 @@ An **exclusive gateway** then directs the token either to a *Clarification* sub-
 ### Clarification sub-flow  
 If clarification is required, Camunda generates a new task for the Feedback Master to phrase a query to the submitter.  
 The query text is added to the database and the status changes to **`clarification`**.  
-A pre-filled Jotform - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
+A pre-filled JotForm - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
 
 ![Querying the submitter](Readme%20-%20Appendix/Pictures/DataFlow_querying.png)
 
@@ -131,7 +131,7 @@ Camunda then waits at a *Receive Task* for the supplementary submission. A remin
 
 ![Receive supplementary data](Readme%20-%20Appendix/Pictures/DataFlow_ReceiveQueryAnswer.png)
 
-When the submitter answers, another Make scenario ([Make - submission supplementation](Make/)) correlates the message to Camunda.
+When the submitter answers, another Make scenario ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) correlates the message to Camunda.
 
 ![Supplementary form submission](Readme%20-%20Appendix/Pictures/DataFlow_supplementarySubmission.png)
 
@@ -146,12 +146,12 @@ Status is set to **`review-board`**; the submitter receives an acknowledgement e
 ![Scenario 1 & 4 path](Readme%20-%20Appendix/Pictures/Dataflow_scenario1Scenario4.png)
 
 *Scenario 2 – Department measure required*  
-A **Department Measure Documentation** Jotform is pre-populated with `feedbackText` and the submitters contact data (provided with the initial submission form). An e-mail with the form link is sent to the department selected earlier.  
+A **Department Measure Documentation** JotForm is pre-populated with `feedbackText` and the submitters contact data (provided with the initial submission form). An e-mail with the form link is sent to the department selected earlier.  
 If no response is received within **3 days**, Camunda sends cyclic reminders (3-day interval) until submission arrives. If the department does not respond, feedback review board will get aware of the case.
 
 ![Receive department measure](Readme%20-%20Appendix/Pictures/DataFlow_ReceiveDepartmentMeasureForm.png)
 
-As soon as the departments responsible person submits the form, the form values will again be posted to the camunda workflow engine with the measure documentation by another Make scenario ([Make - Documentation of department measures](Make/)).
+As soon as the departments responsible person submits the form, the form values will again be posted to the camunda workflow engine with the measure documentation by another Make scenario ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)).
 
 ![Scenario 2 & 3 path](Readme%20-%20Appendix/Pictures/Dataflow_scenario2Scenario3.png)
 
@@ -177,8 +177,6 @@ The web-app then correlates a terminate message to Camunda; the workflow instanc
 ![Event Sub Process: Termination](Readme%20-%20Appendix/Pictures/DataFlow_Termination.png)
 
 The detailed view also allows to record measures taken and grant final approval, which updates the status to **`complete`**.
-
-
 
 
 
