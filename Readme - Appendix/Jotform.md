@@ -39,13 +39,7 @@ To clone these forms into another JotForm workspace, follow the official *Import
 
 3. **The form appears in *My Forms* with a new ID; open it and check that *all fields*  match the originals.**
 
-
-![Clone Steps](Readme%20-%20Appendix/Pictures/Jotform_clone.gif)
-
-![Clone Steps](https://www.jotform.com/uploads/forum/SarahF_/1697050457_6526ef5987586_Monosnap-screencast-2023-10-11-13-52-25.gif)
-
-
-
+![Jotform_clone](https://github.com/user-attachments/assets/b1cc5ddf-3c50-428b-9c2c-e987b8a16ecb)
 
 > **Important:** Do **not** rename or delete fields. Any change to a field’s *Unique Name* alters its ID, breaking the mappings in Python scripts and Make scenarios. If you must modify a field, update the corresponding variable names in:
 > * Python external-task scripts  
