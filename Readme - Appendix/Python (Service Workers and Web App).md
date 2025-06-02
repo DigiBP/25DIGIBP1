@@ -1,4 +1,4 @@
-# Worker Scripts Overview
+# Service Workers Overview
 
 This document provides an overview of the Python worker scripts used in the feedback management process. Each worker is an independent service that implements the External Task pattern with Camunda BPM. These workers subscribe to specific BPMN service task topics and handle operations such as sending emails, updating an Excel-based database, or interacting with JotForm.
 
