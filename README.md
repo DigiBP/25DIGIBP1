@@ -269,7 +269,7 @@ Camunda artefacts already run on Tenant **`25DIGIBP12`**, JotForms are available
 | 2 | In the sidebar, select **`Launcher`** and run the first script (import script).<br>Then run the worker script to launch all Python external-task workers. |
 | 3 | Keep this kernel running while you execute the functional test below. |
 
-> **Deepnote limitation:** only **one** notebook kernel can run at a time. You will later stop the workers and start the web-app notebook.
+> **Deepnote limitation:** only **one** kernel can run at a time. You will later stop the workers and start the web-app script.
 
 ## 2 Functional Test Walk-Through  
 
