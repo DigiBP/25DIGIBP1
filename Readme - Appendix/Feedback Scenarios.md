@@ -3,7 +3,7 @@
 SVK’s BPMN model delegates the routing decision to a **DMN decision table** named *Define Scenario*.  
 Using the Feedback Master’s classification (`feedbackType`, `impactScope`, `urgency`, and `immediateAction`), the table returns one of four scenarios that determine the subsequent path in the process.
 
-![DMN: Define Scenario](Readme%20-%20Appendix/Pictures/dmnTable.png)
+![DMN: Define Scenario](Pictures/dmnTable.png)
 
 | Scenario | Trigger conditions (simplified) | Follow-up path |
 |----------|---------------------------------|----------------|
