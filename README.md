@@ -1,10 +1,26 @@
-## Team Members
+# Abstract
+
+With this project, a digital feedback management process was designed and implemented for a service provider in the health insurance sector. The aim was to standardize, digitalize, and align the previously ad-hoc handling of feedback with ISO requirements. The new process enables efficient, traceable, and situation-adaptive processing of feedback from all relevant stakeholder groups.
+
+
+
+# People Involved 
+
+## Project Team / Authors
 | Name          | Email                  |
 |---------------|------------------------|
 | Julie Klingelschmitt | julie.klingelschmitt@students.fhnw.ch |
 | Kevin Maier  | kevin.maier@students.fhnw.ch |
 | Loris Mariño | loris.marino@students.fhnw.ch |
 | Ramona Stadler | ramona.stadler@students.fhnw.ch |
+
+## Supervisors
+| Name          | Email                  |
+|---------------|------------------------|
+| Andreas Martin | andreas.martin@fhnw.ch |
+| Charuta Pande  | charuta.pande@fhnw.ch |
+| Devid Montecchiari | devid.montecchiari@fhnw.ch |
+
 
 
 # Description of the Project
@@ -13,16 +29,19 @@ This project aims to implement a standardized and digitized customer feedback ma
 It complies with the continuous improvement requirements of **ISO 9001:2015**, specifically **clauses 9.1.2 (Customer Satisfaction)** and **9.1.3 (Analysis and Evaluation)**.
 
 
-
----
-
 ## Motivation
 
-During an **ISO 9001:2015 audit in 2018**, SVK was advised to improve its feedback management procedures. In response, a PDF-based feedback form was introduced. However, due to lack of integration, clarity, and ownership, usage remained sporadic.
+During an ISO 9001:2015 audit in 2018, SVK was advised to improve its feedback management procedures. In response, a PDF-based feedback form was introduced. However, due to a lack of integration, clarity, and defined responsibilities, the solution remained largely unused.
 
----- DESCRIBE HOW OUR PROJECT TEAM CAME INTO PLAY 
+In the BPM course led by Maja Spahic in the fall semester of 2024, the authors of this project were tasked by SVK with designing an ISO-compliant feedback management process. Based on the highly positive feedback from both the course instructor and SVK, it was decided to continue with the implementation as part of the Digitalization of Business Processes course in the spring semester of 2025.
 
-This has lead to the Project Teams mission.
+![image](https://github.com/user-attachments/assets/d546845f-91d6-41a4-9faa-466a607c3a4a)
+
+One of the project team members works as a project and process manager at SVK, which allowed for a well-informed assessment of the organization’s practical needs.
+
+The proposed solution introduces technologies that are new to SVK, specifically Camunda and Make, showcasing modern tools that not only support this specific support process but further hold potential for improving core operational processes.
+
+With only minor adjustments, the developed process is ready for deployment within the organization.
 
 
 ## Project Goal
@@ -37,44 +56,45 @@ The overarching goal is to **digitally transform SVK’s feedback management** b
 - Full audit-traceability through Camunda’s workflow engine
 - Transparency and responsiveness for internal and external stakeholders
 
----
-
 
 ## Current (AS-IS) Feedback Process
 
----- DESCRIBE PROCESS TEXTUALLY (USE TEXT FROM BPM PROJECT)
+At SVK, although a standardized feedback process exists, it is not actively followed in day-to-day operations. Instead, spontaneous feedback is typically handled ad hoc by individual employees. When feedback is received—most often via email—the employee reviews it to determine whether the content is clear or requires additional information. If clarification is needed, the stakeholder is contacted directly. In the absence of a response, some employees may follow up with a reminder after several days, but there is no consistent handling timeline.
 
-  - Feedback is collected **informally** via email, phone, or paper
-  - There is **no central system or responsible role**
-  - Processing is **inconsistent and undocumented**
-  - No escalation exists for unresolved or critical feedback
-  - Stakeholders **receive no updates or closure**
-  - There is **no structured categorization** or trend reporting
+Once enough information has been gathered, employees usually send a confirmation message to acknowledge the input. They then decide on their own whether any follow-up action is necessary. If not, the feedback may be documented informally or simply noted for awareness. If action is required, the steps are defined and tracked individually, without alignment to a central system or predefined process.
 
-Below is an example of how feedback might have been handled:
+In cases where the feedback falls outside the employee’s area of responsibility, it should be forwarded to a colleague. However, because there is no enforced routing procedure, identifying the right contact person often requires extra effort. As a result, the actual handling of feedback varies depending on the person involved.
 
 ---- SCREENSHOT OF AS IS PROCESS MODEL ----
 
-Historically, stakeholders submitted feedback by e-mail, phone or paper. Each unit handled its own inbox, resulting in **fragmented ownership**. Issues were forwarded informally, follow-up dates were tracked in personal calendars, and once a matter was ‘handled’ no structured record remained. Consequently SVK could not demonstrate:
+At SVK, stakeholders typically submit feedback via e-mail, phone or even paper. Each unit manages its own inbox, resulting in fragmented ownership. Issues are forwarded informally, follow-up dates are tracked in personal calendars, and once a matter is considered ‘handled’, no structured record remains. As a result, SVK cannot demonstrate:
+  - **Traceability** – who did what, when, and with what outcome
+  - **Timeliness** – whether response times met internal or ISO targets
+  - **Trend analysis** – aggregated data for management review
 
-* **Traceability** – who did what, when, and with what outcome
-* **Timeliness** – whether response times met internal or ISO targets
-* **Trend analysis** – aggregated data for management review
+## Challenges to be adressed with the To-Be Process
+| Challenge          | Requirement                  |
+|---------------|------------------------|
+| Feedback is collected **informally** via email, phone, or paper | Standardizing how feedback is analyzed and handled internally |
+| There is **no central system or responsible role**  | Clear process ownership and traceability |
+| Processing is **inconsistent and undocumented** | Documentation of feedback and Compliance with ISO-Standards |
+| **No standardized escalation** exists for unresolved or critical feedback | Ensuring every feedback is recognized, proceed and answered |
+| **Updates or Closure is not guaranteed** for the Feedback Givers  | Automated follow-ups and stakeholder communication |
+| There is **no structured categorization** or trend reporting| Standardized categorization |
 
 
----- CONCLUSIVE TEXT WHICH TRANSITIONS SEAMLESSSLY TO TO-BE CHAPTER
-  In summary, the legacy workflow lacks both governance and measurable performance indicators. These deficits defined the mandatory requirements for the redesigned (TO-BE) process presented in the next chapter.
+In summary, the current feedback handling process at SVK is characterized by a lack of governance, transparency, and process reliability. Without clearly assigned responsibilities, centralized documentation, or standard workflows, the organization is unable to ensure traceability, timely responses, or data-driven insights. These deficiencies served as the basis for defining the mandatory requirements of the redesigned TO-BE process, which aims to standardize, digitize, and control feedback management. The following chapter presents this target-state process and the implementation with state-f-the-art tools in detail.
 
 
 ## Requirements for To-Be Process
 
 ---- DESCRIPTION OF THE REQUIREMENTS
 
-- Clear process ownership and traceability
-- Automated follow-ups and stakeholder communication
-- Compliance with ISO and internal quality goals
-- Alignment with best practices in business process management (BPM)
-
+- 
+- 
+- 
+- 
+- 
 
 
 # To-Be Process
