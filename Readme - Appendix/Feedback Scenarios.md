@@ -1,21 +1,15 @@
-# Feedback Handling Scenarios
+# Feedback-Handling Scenarios  
 
-Different Handling Scenarios for different types of feedback have been defined. As soon as the token arrives at the Business Rule Task, one of the following scenarios is defined by using the input of the Feedback Masters classification output:
+SVK’s BPMN model delegates the routing decision to a **DMN decision table** named *Define Scenario*.  
+Using the Feedback Master’s classification (`feedbackType`, `impactScope`, `urgency`, and `immediateAction`), the table returns one of four scenarios that determine the subsequent path in the process.
 
-  ---- SCREENSHOT OF DMN TABLE (pictures/dmnTable.png)
+![DMN: Define Scenario](Readme%20-%20Appendix/Pictures/dmnTable.png)
 
-- **Scenario 1**: Low-urgency suggestions or negative feedback that the feedback master can not resolve directly are added to the Review Board backlog for periodic review.
+| Scenario | Trigger conditions (simplified) | Follow-up path |
+|----------|---------------------------------|----------------|
+| **Scenario 1** – Non-critical backlog item | `ftNegative` or `ftSuggestion` **and**<br>`impactScope` ∈ {`isSmall`,`isSpecific`} **and**<br>`urgency` ∈ {`uMedium`,`uLow`} **and**<br>`immediateAction = fmNo` | Case is placed on the Review-Board backlog for periodic discussion. |
+| **Scenario 2** – Department action required | (`impactScope = isLarge` **or** `urgency = uHigh`) **and**<br>`ftNegative` or `ftSuggestion` **and**<br>`immediateAction = fmNo` | A Department Measure task is sent to the responsible unit; reminders every 3 days until completion. |
+| **Scenario 3** – Immediate resolution by Feedback Master | `ftNegative` or `ftSuggestion` **and**<br>`immediateAction = fmYes` | Feedback Master documents the corrective measure directly, then proceeds to closure. |
+| **Scenario 4** – Positive feedback | `ftPositive` | Item is logged for bi-weekly Review-Board acknowledgement and potential publication. |
 
-- **Scenario 2**: High-impact or urgent feedback/suggestions is forwarded to the appropriate department. The Feedback Master identifies and assigns the responsible team during classification.
-
-- **Scenario 3**: Feedback or Suggestions that the Feedback Master can/must resolve directly are implemented immediately. 
-
-- **Scenario 4**: Positive feedback (e.g., praise or kudos) is stored in the Review Board backlog for potential sharing and celebration during regular review meetings.
-
-Say that the project team has also created guardrails which support the feedback master on classifying a feedback (Classification Guardrails.md)
-
-Explain the follow up logic with the review board. 
-The review board approves every feedback by using the Feedback Manager (web app). 
-Thereby, it is ensured that the same persons keep track of the feedback over time and it is ensured that issues and patterns can be detected directly and feedback is generally recognized.
-
-
+> The **Classification Guardrails** (see *Classification Guardrails.md*) support the Feedback Master in making consistent selections for each input column.
