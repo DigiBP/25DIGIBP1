@@ -89,7 +89,7 @@ In summary, the current feedback handling process at SVK is characterized by a l
 # To-Be Process
 The **To-Be process** operationalises SVK’s feedback management as an executable BPMN 2.0 model. The whole workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. Its logic can be summarised in five stages:
 
-1. **Intake** – A stakeholder submits feedback via JotForm; a Make scenario starts a Camunda instance and stores the record with status `open`.  
+1. **Intake** – A stakeholder submits feedback via Jotform; a Make scenario starts a Camunda instance and stores the record with status `open`.  
 2. **Classification** – The Feedback Master reviews the submission, assigns type, urgency, and impact scope, and decides whether clarification or departmental involvement is required.  
 3. **Clarification (conditional)** – If additional information is needed, the process launches an asynchronous query–response loop with the submitter; status switches to `clarification` until the loop is closed or withdrawn.  
 4. **Scenario handling** – A DMN decision returns one of four scenarios which result in:  
@@ -103,7 +103,7 @@ The following operational process model provides the holistic visual representat
 ![To-Be Process Model](Readme%20-%20Appendix/Pictures/To-Be%20Process%20Model.png)
 
 ## Intake
-A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
+A new case begins when a stakeholder submits feedback via a **Jotform** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) which instantiates a Camunda process instance; the Jotform *submission ID* (created by Jotform on submission) serves as the **business key**.
 
 ![Initial data flow](Readme%20-%20Appendix/Pictures/DataFlow_initialSubmission.png)
 
@@ -135,7 +135,7 @@ An **exclusive gateway** then directs the token either to a *Clarification* sub-
 ## Clarification
 If clarification is required, Camunda generates a new task for the Feedback Master to phrase a query to the submitter.  
 The query text is added to the database and the status changes to **`clarification`**.  
-A pre-filled JotForm - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
+A pre-filled Jotform - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
 
 ![Querying the submitter](Readme%20-%20Appendix/Pictures/DataFlow_querying.png)
 
@@ -158,7 +158,7 @@ Status is set to **`review-board`**; the submitter receives an acknowledgement e
 ![Scenario 1 & 4 path](Readme%20-%20Appendix/Pictures/Dataflow_scenario1Scenario4.png)
 
 *Scenario 2 – Department measure required*  
-A **Department Measure Documentation** JotForm is pre-populated with `feedbackText` and the submitters contact data (provided with the initial submission form). An e-mail with the form link is sent to the department selected earlier.  
+A **Department Measure Documentation** Jotform is pre-populated with `feedbackText` and the submitters contact data (provided with the initial submission form). An e-mail with the form link is sent to the department selected earlier.  
 If no response is received within **3 days**, Camunda sends cyclic reminders (3-day interval) until submission arrives. If the department does not respond, feedback review board will get aware of the case.
 
 ![Receive department measure](Readme%20-%20Appendix/Pictures/DataFlow_ReceiveDepartmentMeasureForm.png)
