@@ -1,3 +1,18 @@
+"""
+
+
+SupportFunctions.py
+
+Shared constants and utility functions used by worker scripts in the project.
+Handles:
+- Configuration loading
+- Email content generation
+- Camunda engine communication
+- HTML formatting helpers
+
+
+"""
+
 import pandas as pd
 import html
 import re
@@ -34,6 +49,15 @@ CEO_EMAIL = config["ceoEmail"]
 
 
 def get_date(business_key):
+    """
+    Retrieve the feedback date for a given business key from the Excel file.
+
+    Args:
+        business_key (str): Unique identifier for the business case.
+
+    Returns:
+        str: The date string associated with the feedback.
+    """
 
     data = pd.read_excel("form_data.xlsx", sheet_name="feedbackData")
     data = data.set_index("businessKey")
@@ -43,6 +67,19 @@ def get_date(business_key):
 
 
 def get_department_email(department_name):
+    """
+    Get the department email address from config by department name.
+
+    Args:
+        department_name (str): Name of the department.
+
+    Returns:
+        str: Department email address.
+
+    Raises:
+        ValueError: If department not found in config.
+    """
+
     for department in config.get("departments", []):
         if department.get("departmentName") == department_name:
             return department.get("departmentEmail")
@@ -52,6 +89,17 @@ def get_department_email(department_name):
 
 
 def fetch_and_lock(worker_id, topic):
+    """
+    Fetch and lock one external task from Camunda for a specific topic.
+
+    Args:
+        worker_id (str): ID of the worker requesting the task.
+        topic (str): The topic to subscribe to.
+
+    Returns:
+        dict: JSON response from Camunda containing the task.
+    """
+
     response = requests.post(url=f"{config['camundaEngineUrl']}/external-task/fetchAndLock",
                              json={
                                    "workerId": worker_id,
@@ -70,6 +118,15 @@ def fetch_and_lock(worker_id, topic):
 
 
 def complete_task(task_id, variables, worker_id, send_variables = "none"):
+    """
+    Complete a Camunda task and optionally send process variables.
+
+    Args:
+        task_id (str): ID of the task to complete.
+        variables (dict): Variable dictionary to send.
+        worker_id (str): ID of the completing worker.
+        send_variables (str): "none", "yes", or "new" to determine variable behavior.
+    """
 
     if send_variables == "new":
         new_variables = {
@@ -174,7 +231,15 @@ RE_QUERY_HEAD = re.compile(r"\n{0,2}Unsere Rückfrage an Sie:\n", re.MULTILINE)
 RE_RESPONSE_HEAD = re.compile(r"\n{0,2}Rückmeldung vom (\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}:\d{2}):\n", re.MULTILINE)
 
 def split_conversation(full_text: str):
+   """
+   Split conversation text into individual feedback-reply pairs.
 
+   Args:
+        full_text (str): The complete conversation string.
+
+   Returns:
+        tuple: Initial feedback and a list of (query, timestamp, answer) tuples.
+   """
    initial_end = None
    conversations: list[tuple[str, str, str]] = []
 
@@ -235,6 +300,16 @@ def space_to_nbsp(text: str):
 
 
 def get_simple_html_mail(message_header, message):
+    """
+    Create a basic HTML mail with a header and message body.
+
+    Args:
+        message_header (str): Header title for the mail.
+        message (str): Message body content.
+
+    Returns:
+        str: Complete HTML email string.
+    """
 
     year = datetime.now().year
 
@@ -287,6 +362,19 @@ def get_simple_html_mail(message_header, message):
 
 
 def get_quote_html_mail(message_header, message_before_quote, quote, message_after_quote):
+    """
+    Create an HTML mail with a quoted block between two text sections.
+
+    Args:
+        message_header (str)
+        message_before_quote (str)
+        quote (str)
+        message_after_quote (str)
+
+    Returns:
+        str: HTML mail body
+    """
+
     year = datetime.now().year
 
     content_card = f"""
@@ -343,6 +431,23 @@ def get_quote_html_mail(message_header, message_before_quote, quote, message_aft
 
 def get_conversation_html_mail(message_header, message_before_conv, conversation, message_after_conv,
                                button_text="", link="", only_show_initial=False, internal=False):
+    """
+    Generate HTML email content showing a threaded feedback conversation.
+
+    Args:
+        message_header (str): Title header of the email.
+        message_before_conv (str): Intro text before the conversation thread.
+        conversation (str): Raw text containing conversation history (feedbackText).
+        message_after_conv (str): Text appended after the conversation.
+        button_text (str, optional): Call-to-action button text.
+        link (str, optional): URL for the CTA button.
+        only_show_initial (bool, optional): If True, show only the initial feedback.
+        internal (bool, optional): If True, render email in an internal format.
+
+    Returns:
+        str: Complete HTML email string.
+    """
+
     year = datetime.now().year
 
     initial, convs = split_conversation(conversation)
