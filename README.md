@@ -106,7 +106,7 @@ A new case begins when a stakeholder submits feedback via a **JotForm** which is
 
 ![Initial data flow](Readme%20-%20Appendix/Pictures/DataFlow_initialSubmission.png)
 
-Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`** (see [Database & web App](Readme%20-%20Appendix/Database%20and%20Web%20App.md) for further details to statuses). A confirmation e-mail is dispatched to the submitter.
+Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`** (see [Process Variables, Database and Web App](Readme%20-%20Appendix/Process%20Variables,%20Database%20and%20Web%20App.md) for further details to statuses). A confirmation e-mail is dispatched to the submitter.
 
 ![Database save + confirmation](Readme%20-%20Appendix/Pictures/Dataflow_initialSubmissionSaveConfirm.png)
 
