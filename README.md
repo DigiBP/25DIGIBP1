@@ -280,15 +280,15 @@ Camunda artefacts already run on Tenant **`25DIGIBP12`**, JotForms are available
 ## 2 Functional Test Walk-Through  
 
 1. **Submit feedback** — open the public JotForm “Initial Feedback”, fill in your own e-mail, and press *Submit*.  
-2. **Classify** — log into Camunda Cockpit (tenant `25DIGIBP12`, user *feedback-master*), open the new task, and complete the classification form.  
+2. **Classify** — log into Camunda Cockpit (tenant `25DIGIBP12`), open the new task, and complete the classification form.  
    * Optionally tick **needsClarification** and author a query to see the clarification loop.  
 3. **Clarification loop** (conditional) — check your mailbox, follow the Supplementation link, answer the query, and submit.  
 4. **Scenario branching**  
    * *Scenario 3* → in Camunda Tasklist finish **Document Measures**.  
    * *Scenario 2* → log in with test account **digipro-demo@ikmail.com / password can be found in DeepNote (password.txt)** on <a href="https://login.infomaniak.com/de/login">Infomaniak/login</a>, find the mail and submit the Department Measures form.  
 5. **Stop the worker notebook** — Deepnote › *Kernel ▸ Restart & Clear* (workers shut down).  
-6. **Launch web app** — open **`02_start_webapp.ipynb`**, run the single cell, and click the displayed URL.  
-7. **Approve or terminate** — locate your case in the web app:  
+6. **Launch web app** — Run the single cell for the web app, and click the displayed URL below.  
+7. **Approve or terminate** — locate your feedback in the web app:  
    * Click **Approve** to set status `complete`, **or**  
    * Click **Terminate** to set status `terminate`; then re-run the worker notebook so Camunda processes the termination message.
 
