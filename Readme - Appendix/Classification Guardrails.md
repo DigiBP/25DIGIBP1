@@ -49,27 +49,29 @@ Assign an urgency level to the feedback to guide prioritization:
 
 ---
 
-## 4. Can You Implement the Action Immediately?
+## 4. Can Feedback-Master take immediate action?
 
-Assess whether the required action can be carried out without delay:
+Assess whether the required action can be carried out by the Feedback-Master:
 
 - **Yes**  
-  The action can be implemented immediately, without needing additional resources or approvals.
+  The action can be implemented directly by the Feedback-Master
 
 - **No**  
   Implementation requires additional resources, coordination, or approvals and cannot be done immediately.
 
 ---
 
-## 5. Are You the Right Employee to Take Action?
+## 5. Applicable Department
 
-Confirm whether you have the competence and authority to handle the feedback:
+If Feedback-Master can not take action it is assesed who would be responsible.
 
 - **Yes**  
   You have the professional competence and authority to respond directly and take the necessary actions.
 
 - **No**  
   The feedback falls outside your area of expertise or authority and should be forwarded to the responsible department or individual.
+
+Mind that only in urgent and/ or large impact cases the departement gets a direct notification. Otherwise the feedback will be in the Review Boards backlog and treated in the next meeting. (See DMN table)
 
 ---
 
