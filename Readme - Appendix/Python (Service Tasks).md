@@ -37,20 +37,20 @@ See the table below for a mapping of worker scripts to their BPMN service tasks 
 
 
 
-# Configuration Guide
+# Deployment
 
 To run the feedback processing system, you must first ensure the correct setup of the configuration files and external resources.
 
-## 🔐 Secrets: Required Local Files
+## Secrets: Required Local Files
 
 Two files **must be created manually** in your local repository (they are intentionally excluded from version control):
 
 - `api_key.txt` — contains the API key for accessing the JotForm API.
 - `password.txt` — contains the password for the email account used to send notifications.
 
-📁 **Recommended location:** place both files in the `python` folder (i.e., the same directory as the worker scripts). If placed there, no changes to the config file are necessary.
+**Recommended location:** place both files in the `python` folder (i.e., the same directory as the worker scripts). If placed there, no changes to the config file are necessary.
 
-## ⚙️ `config.json` Overview
+## `config.json` Overview
 
 This file defines all runtime settings for the workers and the web application. Below are the key fields and what you might need to adapt:
 
@@ -70,9 +70,9 @@ This file defines all runtime settings for the workers and the web application. 
 | `webappPort`            | Port for the Flask web interface (default: 5000). |
 | `ceoName`               | Name used in emails when notifying leadership. |
 | `ceoEmail`              | Recipient address for urgent feedback notifications. |
-| `departments`           | List of departments that can receive feedback, each with a name and email. You can add or remove departments here. |
+| `departments`           | List of departments that can receive feedback, each with a name and email. You can add or remove departments here. **Make sure the department names match with the values you have provided in the classification form** |
 
-## ✅ Example
+## Example
 
 If your repository has this structure:
 your-repo/
