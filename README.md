@@ -191,6 +191,24 @@ The web-app then correlates a terminate message to Camunda; the workflow instanc
 The detailed view also allows to record measures taken and grant final approval, which updates the status to **`complete`**.
 
 
+## Further Documentation  
+
+For implementation details that exceed the scope of this overview, consult the companion documents listed below. Each file resides in *25DIGIBP1/Readme – Appendix/* and expands a specific aspect of the solution.
+Use the links below to open each file directly:
+
+| File Name | Scope |
+|------------|-------|
+| [**Classification Guardrails.md**](Readme%20-%20Appendix/Classification%20Guardrails.md) | Decision criteria for `feedbackType`, `urgency`, and `impactScope`. |
+| [**Feedback Scenarios.md**](Readme%20-%20Appendix/Feedback%20Scenarios.md) | Rationale and routing logic of the DMN *Define Scenario* table. |
+| [**Jotform.md**](Readme%20-%20Appendix/Jotform.md) | Public URLs, and cloning instructions. |
+| [**Make Scenarios.md**](Readme%20-%20Appendix/Make%20Scenarios.md) | Description of the Make blueprints and cloning instructions. |
+| [**Process Variables and Database.md**](Readme%20-%20Appendix/Process%20Variables%20and%20Database.md) | Complete list of process variables, database schema, and status semantics. |
+| [**Python (Service Tasks).md**](Readme%20-%20Appendix/Python%20(Service%20Tasks).md) | Mapping of each external-task topic to its Python script with a functional summary. |
+| [**Role Definitions.md**](Readme%20-%20Appendix/Role%20Definitions.md) | Formal responsibilities and authority boundaries for Feedback Master and Review Board. |
+| [**Docker.md**](Readme%20-%20Appendix/Docker.md) | Guide on how to perform the local deployment. |
+
+These sub-documents provide further insights required to replicate, maintain, or extend this solution.
+
 
 
 
