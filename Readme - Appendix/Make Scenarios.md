@@ -43,7 +43,7 @@ To reuse these blueprints in another Make (Integromat) workspace:
    * **URL** – set to the Camunda REST endpoint, e.g. `https://<YOUR-HOST>/engine-rest/message`.  
    * **tenantId** – replace `25DIGIBP12` with the tenant ID used by the Feedback Master in Camunda.  
 
-4. **Save and enable** the scenario. Use the *Run once* button to verify that a test submission from JotForm reaches the correct Camunda process instance.
+4. **Save and enable** the scenario. Use the *Run once* button to verify that a test submission from JotForm reaches the correct Camunda process instance. Finally, activate the switch *Immediately as data arrives*.
 
 > **Tip:** Field mappings inside `json:CreateJSON` rely on the JotForm *Unique Names*.  
 > If you change form fields, update the corresponding variable names in the mapper to avoid message-correlation errors.
