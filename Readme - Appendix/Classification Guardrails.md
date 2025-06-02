@@ -57,7 +57,7 @@ Assess whether the required action can be carried out by the Feedback-Master:
   The action can be implemented directly by the Feedback-Master
 
 - **No**  
-  Implementation requires additional resources, coordination, or approvals and cannot be done immediately.
+  Implementation requires additional resources, coordination, or approvals and cannot be done immediately by the Feedback-Master.
 
 ---
 
