@@ -21,7 +21,7 @@ For every form you will find a screenshot of the form, the public URL, and the p
 
 **Form URL:** <https://form.jotform.com/251256180381049>  
 
-**Purpose:** Allows the stakeholder to provide additional information requested by the Feedback Master; pre-filled with the initial feedback and the clarification question.  
+**Purpose:** Allows the stakeholder to provide additional information requested by the Feedback Master; pre-filled with the initial feedback and the query.  
 
 ---
 
