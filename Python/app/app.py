@@ -16,6 +16,18 @@ FEEDBACK_TYPE_MAP = {
     "ftSuggestion": "Vorschlag"
 }
 
+URGENCY_MAP = {
+    "uLow":   "Niedrig",
+    "uMedium":   "Mittel",
+    "uHigh": "Hoch"
+}
+
+IMPACTSCOPE_MAP = {
+    "isSpecific":   "Spezifisch",
+    "isSmall":   "Klein",
+    "isLarge": "Gross"
+}
+
 # Mapping of colors to specific statuses and feedback types for the dashboard
 STATUS_COLOR_MAP = {
     "open":         "#81d4fa",   # light blue
@@ -49,9 +61,15 @@ def read_data() -> pd.DataFrame:
                                         dayfirst=True,
                                         errors="coerce")
 
-    # Apply mapping of feedbackType
+    # Apply mapping of german values
     df["feedbackTypeDE"] = df["feedbackType"].map(FEEDBACK_TYPE_MAP) \
         .fillna(df["feedbackType"])
+
+    df["urgencyDE"] = df["urgency"].map(URGENCY_MAP) \
+        .fillna(df["urgency"])
+
+    df["impactScopeDE"] = df["impactScope"].map(IMPACTSCOPE_MAP) \
+        .fillna(df["impactScope"])
 
     return df
 
@@ -77,8 +95,10 @@ def index():
     # Collect dashboard data
     all_df = pd.concat([open_, closed], ignore_index=True)
 
-    # all NaN in feedbackType to "Undefiniert" for visualization purposes
+    # all NaN of classification values are mapped to "Undefiniert" for visualization purposes
     all_df["feedbackTypeDE"] = all_df["feedbackTypeDE"].fillna("Undefiniert")
+    all_df["urgencyDE"] = all_df["urgencyDE"].fillna("Undefiniert")
+    all_df["impactScopeDE"] = all_df["impactScopeDE"].fillna("Undefiniert")
 
     records = all_df.to_dict("records")
 
@@ -185,7 +205,7 @@ def complete_feedback(idx):
         return redirect(url_for("detail", idx=idx))
 
     df.at[idx, "measuresTaken"] = measures
-    df.at[idx, "status"] = "closed"
+    df.at[idx, "status"] = "completed"
     write_data(df)
     flash("Feedback abgeschlossen.", "success")
     return redirect(url_for("index"))
