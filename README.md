@@ -65,7 +65,7 @@ Once enough information has been gathered, employees usually send a confirmation
 
 In cases where the feedback falls outside the employee’s area of responsibility, it should be forwarded to a colleague. However, because there is no enforced routing procedure, identifying the right contact person often requires extra effort. As a result, the actual handling of feedback varies depending on the person involved.
 
----- SCREENSHOT OF AS IS PROCESS MODEL ----
+![As-Is-Process](https://github.com/user-attachments/assets/5a498502-e5b0-42ee-900f-ded90232ac1a)
 
 At SVK, stakeholders typically submit feedback via e-mail, phone or even paper. Each unit manages its own inbox, resulting in fragmented ownership. Issues are forwarded informally, follow-up dates are tracked in personal calendars, and once a matter is considered ‘handled’, no structured record remains. As a result, SVK cannot demonstrate:
   - **Traceability** – who did what, when, and with what outcome
