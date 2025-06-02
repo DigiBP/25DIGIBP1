@@ -1,4 +1,4 @@
-# JotForm Specifications  
+# Jotform Specifications  
 
 Below, each section presents one of the three forms used in the feedback process.  
 For every form you will find a screenshot of the form, the public URL, and the purpose of the form.
@@ -31,7 +31,7 @@ For every form you will find a screenshot of the form, the public URL, and the p
 
 ## Deployment  
 
-To clone these forms into another JotForm workspace, follow the official *Import / Clone* steps[^1]:
+To clone these forms into another Jotform workspace, follow the official *Import / Clone* steps[^1]:
 
 1. **Open My Forms › Create Form › Import**  
 
