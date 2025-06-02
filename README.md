@@ -89,14 +89,14 @@ In summary, the current feedback handling process at SVK is characterized by a l
 # To-Be Process
 The **To-Be process** operationalises SVK’s feedback management as an executable BPMN 2.0 model. The whole workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. Its logic can be summarised in five stages:
 
-1. [Intake](#intake) **Intake** – A stakeholder submits feedback via Jotform; a Make scenario starts a Camunda instance and stores the record with status `open`.  
-2. **Classification** – The Feedback Master reviews the submission, assigns type, urgency, and impact scope, and decides whether clarification or departmental involvement is required.  
-3. **Clarification (conditional)** – If additional information is needed, the process launches an asynchronous query–response loop with the submitter; status switches to `clarification` until the loop is closed or withdrawn.  
-4. **Scenario handling** – A DMN decision returns one of four scenarios which result in:  
+1. [**Intake**](#intake) – A stakeholder submits feedback via Jotform; a Make scenario starts a Camunda instance and stores the record with status `open`.  
+2. [**Classification**](#classification) – The Feedback Master reviews the submission, assigns type, urgency, and impact scope, and decides whether clarification or departmental involvement is required.  
+3. [**Clarification (conditional)**](#Clarification) – If additional information is needed, the process launches an asynchronous query–response loop with the submitter; status switches to `clarification` until the loop is closed or withdrawn.  
+4. [**Scenario handling**](#scenario-handling--closure)– A DMN decision returns one of four scenarios which result in:  
    * feedback forwarded to the bi-weekly Review Board (`review-board`), 
    * feedback forwarded to applicable department for resolution, or  
    * immediate resolution by the Feedback Master   
-5. **Closure** – Where applicable (Scenarios 2 and 3) the documented measures are captured; in every path the workflow writes the closing entry to the Excel log, notifies the submitter, and transfers the case to the newly developed Feedback-Manager web app, where it awaits final Review Board approval.
+5. [**Closure**](#scenario-handling--closure) – Where applicable (Scenarios 2 and 3) the documented measures are captured; in every path the workflow writes the closing entry to the Excel log, notifies the submitter, and transfers the case to the newly developed Feedback-Manager web app, where it awaits final Review Board approval.
 
 The following operational process model provides the holistic visual representation of these stages.
 
