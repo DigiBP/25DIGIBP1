@@ -169,7 +169,7 @@ The web-app then correlates a terminate message to Camunda; the workflow instanc
 
 ![Event Sub Process: Termination](Readme%20-%20Appendix/Pictures/DataFlow_Termination.png)
 
-The same screen allows to record measures taken and grant final approval, which updates the status to **`complete`**.
+The detailed view also allows to record measures taken and grant final approval, which updates the status to **`complete`**.
 
 
 
