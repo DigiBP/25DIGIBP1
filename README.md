@@ -158,16 +158,16 @@ Throughout the lifecycle the Feedback Master and Review Board members can monito
 
 The landing page provides a dashboard and lists all feedback items, grouped by their status.
 
-![Feedback-Manager dashboard](Readme%20-%20Appendix/webapp.png)
+![Feedback-Manager dashboard](Readme%20-%20Appendix/Pictures/webapp.png)
 
 Selecting a row opens a detailed view of the chosen feedback.
 
-![Detailed feedback view](Readme%20-%20Appendix/webappDetail.png)
+![Detailed feedback view](Readme%20-%20Appendix/Pictures/webappDetail.png)
 
 In this view the Feedback Master can set a case to **`terminate`** (e.g., when the submitter withdraws the issue).  
 The web-app then correlates a terminate message to Camunda; the workflow instance ends and the database status becomes **`cancelled`**.
 
-![Termination flow](Readme%20-%20Appendix/DataFlow_termination.png)
+![Termination flow](Readme%20-%20Appendix/Pictures/DataFlow_termination.png)
 
 The same screen allows to record measures taken and grant final approval, which updates the status to **`complete`**.
 
