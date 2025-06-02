@@ -63,8 +63,9 @@
 - **Review Board** – Focuses on strategic decisions and long-term optimisation.
 
 ### Process Flow
-1. Feedback is categorised and prioritised.  
-2. Feedback-Master evaluates and potentially handles urgent cases, and prepares meetings.  
-3. Review Board decides on measures and informs the team.
+1. Feedback-Master categorizes incoming feedback.
+2. In case of negative feedback / suggestions Feedback-Master takes action if he is able to. Otherwise he forwards the feedback to the respective departement or in case of lower urgency and smaller impact scope in their next meeting the Review Board will decides on measures.
+3. The Review Board oversees all incoming feedback and intervenes when necessary.
+4. At the end of the process, the Review Board finalizes and closes all feedback cases.
 
 ---
