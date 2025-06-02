@@ -97,6 +97,7 @@ The **To-Be process** operationalises SVK’s feedback management as an executab
    * feedback forwarded to applicable department for resolution, or  
    * immediate resolution by the Feedback Master   
 5. [**Closure**](#scenario-handling--closure) – Where applicable (Scenarios 2 and 3) the documented measures are captured; in every path the workflow writes the closing entry to the Excel log, notifies the submitter, and transfers the case to the newly developed Feedback-Manager web app, where it awaits final Review Board approval.
+6. [**Feedback termination and lifecycle management**](#Feedback-termination-and-lifecycle-management) Throughout the process, the Feedback Master and Review Board track the case in the Web-App. As the last step, feedback is closed in the app.
 
 The following operational process model provides the holistic visual representation of these stages.
 
