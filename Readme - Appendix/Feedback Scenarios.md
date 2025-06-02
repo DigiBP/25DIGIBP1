@@ -12,4 +12,4 @@ Using the Feedback Master’s classification (`feedbackType`, `impactScope`, `ur
 | **Scenario 3** – Immediate resolution by Feedback Master | `ftNegative` or `ftSuggestion` **and**<br>`immediateAction = fmYes` | Feedback Master documents the corrective measure directly, then proceeds to closure. |
 | **Scenario 4** – Positive feedback | `ftPositive` | Item is logged for bi-weekly Review-Board acknowledgement and potential publication. |
 
-> The **Classification Guardrails** (see *Classification Guardrails.md*) support the Feedback Master in making consistent selections for each input column.
+> The **Classification Guardrails** (see [*Classification Guardrails.md*](Classification%20Guardrails.md)) support the Feedback Master in making consistent selections for each input column.
