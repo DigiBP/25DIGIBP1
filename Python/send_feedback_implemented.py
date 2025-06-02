@@ -15,6 +15,14 @@ WORKER_ID = "python-worker-19"
 
 
 def send_email(data: dict, business_key):
+    """
+    Compose and send an HTML-formatted email to inform the user
+    that their feedback has been processed and addressed.
+
+    Args:
+        data: Dictionary containing user details and feedback content.
+        business_key: Unique identifier used to retrieve the original feedback date.
+    """
 
     # compose email
     message_header = "Ihr Feedback wurde verarbeitet"

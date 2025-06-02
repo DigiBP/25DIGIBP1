@@ -15,6 +15,14 @@ WORKER_ID = "python-worker-13"
 
 
 def send_email(data: dict, business_key):
+    """
+    Compose and send an HTML-formatted thank-you email in response to positive feedback
+    submitted by the user.
+
+    Args:
+        data: Dictionary containing user details and feedback content.
+        business_key: Unique identifier used to retrieve the original feedback date.
+    """
 
     # compose email
     message_header = "Vielen Dank für Ihr Feedback"

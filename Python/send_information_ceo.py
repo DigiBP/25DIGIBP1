@@ -15,6 +15,14 @@ WORKER_ID = "python-worker-9"
 
 
 def send_email(data: dict, business_key):
+    """
+    Compose and send an HTML-formatted notification email to the CEO
+    about a feedback submission marked as urgent by the Feedback Master.
+
+    Args:
+        data: Dictionary containing feedback details and contact information.
+        business_key: Unique identifier used to retrieve the original feedback date.
+    """
 
     # compose email
     message_header = "Information Dringendes Feedback"

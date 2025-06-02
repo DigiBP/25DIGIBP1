@@ -84,6 +84,15 @@ def get_or_create_workbook() -> "openpyxl.workbook.Workbook":
 
 
 def write_to_excel(data: dict, business_key: str) -> None:
+    """
+    Write a new feedback entry to the Excel workbook, creating or expanding the table if needed.
+    Includes metadata such as submission date and status.
+
+    Args:
+        data: Dictionary of feedback details.
+        business_key: Unique identifier for the feedback item.
+    """
+
     wb = get_or_create_workbook()
     ws = wb.active
 

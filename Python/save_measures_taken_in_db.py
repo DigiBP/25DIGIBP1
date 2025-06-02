@@ -13,6 +13,14 @@ WORKER_ID = "python-worker-5"
 
 
 def save_measures(data: dict, business_key):
+    """
+    Append or set the 'measures taken' field in the Excel database for the specified feedback entry,
+    and update its status to 'review-board'.
+
+    Args:
+        data: Dictionary containing the documented measures.
+        business_key: Unique identifier of the feedback entry to update.
+    """
 
     wb = load_workbook(EXCEL_FILE)
     ws = wb.active

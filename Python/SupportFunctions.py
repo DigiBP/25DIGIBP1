@@ -221,7 +221,6 @@ def split_conversation(full_text: str):
 
 
 def newline_to_br(text: str):
-
     return html.escape(text).replace("\n", "<br>")
 
 

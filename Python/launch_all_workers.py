@@ -1,3 +1,15 @@
+"""
+
+Launch all feedback management worker scripts as background subprocesses.
+
+This script starts each defined Python worker in a separate process using `subprocess.Popen`.
+It displays a startup banner, tracks all subprocesses, and ensures clean shutdown
+on keyboard interrupt (Ctrl+C). Each worker handles a specific task in the
+feedback management system (e.g., storing feedback, sending emails, updating Excel, etc.).
+
+
+"""
+
 import subprocess
 import time
 from art import tprint, art
@@ -44,6 +56,7 @@ if __name__ == "__main__":
         while True:
             time.sleep(5)
 
+    # Handle safe shutdown
     except KeyboardInterrupt:
         print("\nStopping all workers...")
         for p in processes:

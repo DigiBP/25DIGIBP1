@@ -23,6 +23,13 @@ JOTFORM_URL = f"https://eu-api.jotform.com/form/{FORM_ID}/submissions?apiKey={qu
 
 
 def handle_task(task: dict):
+    """
+    Submit a pre-filled JotForm with feedback data to request documentation from a department.
+    Sends the resulting submission ID back to Camunda as a process variable.
+
+    Args:
+        task: Dictionary containing Camunda task data and feedback-related variables.
+    """
 
     task_id = task["id"]
     business_key = task.get("businessKey", "")

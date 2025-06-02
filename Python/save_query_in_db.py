@@ -13,6 +13,14 @@ WORKER_ID = "python-worker-18"
 
 
 def set_status(data:dict, business_key):
+    """
+    Update the Excel feedback database by setting the status to 'clarification' and
+    saving the clarification query for the specified feedback entry.
+
+    Args:
+        data: Dictionary containing the clarification query.
+        business_key: Unique identifier of the feedback entry to update.
+    """
 
     wb = load_workbook(EXCEL_FILE)
     ws = wb.active

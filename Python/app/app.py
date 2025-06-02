@@ -1,5 +1,15 @@
-import json
+"""
 
+
+Web interface for managing customer feedback records stored in an Excel file.
+
+Provides dashboard visualizations, detailed feedback views, and update options
+including termination, measure documentation, and completion. Built with Flask.
+
+
+"""
+
+import json
 import pandas as pd
 from flask import Flask, render_template, request, redirect, url_for, flash
 import webbrowser, threading, os

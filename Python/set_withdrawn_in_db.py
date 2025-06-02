@@ -13,6 +13,13 @@ WORKER_ID = "python-worker-16"
 
 
 def set_status(business_key):
+    """
+    Update the status of a feedback entry in the Excel file to 'withdrawn'
+    based on the provided business key.
+
+    Args:
+        business_key: Unique identifier of the feedback entry to update.
+    """
 
     wb = load_workbook(EXCEL_FILE)
     ws = wb.active
@@ -20,12 +27,14 @@ def set_status(business_key):
     # get row with the business key
     row_number = None
 
+    #search for row with process instance that should be changed
     for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
         cell = row[0]  # business key column
         if int(cell.value) == int(business_key):
             row_number = cell.row
             break
 
+    # write to cell
     ws.cell(row_number,16, "withdrawn")
 
     # save excel

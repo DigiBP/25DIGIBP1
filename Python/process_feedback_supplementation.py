@@ -20,6 +20,13 @@ TENANT_ID  = config["tenantID"]
 
 
 def handle_task(task: dict):
+    """
+    Append a clarification query and the user's response to the existing feedback text,
+    including a timestamp. Sends the updated feedback text back to Camunda as a process variable.
+
+    Args:
+        task: Dictionary containing task metadata and process variables from Camunda.
+    """
 
     task_id = task["id"]
     vars_camunda = {k: v["value"] for k, v in task["variables"].items()}

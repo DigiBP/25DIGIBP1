@@ -12,6 +12,15 @@ WORKER_ID = "python-worker-4"
 
 
 def save_classification(data: dict, business_key):
+    """
+    Save the classification details of a feedback entry to the Excel database,
+    including feedback type, urgency, impact scope, and forwarding department.
+    Also updates the status to 'open' and clears any previous query.
+
+    Args:
+        data: Dictionary containing classification fields for the feedback entry.
+        business_key: Unique identifier of the feedback entry to update.
+    """
 
     wb = load_workbook(EXCEL_FILE)
     ws = wb.active

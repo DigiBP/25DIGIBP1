@@ -15,6 +15,14 @@ WORKER_ID = "python-worker-6"
 
 
 def send_email(data: dict, business_key):
+    """
+    Compose and send an HTML-formatted internal email to the responsible department
+    requesting action and documentation on a received feedback item.
+
+    Args:
+        data: Dictionary containing feedback details, user contact, and department info.
+        business_key: Unique identifier used to retrieve the original feedback date.
+    """
 
     # compose email
     message_header = "Aufforderung zur Umsetzung von Feedback"

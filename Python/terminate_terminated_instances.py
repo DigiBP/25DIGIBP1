@@ -19,7 +19,15 @@ MESSAGE    = "PROCESS_TERMINATED"
 POLL_SEC   = 30
 STATUS_COL = 16 # column P
 
+
+
 def scan_and_terminate() -> None:
+    """
+    Scan the Excel database for feedback entries marked for termination,
+    send a termination message to the Camunda workflow engine for each,
+    and update the status in the Excel sheet to 'cancelled' upon success.
+    """
+
     db_path = Path(EXCEL_FILE)
 
     # exit quietly if the file does not exist yet

@@ -15,6 +15,14 @@ WORKER_ID = "python-worker-11"
 
 
 def send_email(data: dict, business_key):
+    """
+    Compose and send an HTML-formatted email to request clarification from the user
+    regarding their previously submitted feedback.
+
+    Args:
+        data: Dictionary containing user details, original feedback, and query content.
+        business_key: Unique identifier used to retrieve the original feedback date.
+    """
 
     # compose email
     message_header = "Nachfrage zu Ihrem Feedback"

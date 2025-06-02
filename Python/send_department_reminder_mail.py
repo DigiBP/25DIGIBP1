@@ -16,6 +16,14 @@ WORKER_ID = "python-worker-7"
 
 
 def send_email(data: dict, business_key):
+    """
+    Compose and send an HTML-formatted reminder email to the responsible department,
+    urging them to process the feedback and document actions via a linked form.
+
+    Args:
+        data: Dictionary containing feedback content, user contact, and department information.
+        business_key: Unique identifier used to retrieve the original feedback date.
+    """
 
     # compose email
     message_header = "Reminder: Aufforderung zur Umsetzung von Feedback"
