@@ -154,9 +154,22 @@ A follow-up user task prompts the Feedback Master to document the actions taken 
 For Scenarios 2 and 3 the documented measures are persisted to the database, and the submitter is informed that the feedback has been resolved.
 
 ### Review Board approval and lifecycle management  
-Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case. The web-app provides a dashboard, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminate` (signals the workflow engine that the process instance must be terminated) and `cancelled` (if the process instance was successfully termianted)**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone). See [Database & web App.md](Readme%20-%20Appendix/Database%20and%20Web%20App.md) for further details.
+Throughout the lifecycle the Feedback Master and Review Board members can monitor the case in the dedicated **Feedback Manager Web-App**.  
 
-![Feedback Manager web-app](Readme%20-%20Appendix/Pictures/webapp.png)
+The landing page provides a dashboard and lists all feedback items, grouped by their status.
+
+![Feedback-Manager dashboard](Readme%20-%20Appendix/webapp.png)
+
+Selecting a row opens a detailed view of the chosen feedback.
+
+![Detailed feedback view](Readme%20-%20Appendix/webappDetail.png)
+
+In this view the Feedback Master can set a case to **`terminate`** (e.g., when the submitter withdraws the issue).  
+The web-app then correlates a terminate message to Camunda; the workflow instance ends and the database status becomes **`cancelled`**.
+
+![Termination flow](Readme%20-%20Appendix/DataFlow_termination.png)
+
+The same screen allows to record measures taken and grant final approval, which updates the status to **`complete`**.
 
 
 
