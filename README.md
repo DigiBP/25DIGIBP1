@@ -150,7 +150,7 @@ When the submitter answers, another Make scenario ([see further details](Readme%
 The query and the reply are appended - timestamped - to the process variable `feedbackText`. Control returns to the **Classify Feedback** user task; the sub-flow may loop until all clarifications are complete. The final classification is submitted when  `needsClarification` is cleared, allowing the main flow to continue to define the appropriate scenario for the feedback.
 
 ## Scenario Handling & Closure
-A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (see [Handling Scenarios.md](Readme%20-%20Appendix/Handling%20Scenarios.md) for further details). An exclusive gateway routes accordingly:
+A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (see [Feedback Scenarios.md](Readme%20-%20Appendix/Feedback%20Scenarios.md) for further details). An exclusive gateway routes accordingly:
 
 *Scenario 1 and 4 – Non-critical items*  
 Status is set to **`review-board`**; the submitter receives an acknowledgement e-mail (gratitude in Scenario 4, processing notice in Scenario 1). The item is placed on the agenda of the bi-weekly **Feedback Review Board**.
