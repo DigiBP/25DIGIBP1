@@ -16,7 +16,8 @@ Table 1 lists every variable, its data type, the moment of creation, and its mai
 | `impactScope` | `String` | Classification Form | `isLarge`, `isSmall`, `isSpecific`; input to DMN decision. |
 | `needsClarification` | `Boolean` | Classification Form | Governs entry to the Clarification sub-flow. |
 | `immediateAction` | `Boolean` | Classification Form | Indicates whether the Feedback Master can resolve directly (Scenario 3). |
-| `query` | `String` | **Query Form** | ... |
+| `forwardToDepartment` | `String` | Classification Form | Department selected when immediate action is **No** in the Classification Form(Scenario 2). |
+| `query` | `String` | **Query Form** | Clarification question authored by the Feedback Master and shown to the submitter in the supplementary form. |
 | `queryAnswer` | `String` | **Make – submission supplementation** | Submitter’s response to a clarification request. |
 | `measuresTaken` | `String` | **Make – documentation of department measures** | Measures taken provided by the department. |
 | `scenario` | `String` | **DMN “Define Scenario”** task | `scenario1` … `scenario4`; selects the downstream path. |
@@ -36,21 +37,25 @@ Excel was therefore selected because:
 
 ## Worksheet Structure  
 
-| Column | Source variable / task | Comment |
-|--------|-----------------------|---------|
-| `businessKey` | `businessKey` | Primary key; identical to JotForm submission ID. |
-| `feedbackDate` | Auto-timestamp in **store_feedback_in_db.py** | Date of initial submission. |
-| `First Name` / `Last Name` | `firstName`, `lastName` | —— |
-| `Email` | `email` | —— |
-| `Phone` | `phone` | Optional. |
-| `Feedback Text` | `feedbackText` | Includes appended queries and answers. |
-| `Feedback Type` | `feedbackType` | Positive / Negative / Suggestion. |
-| `Urgency` | `urgency` | High / Medium / Low. |
-| `Impact Scope` | `impactScope` | Large / Small / Specific. |
-| `Department` | Dropdown in Classification Form | Only populated for Scenario 2. |
-| `Measures Taken` | `measuresTaken` (or user entry for Scenario 3) | —— |
-| `Status` | `status` | Tracks lifecycle (see Table 1). |
-| `Closed Date` | Auto-timestamp in **update_status.py** | Set when status becomes `complete` or `cancelled`. |
+| Column name in Excel | Source variable / task | Comment |
+|----------------------|------------------------|---------|
+| `businessKey` | `businessKey` (Make – initial submission) | Primary key; equals the initial JotForms `submissionID`. |
+| `feedbackDate` | Auto-timestamp in **store_feedback_in_db.py** | Date-time of first submission. |
+| `feedbackType` | `feedbackType` (Classification Form) | Codes: `ftPositive`, `ftNegative`, `ftSuggestion`. |
+| `query` | `query` (Classification Form → Query Form) | Clarification question drafted by the Feedback Master. |
+| `email` | `email` (Make – initial submission) | Submitter’s e-mail address. |
+| `phone` | `phone` (Make – initial submission) | Optional contact number. |
+| `firstName` / `lastName` | `firstName`, `lastName` | Personal details of the submitter. |
+| `feedbackText` | `feedbackText` (initial + appended) | Original feedback plus any Q&A history. |
+| `needsClarification` | `needsClarification` (Classification Form) | Boolean flag that triggers the clarification sub-flow. |
+| `urgency` | `urgency` (Classification Form) | Codes: `uHigh`, `uMedium`, `uLow`. |
+| `impactScope` | `impactScope` (Classification Form) | Codes: `isLarge`, `isSmall`, `isSpecific`. |
+| `forwardToDepartment` | Dropdown value in Classification Form | Filled only for Scenario 2. |
+| `status` | `status` (scripts & web-app) | Lifecycle marker (`open`, `clarification`, …). |
+| `measuresTaken` | `measuresTaken` (Make – department measures / Scenario 3 user task) | Corrective actions documented by the department or Feedback Master. |
+| `feedbackTypeDE` | Derived in **store_feedback_in_db.py** | German label for reporting (e.g., *Positiv*, *Negativ*). |
+| `urgencyDE` | Derived in **store_feedback_in_db.py** | German label for urgency (e.g., *Hoch*, *Mittel*, *Tief*). |
+| `impactScopeDE` | Derived in **store_feedback_in_db.py** | German label for scope (e.g., *Gross*, *Klein*, *Spezifisch*). |
 
 *(Column names match the header row in **form_data.xlsx**; any header change must be mirrored in the associated Python scripts.)*
 
@@ -67,10 +72,3 @@ Excel was therefore selected because:
 | `withdrawn` | Submitter does not responst; indicated the feedback is no longer relevant; case closed without further action. |
 | `terminate` | Feedback Master (or Review Board) requested termination of the feedbacks process isntance via the web app. |
 | `cancelled` | Workflow instance was programmatically ended after a `terminate` request. |
-
-
-
-
-
-# Web App
-
