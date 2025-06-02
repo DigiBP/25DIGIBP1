@@ -1,26 +1,75 @@
-# Process Variables
+# Process Variables  
+
+The Camunda workflow uses a concise set of process variables.  
+Table 1 lists every variable, its data type, the moment of creation, and its main purpose.
+
+| Variable | Type | Created / updated by | Purpose |
+|----------|------|----------------------|---------|
+| `businessKey` | `String` | **Make – initial submission** (set to JotForm `submissionID`) | Unique identifier for correlating all subsequent messages. |
+| `email` | `String` | Make – initial submission | Submitter contact information. |
+| `phone` | `String` | Make – initial submission | Optional contact channel for clarifications. |
+| `firstName` | `String` | Make – initial submission | —— |
+| `lastName` | `String` | Make – initial submission | —— |
+| `feedbackText` | `String` | Make – initial submission → appended by Clarification loop | Holds the original feedback plus any query/answer history (timestamped). |
+| `feedbackType` | `String` | **Classification Form** (Camunda user task) | Categorical label: `ftPositive`, `ftNegative`, `ftSuggestion`. |
+| `urgency` | `String` | Classification Form | `uHigh`, `uMedium`, `uLow`; drives CEO escalation timer. |
+| `impactScope` | `String` | Classification Form | `isLarge`, `isSmall`, `isSpecific`; input to DMN decision. |
+| `needsClarification` | `Boolean` | Classification Form | Governs entry to the Clarification sub-flow. |
+| `immediateAction` | `Boolean` | Classification Form | Indicates whether the Feedback Master can resolve directly (Scenario 3). |
+| `queryAnswer` | `String` | **Make – submission supplementation** | Submitter’s response to a clarification request. |
+| `measuresTaken` | `String` | **Make – documentation of department measures** | Corrective actions provided by the department. |
+| `scenario` | `String` | **DMN “Define Scenario”** task | `scenario1` … `scenario4`; selects the downstream path. |
+| `status` | `String` | Python workers & Web-App | Lifecycle marker: `open`, `clarification`, `in_department`, `review-board`, `complete`, `withdrawn`, `terminate`, `cancelled`. |
+| `tenantId` | `String` | All Make scenarios | Multitenancy flag (`25DIGIBP12`). |
+
+---
+
+# Database (Excel Workbook)  
+
+SVK required that feedback data remain accessible to non-technical staff without introducing additional database infrastructure.  
+Excel was therefore selected because:
+
+* **User familiarity** – employees already analyse data in Excel; no training is needed.  
+* **Low volume** – annual feedback volume is below 500 entries, so concurrency and transaction hazards are negligible.  
+* **Cost efficiency** – the organisation’s MS 365 licence covers Excel, avoiding extra DB licences or hosting fees.  
+* **Audit acceptance** – ISO 9001 auditors recognise version-controlled XLSX files as valid evidence (§7.5, documented information).  
+
+## Worksheet Structure  
+
+| Column | Source variable / task | Comment |
+|--------|-----------------------|---------|
+| `businessKey` | `businessKey` | Primary key; identical to JotForm submission ID. |
+| `feedbackDate` | Auto-timestamp in **store_feedback_in_db.py** | Date of initial submission. |
+| `First Name` / `Last Name` | `firstName`, `lastName` | —— |
+| `Email` | `email` | —— |
+| `Phone` | `phone` | Optional. |
+| `Feedback Text` | `feedbackText` | Includes appended queries and answers. |
+| `Feedback Type` | `feedbackType` | Positive / Negative / Suggestion. |
+| `Urgency` | `urgency` | High / Medium / Low. |
+| `Impact Scope` | `impactScope` | Large / Small / Specific. |
+| `Department` | Dropdown in Classification Form | Only populated for Scenario 2. |
+| `Measures Taken` | `measuresTaken` (or user entry for Scenario 3) | —— |
+| `Status` | `status` | Tracks lifecycle (see Table 1). |
+| `Closed Date` | Auto-timestamp in **update_status.py** | Set when status becomes `complete` or `cancelled`. |
+
+*(Column names match the header row in **form_data.xlsx**; any header change must be mirrored in the associated Python scripts.)*
+
+---
+
+## Status Values  
+
+| Status | Meaning in lifecycle |
+|--------|----------------------|
+| `open` | Feedback received, initial record saved; awaiting classification. |
+| `clarification` | Feedback Master has requested additional information from the submitter; process is paused. |
+| `review-board` | Case is on the agenda for the bi-weekly Review Board meeting (Scenarios 1 & 4, or after departmental measures). |
+| `complete` | Review Board approved the outcome; case closed. |
+| `withdrawn` | Submitter does not responst; indicated the feedback is no longer relevant; case closed without further action. |
+| `terminate` | Feedback Master (or Review Board) requested termination of the feedbacks process isntance via the web app. |
+| `cancelled` | Workflow instance was programmatically ended after a `terminate` request. |
 
 
 
-# Database
-
-- Camunda Engine Persistence: The solution did not introduce a separate relational database for process data. All feedback case information (submitted fields, process variables, task assignments, etc.) is stored in Camunda’s internal database as part of the workflow state. This built-in persistence guarantees that process context is saved reliably (with transaction support) and can be queried via Camunda’s history if needed. It sufficed for ensuring data durability and auditability within the scope of this project.
-
-- Volume and Complexity: The expected volume of feedback cases and associated data is moderate, and the querying requirements are relatively simple (mostly tracking the status of a case or reviewing its details). Given this scope, using a full-fledged external database for application data was not strictly necessary. Camunda’s history service and task list already provide insights into each case’s progress and outcome, which covers the fundamental needs.
-
-- Excel as Output Log: To facilitate easy access for stakeholders and to have a consolidated report of all feedback, an Excel file is used as a lightweight data store for output. At process completion, key information (such as feedback ID, submitter name, summary of feedback, department measures, dates, and outcome) is written to an Excel spreadsheet. This approach was chosen instead of a custom database or UI for reporting because stakeholders are comfortable with Excel for reviewing and filtering data. It provides a quick way to share results (e.g., the Feedback Master can email the Excel log periodically) without additional software.
-
-- Justification: Using Camunda’s persistence plus an Excel report strikes a balance between complexity and functionality. A traditional database and custom reporting UI were beyond the project’s time constraints and were not required to meet the core requirements. By avoiding unnecessary infrastructure, we reduced maintenance overhead. If the process expands in the future (e.g., a much higher volume of feedback or more complex analytics needs), the data export to a proper database can be revisited. For now, the combination of Camunda’s internal storage (for operational needs) and an Excel-based log (for managerial reporting) meets all requirements with minimal complexity.
-
-
-## Status Coventions
-
-| Status value | Meaning in lifecycle          | 
-| ------------ | ----------------------------- | 
-| `open`       | Initial, still running        | 
-| `withdrawn`  | User withdrew feedback        | 
-| `terminate`  | **Marker**: request full stop | 
-| `cancelled`  | Instance already killed       | 
 
 
 # Web App
