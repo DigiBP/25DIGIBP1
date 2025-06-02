@@ -1,11 +1,26 @@
-# MAKE Scenarios
+# Make (Integromat) Scenarios  
 
-Integration between Camunda and external forms (JotForm) is handled through three Make scenario blueprints provided (“Make - initial submission.json”, “Make - submission supplementation.json”, and “Make - Documentation of department measures.json”). 
+Three Make blueprints bridge **JotForm** and **Camunda 7**:
 
-Each Make scenario serves as a bridge that triggers on a specific event, transforms the data as needed, and acts by invoking the Camunda REST API or related services. The following table summarizes the Make scenarios with their trigger, action and camunda element, to which the request is posted:
+1. **Webhook trigger** – each scenario starts with *watchForSubmissions*, listening to a dedicated JotForm.  
+2. **Payload assembly** – a `json:CreateJSON` step formats the data into Camunda’s message schema:
 
-| Scenario name | Trigger | Transformation | Action |
-|---------------|---------|-------------|---------|
-| **Initial Feedback Submission** | New feedback submitted via JotForm (webhook trigger on form submission of the initial feedback form). | Parses the form fields (feedback text, category, urgency, attachments, etc.) and prepares process variables. For example, it may map form fields to JSON payload fields expected by Camunda (e.g., feedbackText, category, urgency). | Calls Camunda’s REST API to start a new process instance for the feedback case, injecting the parsed form data as process variables. This initiates the BPMN workflow in Camunda for the submitted feedback. |
-| **Stakeholder Submission Supplementation** | Supplementary information submitted via JotForm (triggered when a user submits the clarification form for additional info). | Identifies the corresponding ongoing process instance (e.g., via a business key or reference ID included in the form submission) and formats the additional data provided. For instance, the scenario might extract the clarification text or uploaded files and associate them with the correct case. | Invokes Camunda’s message correlation API to resume the waiting process instance, delivering the supplementary data to the process. This triggers the BPMN event that continues the workflow now that clarification has been received (unblocking the previously waiting state). |
-| **Documentation of Department Measures** | Department action plan submitted via JotForm (triggered each time a department representative submits the measures form). | Transforms the raw form input into structured data and determines which feedback case and department the submission belongs to. This could involve extracting a case identifier and department ID from hidden form fields or the submission metadata. The scenario may also consolidate the measure details (e.g., action description, responsible person, expected date of implementation) into a JSON | Calls the Camunda API to correlate a message or complete an external task corresponding to that department’s response. In practice, this signals to the Camunda process that a particular department’s task is completed with the provided data. The process then stores the department’s measure and proceeds (or waits for other departments if applicable).|
+   ```json
+   {
+     "tenantId": "25DIGIBP12",
+     "businessKey": "<JotForm-submission-ID>",
+     "messageName": "<CAMUNDA_MESSAGE>",
+     "processVariables": { ... }
+   }
+3. **HTTP call** – the JSON is posted to /engine-rest/message, correlating either to a start event (initial submission) or to an intermediate message catch event (supplement / department measures).
+
+
+| Scenario (blueprint file)                                                                  | Trigger (JotForm event)                   | Action                                   | Process variables populated                               | Camunda global message reference                 |
+| ------------------------------------------------------------------------------------------ | ----------------------------------------- | ---------------------------------------- | --------------------------------------------------------- | ------------------------------- |
+| **Initial Feedback Submission**<br>`Make – initial submission.json`                        | Submitter sends the first feedback form   | Starts a new process instance            | `email`, `phone`, `lastName`, `firstName`, `feedbackText` | `JOTFORM_SUBMITTED`             |
+| **Submission Supplementation**<br>`Make – submission supplementation.json`                 | Submitter answers a query | Correlates the waiting *Receive Task* "Wait for Stakeholder Response" | `queryAnswer`                   | `JOTFORM_SUPPLEMENTED`          |
+| **Department Measure Documentation**<br>`Make – Documentation of department measures.json` | Department submits its measure documentation form   | Correlates the waiting *Receive Task* "Wait for Documentation of Measures Taken" for the department response | `measuresTaken`            | `DEPARTMENT_MEASURES_SUBMITTED` |
+
+> **Note** – All scenarios assign `tenantId = 25DIGIBP12`.  
+> *Initial Feedback Submission* uses the JotForm `submissionID` as the `businessKey`.  
+> *Submission Supplementation* and *Department Measure Documentation* contain a hidden field `Feedback ID`, pre-populated by the Camunda task **Prepare Feedback Supplementation Form** with that same business key, ensuring every message correlates to the correct process instance.
