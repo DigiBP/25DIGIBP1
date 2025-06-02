@@ -260,7 +260,7 @@ Professors and Coaches can evaluate the flow without local installation:
 
 1. **Check Deployments** on Camunda Engine; the team has deployed all Camunda artefacts with **tenant ID `25DIGIBP12`** which is ready for use.
 2. <a href="https://deepnote.com/workspace/maierk-73504f8c-d324-4df7-a9e9-437921c573fe/project/SVK-Feedback-Management-System-695b966e-0260-420f-9d51-bf90028ebc3a/notebook/Launcher-b9aa3c2eb3864129a944f40ad0bac8cb?utm_source=share-modal&utm_medium=product-shared-content&utm_campaign=notebook&utm_content=695b966e-0260-420f-9d51-bf90028ebc3a">**Open Deepnote project**</a> provided by the team; you should have received an invitation via email.   
-3. **Run the import script**; it imports necessary packages to execute the scripts.
+3. **Run the import script**; it imports necessary packages to execute the service workers and the web app.
 4. **Run the worker script**; it starts the Python external-task workers.  
 5. **Submit a test form** via the public JotForm link (Form #1).
 6. **Act as Feedback Master** in Camunda Cockpit: classify the entry and optionally create a clarification query.  
