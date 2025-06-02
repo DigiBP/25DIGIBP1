@@ -1,8 +1,8 @@
 # Make (Integromat) Scenarios  
 
-Three Make blueprints bridge **JotForm** and **Camunda 7**:
+Three Make blueprints bridge **JotForm** and **Camunda**:
 
-1. **Webhook trigger** – each scenario starts with *watchForSubmissions*, listening to a dedicated JotForm.  
+1. **Webhook trigger** – each scenario starts with *watchForSubmissions*, authenticated via the JotForm API key and bound to the specific form so that only submissions from that form fire the scenario. 
 2. **Payload assembly** – a `json:CreateJSON` step formats the data into Camunda’s message schema:
 
    ```json
@@ -14,6 +14,7 @@ Three Make blueprints bridge **JotForm** and **Camunda 7**:
    }
 3. **HTTP call** – the JSON is posted to /engine-rest/message, correlating either to a start event (initial submission) or to an intermediate message catch event (supplement / department measures).
 
+The three blueprints apply this pattern as summarised below:
 
 | Scenario (blueprint file)                                                                  | Trigger (JotForm event)                   | Action                                   | Process variables populated                               | Camunda global message reference                 |
 | ------------------------------------------------------------------------------------------ | ----------------------------------------- | ---------------------------------------- | --------------------------------------------------------- | ------------------------------- |
