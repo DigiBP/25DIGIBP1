@@ -254,9 +254,11 @@ Full instructions: [Docker.md](Readme%20-%20Appendix/Docker.md) and configuratio
 
 ---
 
-# Testing
+# Testing (University / Coaches)
 
-Professors and Coaches can easily evaluate the flow without local installation:
+The steps below allow lecturers and reviewers to exercise the full workflow **without installing any local infrastructure**.  
+All back-end artefacts are already deployed to tenant `25DIGIBP12` on the provided Camunda engine; the Deepnote project simply boots the Python workers and the web application.
+
 
 1. **Check Deployments** on Camunda Engine; the team has deployed all Camunda artefacts with **tenant ID `25DIGIBP12`** which is ready for use.
 2. <a href="https://deepnote.com/workspace/maierk-73504f8c-d324-4df7-a9e9-437921c573fe/project/SVK-Feedback-Management-System-695b966e-0260-420f-9d51-bf90028ebc3a/notebook/Launcher-b9aa3c2eb3864129a944f40ad0bac8cb?utm_source=share-modal&utm_medium=product-shared-content&utm_campaign=notebook&utm_content=695b966e-0260-420f-9d51-bf90028ebc3a">**Open Deepnote project**</a> provided by the team; you should have received an invitation via email.   
@@ -275,5 +277,37 @@ All artefact-specific deployment notes are summarised above; for schema details 
 [Process Variables and Database.md](Readme%20-%20Appendix/Process%20Variables%20and%20Database.md).
 
 
+
+# Testing (University / Coaches)  
+
+The test harness is hosted in a Deepnote project so reviewers can evaluate the full workflow without installing local infrastructure.  
+Camunda artefacts already run on Tenant **`25DIGIBP12`**, JotForms are available and Make scenarios are running; your only task is to execute the Python workers (and later the web app) from DeepNote.
+
+## 1 Testing-Environment Setup  
+
+| Step | Action |
+|------|--------|
+| 1 | <a href="https://deepnote.com/workspace/maierk-73504f8c-d324-4df7-a9e9-437921c573fe/project/SVK-Feedback-Management-System-695b966e-0260-420f-9d51-bf90028ebc3a/notebook/Launcher-b9aa3c2eb3864129a944f40ad0bac8cb?utm_source=share-modal&utm_medium=product-shared-content&utm_campaign=notebook&utm_content=695b966e-0260-420f-9d51-bf90028ebc3a">**Open Deepnote project**</a> provided by the team; you should have received an invitation via email. |
+| 2 | In the sidebar, select **`Launcher`** and run the first script (import script).<br>Then run the worker script to launch all Python external-task workers. |
+| 3 | Keep this kernel running while you execute the functional test below. |
+
+> **Deepnote limitation:** only **one** notebook kernel can run at a time. You will later stop the workers and start the web-app notebook.
+
+## 2 Functional Test Walk-Through  
+
+1. **Submit feedback** — open the public JotForm “Initial Feedback”, fill in your own e-mail, and press *Submit*.  
+2. **Classify** — log into Camunda Cockpit (tenant `25DIGIBP12`, user *feedback-master*), open the new task, and complete the classification form.  
+   * Optionally tick **needsClarification** and author a query to see the clarification loop.  
+3. **Clarification loop** (conditional) — check your mailbox, follow the Supplementation link, answer the query, and submit.  
+4. **Scenario branching**  
+   * *Scenario 3* → in Camunda Tasklist finish **Document Measures**.  
+   * *Scenario 2* → log in with test account **svk-dept-demo@outlook.com / SvkTest2025!** and submit the Department Measures form.  
+5. **Stop the worker notebook** — Deepnote › *Kernel ▸ Restart & Clear* (workers shut down).  
+6. **Launch web app** — open **`02_start_webapp.ipynb`**, run the single cell, and click the displayed URL.  
+7. **Approve or terminate** — locate your case in the web app:  
+   * Click **Approve** to set status `complete`, **or**  
+   * Click **Terminate** to set status `terminate`; then re-run the worker notebook so Camunda processes the termination message.
+
+For variable definitions and Excel column mapping see [Process Variables, Database and Web App.md](Readme%20-%20Appendix/Process%20Variables%2C%20Database%20and%20Web%20App.md).
 
 
