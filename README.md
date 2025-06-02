@@ -89,25 +89,26 @@ In summary, the current feedback handling process at SVK is characterized by a l
 # To-Be Process
 The **To-Be process** operationalises SVK’s feedback management as an executable BPMN 2.0 model. The whole workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. Its logic can be summarised in five stages:
 
-1. **Intake** – A stakeholder submits feedback via JotForm; a Make scenario starts a Camunda instance and stores the record with status `open`.  
-2. **Classification** – The Feedback Master reviews the submission, assigns type, urgency, and impact scope, and decides whether clarification or departmental involvement is required.  
-3. **Clarification (conditional)** – If additional information is needed, the process launches an asynchronous query–response loop with the submitter; status switches to `clarification` until the loop is closed or withdrawn.  
-4. **Scenario handling** – A DMN decision returns one of four scenarios which result in:  
+1. [**Intake**](#intake) – A stakeholder submits feedback via Jotform; a Make scenario starts a Camunda instance and stores the record with status `open`.  
+2. [**Classification**](#classification) – The Feedback Master reviews the submission, assigns type, urgency, and impact scope, and decides whether clarification or departmental involvement is required.  
+3. [**Clarification (conditional)**](#Clarification) – If additional information is needed, the process launches an asynchronous query–response loop with the submitter; status switches to `clarification` until the loop is closed or withdrawn.  
+4. [**Scenario handling**](#scenario-handling--closure)– A DMN decision returns one of four scenarios which result in:  
    * feedback forwarded to the bi-weekly Review Board (`review-board`), 
    * feedback forwarded to applicable department for resolution, or  
    * immediate resolution by the Feedback Master   
-5. **Closure** – Where applicable (Scenarios 2 and 3) the documented measures are captured; in every path the workflow writes the closing entry to the Excel log, notifies the submitter, and transfers the case to the newly developed Feedback-Manager web app, where it awaits final Review Board approval.
+5. [**Closure**](#scenario-handling--closure) – Where applicable (Scenarios 2 and 3) the documented measures are captured; in every path the workflow writes the closing entry to the Excel log, notifies the submitter, and transfers the case to the newly developed Feedback-Manager web app, where it awaits final Review Board approval.
+6. [**Feedback termination and lifecycle management**](#Feedback-termination-and-lifecycle-management) Throughout the process, the Feedback Master and Review Board track the case in the Web-App. As the last step, feedback is closed in the app.
 
 The following operational process model provides the holistic visual representation of these stages.
 
 ![To-Be Process Model](Readme%20-%20Appendix/Pictures/To-Be%20Process%20Model.png)
 
 ## Intake
-A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
+A new case begins when a stakeholder submits feedback via a **Jotform** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) which instantiates a Camunda process instance; the Jotform *submission ID* (created by Jotform on submission) serves as the **business key**.
 
 ![Initial data flow](Readme%20-%20Appendix/Pictures/DataFlow_initialSubmission.png)
 
-Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`** (see [Process Variables, Database and Web App](Readme%20-%20Appendix/Process%20Variables,%20Database%20and%20Web%20App.md) for further details to statuses). A confirmation e-mail is dispatched to the submitter.
+Immediately after instantiation, the feedback is persisted in SVK’s central data store - an Excel workbook on SVK's local server - and assigned the status **`open`** (see [Process Variables and Database](Readme%20-%20Appendix/Process%20Variables%20and%20Database.md) for further details to statuses). A confirmation e-mail is dispatched to the submitter.
 
 ![Database save + confirmation](Readme%20-%20Appendix/Pictures/Dataflow_initialSubmissionSaveConfirm.png)
 
@@ -135,7 +136,7 @@ An **exclusive gateway** then directs the token either to a *Clarification* sub-
 ## Clarification
 If clarification is required, Camunda generates a new task for the Feedback Master to phrase a query to the submitter.  
 The query text is added to the database and the status changes to **`clarification`**.  
-A pre-filled JotForm - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
+A pre-filled Jotform - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
 
 ![Querying the submitter](Readme%20-%20Appendix/Pictures/DataFlow_querying.png)
 
@@ -150,7 +151,7 @@ When the submitter answers, another Make scenario ([see further details](Readme%
 The query and the reply are appended - timestamped - to the process variable `feedbackText`. Control returns to the **Classify Feedback** user task; the sub-flow may loop until all clarifications are complete. The final classification is submitted when  `needsClarification` is cleared, allowing the main flow to continue to define the appropriate scenario for the feedback.
 
 ## Scenario Handling & Closure
-A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (see [Handling Scenarios.md](Readme%20-%20Appendix/Handling%20Scenarios.md) for further details). An exclusive gateway routes accordingly:
+A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (see [Feedback Scenarios.md](Readme%20-%20Appendix/Feedback%20Scenarios.md) for further details). An exclusive gateway routes accordingly:
 
 *Scenario 1 and 4 – Non-critical items*  
 Status is set to **`review-board`**; the submitter receives an acknowledgement e-mail (gratitude in Scenario 4, processing notice in Scenario 1). The item is placed on the agenda of the bi-weekly **Feedback Review Board**.
@@ -158,7 +159,7 @@ Status is set to **`review-board`**; the submitter receives an acknowledgement e
 ![Scenario 1 & 4 path](Readme%20-%20Appendix/Pictures/Dataflow_scenario1Scenario4.png)
 
 *Scenario 2 – Department measure required*  
-A **Department Measure Documentation** JotForm is pre-populated with `feedbackText` and the submitters contact data (provided with the initial submission form). An e-mail with the form link is sent to the department selected earlier.  
+A **Department Measure Documentation** Jotform is pre-populated with `feedbackText` and the submitters contact data (provided with the initial submission form). An e-mail with the form link is sent to the department selected earlier.  
 If no response is received within **3 days**, Camunda sends cyclic reminders (3-day interval) until submission arrives. If the department does not respond, feedback review board will get aware of the case.
 
 ![Receive department measure](Readme%20-%20Appendix/Pictures/DataFlow_ReceiveDepartmentMeasureForm.png)
@@ -190,6 +191,24 @@ The web-app then correlates a terminate message to Camunda; the workflow instanc
 
 The detailed view also allows to record measures taken and grant final approval, which updates the status to **`complete`**.
 
+
+## Further Documentation  
+
+For implementation details that exceed the scope of this overview, consult the companion documents listed below. Each file resides in *25DIGIBP1/Readme – Appendix/* and expands a specific aspect of the solution.
+Use the links below to open each file directly:
+
+| File Name | Scope |
+|------------|-------|
+| [**Classification Guardrails.md**](Readme%20-%20Appendix/Classification%20Guardrails.md) | Decision criteria for `feedbackType`, `urgency`, and `impactScope`. |
+| [**Feedback Scenarios.md**](Readme%20-%20Appendix/Feedback%20Scenarios.md) | Rationale and routing logic of the DMN *Define Scenario* table. |
+| [**Jotform.md**](Readme%20-%20Appendix/Jotform.md) | Public URLs, and cloning instructions. |
+| [**Make Scenarios.md**](Readme%20-%20Appendix/Make%20Scenarios.md) | Description of the Make blueprints and cloning instructions. |
+| [**Process Variables and Database.md**](Readme%20-%20Appendix/Process%20Variables%20and%20Database.md) | Complete list of process variables, database schema, and status semantics. |
+| [**Python (Service Tasks).md**](Readme%20-%20Appendix/Python%20(Service%20Tasks).md) | Mapping of each external-task topic to its Python script with a functional summary. |
+| [**Role Definitions.md**](Readme%20-%20Appendix/Role%20Definitions.md) | Formal responsibilities and authority boundaries for Feedback Master and Review Board. |
+| [**Docker.md**](Readme%20-%20Appendix/Docker.md) | Guide on how to perform the local deployment. |
+
+These sub-documents provide further insights required to replicate, maintain, or extend this solution.
 
 
 
