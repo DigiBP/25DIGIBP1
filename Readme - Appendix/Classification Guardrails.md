@@ -66,10 +66,10 @@ Assess whether the required action can be carried out by the Feedback-Master:
 If Feedback-Master can not take action it is assesed who would be responsible.
 
 - **Yes**  
-  You have the professional competence and authority to respond directly and take the necessary actions.
+  The Feedback-Master has the professional competence and authority to respond directly and take the necessary actions.
 
 - **No**  
-  The feedback falls outside your area of expertise or authority and should be forwarded to the responsible department or individual.
+  The feedback falls outside the Feedback-Masters area of expertise or authority and should be treated by to the responsible department.
 
 Mind that only in urgent and/ or large impact cases the departement gets a direct notification. Otherwise the feedback will be in the Review Boards backlog and treated in the next meeting. (See DMN table)
 
