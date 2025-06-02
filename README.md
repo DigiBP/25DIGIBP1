@@ -53,7 +53,7 @@ The overarching goal is to **digitally transform SVK’s feedback management** b
 - A **central role (Feedback Master)** responsible for classification, routing, and process monitoring
 - A **Review Board** that evaluates feedback outcomes biweekly to promote continuous improvement
 - Structured, scenario-based process logic that ensures consistency
-- Full audit-traceability through Camunda’s workflow engine
+- Full audit-traceability
 - Transparency and responsiveness for internal and external stakeholders
 
 
