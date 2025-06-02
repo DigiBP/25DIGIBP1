@@ -89,7 +89,7 @@ In summary, the current feedback handling process at SVK is characterized by a l
 # To-Be Process
 The **To-Be process** operationalises SVK’s feedback management as an executable BPMN 2.0 model. The whole workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. Its logic can be summarised in five stages:
 
-1. **Intake** – A stakeholder submits feedback via Jotform; a Make scenario starts a Camunda instance and stores the record with status `open`.  
+1. [Intake](#intake) **Intake** – A stakeholder submits feedback via Jotform; a Make scenario starts a Camunda instance and stores the record with status `open`.  
 2. **Classification** – The Feedback Master reviews the submission, assigns type, urgency, and impact scope, and decides whether clarification or departmental involvement is required.  
 3. **Clarification (conditional)** – If additional information is needed, the process launches an asynchronous query–response loop with the submitter; status switches to `clarification` until the loop is closed or withdrawn.  
 4. **Scenario handling** – A DMN decision returns one of four scenarios which result in:  
