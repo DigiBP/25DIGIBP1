@@ -264,8 +264,8 @@ Full image and configuration details:
 
 # Testing (University / Coaches)  
 
-The test harness is hosted in a Deepnote project so reviewers can evaluate the full workflow without installing local infrastructure.  
-Camunda artefacts already run on Tenant **`25DIGIBP12`**, JotForms are available and Make scenarios are running; your only task is to execute the Python workers (and later the web app) from DeepNote.
+A test environment is hosted in a DeepNote project so reviewers can evaluate the full workflow without installing local infrastructure.  
+Camunda artefacts already run on the provided Camunda Enginge on Tenant **`25DIGIBP12`**, JotForms are available and Make scenarios are running; your only task is to execute the Python workers (and later the web app) from DeepNote.
 
 ## 1 Testing-Environment Setup  
 
