@@ -1,4 +1,4 @@
-#Process Variables  
+# Process Variables  
 
 The Camunda workflow uses a concise set of process variables.  
 Table 1 lists every variable, its data type, the moment of creation, and its main purpose.
@@ -25,7 +25,7 @@ Table 1 lists every variable, its data type, the moment of creation, and its mai
 
 ---
 
-#Database (Excel Workbook)  
+# Database (Excel Workbook)  
 
 SVK required that feedback data remain accessible to non-technical staff without introducing additional database infrastructure.  
 Excel was therefore selected because:
@@ -34,7 +34,7 @@ Excel was therefore selected because:
 * **Low volume** – annual feedback volume (currently) is below 100 entries, so concurrency and transaction hazards are negligible.  
 * **Cost efficiency** – the organisation’s MS 365 licence covers Excel, avoiding extra DB licences or hosting fees.   
 
-##Worksheet Structure  
+## Worksheet Structure  
 
 | Column | Source variable / task | Comment |
 |--------|-----------------------|---------|
@@ -56,7 +56,7 @@ Excel was therefore selected because:
 
 ---
 
-##Status Values  
+## Status Values  
 
 | Status | Meaning in lifecycle |
 |--------|----------------------|
