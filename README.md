@@ -153,7 +153,7 @@ A follow-up user task prompts the Feedback Master to document the actions taken 
 
 For Scenarios 2 and 3 the documented measures are persisted to the database, and the submitter is informed that the feedback has been resolved.
 
-### Review Board approval and lifecycle management  
+### Feedback termination and lifecycle management  
 Throughout the lifecycle the Feedback Master and Review Board members can monitor the case in the dedicated **Feedback Manager Web-App**.  
 
 The landing page provides a dashboard and lists all feedback items, grouped by their status.
