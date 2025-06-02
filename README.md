@@ -154,9 +154,11 @@ A follow-up user task prompts the Feedback Master to document the actions taken 
 For Scenarios 2 and 3 the documented measures are persisted to the database, and the submitter is informed that the feedback has been resolved.
 
 ### Review Board approval and lifecycle management  
-Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case. The web-app provides a dashboard, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminate` and `cancelled`**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone). See [Database & web App.md](Readme%20-%20Appendix/Database%20and%20Web%20App.md) for further details.
+Throughout the lifecycle the Feedback Master (Camunda Tasklist) and Review Board members (dedicated **Feedback Manager Web-App**) can monitor the case. The web-app provides a dashboard, allows the Review Board to approve a case (**status `complete`**) or terminate it (**status `terminate` (signals the workflow engine that the process instance must be terminated) and `cancelled` (if the process instance was successfully termianted)**), and supports ad-hoc data entry if resolution occurred via another channel (e.g., phone). See [Database & web App.md](Readme%20-%20Appendix/Database%20and%20Web%20App.md) for further details.
 
 ![Feedback Manager web-app](Readme%20-%20Appendix/Pictures/webapp.png)
+
+
 
 
 
