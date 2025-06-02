@@ -14,7 +14,7 @@ Three Make blueprints bridge **JotForm** and **Camunda**:
    }
 3. **HTTP call** – the JSON is posted to /engine-rest/message, correlating either to a start event (initial submission) or to an intermediate message catch event (supplement / department measures).
 
-The three blueprints apply this pattern as summarised below:
+All three blueprints apply this pattern as summarised below:
 
 | Scenario (blueprint file)                                                                  | Trigger (JotForm event)                   | Action                                   | Process variables populated                               | Camunda global message reference                 |
 | ------------------------------------------------------------------------------------------ | ----------------------------------------- | ---------------------------------------- | --------------------------------------------------------- | ------------------------------- |
