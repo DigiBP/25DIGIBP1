@@ -7,8 +7,6 @@ For every form you will find a screenshot of the form, the public URL, and the p
 
 ## 1&nbsp;· Initial Feedback Submission  
 
-![Initial Submission Form](Readme%20-%20Appendix/Pictures/Jotform_InitialSubmission.png)  
-
 **Form URL:** <https://form.jotform.com/251255809932058>  
 
 **Purpose:** Captures the stakeholder’s original feedback together with basic contact details; the submission ID becomes the Camunda `businessKey`.  
@@ -17,8 +15,6 @@ For every form you will find a screenshot of the form, the public URL, and the p
 
 ## 2&nbsp;· Feedback Supplementation  
 
-![Supplementation Form](Readme%20-%20Appendix/Pictures/Jotform_Supplementation.png)  
-
 **Form URL:** <https://form.jotform.com/251256180381049>  
 
 **Purpose:** Allows the stakeholder to provide additional information requested by the Feedback Master; pre-filled with the initial feedback and the query.  
@@ -26,8 +22,6 @@ For every form you will find a screenshot of the form, the public URL, and the p
 ---
 
 ## 3&nbsp;· Department Measure Documentation  
-
-![Department Measures Form](Readme%20-%20Appendix/Pictures/Jotform_DepartmentMeasures.png)  
 
 **Form URL:** <https://form.jotform.com/251324255618051>  
 
