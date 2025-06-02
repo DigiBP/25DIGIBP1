@@ -105,6 +105,7 @@ The following operational process model provides the holistic visual representat
 
 ## Demovideo
 The video demonstrates the process using a happy path scenario. Please note that not all functionalities – such as clarification steps – are included.
+
 https://github.com/user-attachments/assets/c1368ce6-763b-48c5-84a6-0831ab784a37
 
 
