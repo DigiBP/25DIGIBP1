@@ -34,15 +34,15 @@ For every form you will find a screenshot of the form, the public URL, and the p
 To clone these forms into another JotForm workspace, follow the official *Import / Clone* steps[^1]:
 
 1. **Open My Forms › Create Form › Import**  
-   ![Clone Step 1](Readme%20-%20Appendix/Pictures/Jotform_CloneStep1.png)  
 
 2. **Choose “From a Webpage”, paste the Form URL, and confirm**  
-   ![Clone Step 2](Readme%20-%20Appendix/Pictures/Jotform_CloneStep2.png)  
 
-3. The form appears in *My Forms* with a new ID; open it and check that *all field properties* (especially **Unique Name / Field ID**) match the originals.  
+3. The form appears in *My Forms* with a new ID; open it and check that *all field properties* (especially **Unique Name / Field ID**) match the originals.
+
+   ![Clone Steps](Readme%20-%20Appendix/Pictures/Jotform_clone.gif)  
 
 > **Important:** Do **not** rename or delete fields. Any change to a field’s *Unique Name* alters its ID, breaking the mappings in Python scripts and Make scenarios. If you must modify a field, update the corresponding variable names in:
 > * Python external-task scripts  
 > * `json:CreateJSON` mappers inside the three Make blueprints
 
-[^1]: JotForm help article “Export and Import Forms” <https://www.jotform.com/answers/1459343-export-and-import-forms>
+[^1]: JotForm help article “How can I export a form and import it into another jotform account?” <https://www.jotform.com/answers/8033071-how-can-i-export-a-form-and-import-it-into-another-jotform-account>
