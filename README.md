@@ -75,6 +75,9 @@ Historically, stakeholders submitted feedback by e-mail, phone or paper. Each un
 - Compliance with ISO and internal quality goals
 - Alignment with best practices in business process management (BPM)
 
+## Method
+AI (ChatGPT) was used as support for coding, writing and developing this solution. Despite the support, our team has dedicated significant effort to developing this result.
+
 
 
 # To-Be Process
