@@ -41,7 +41,8 @@ To clone these forms into another JotForm workspace, follow the official *Import
 
 
 ![Clone Steps](Readme%20-%20Appendix/Pictures/Jotform_clone.gif)
-![Clone Steps]([Readme%20-%20Appendix/Pictures/Jotform_clone.gif](https://www.jotform.com/uploads/forum/SarahF_/1697050457_6526ef5987586_Monosnap-screencast-2023-10-11-13-52-25.gif))
+
+![Clone Steps](https://www.jotform.com/uploads/forum/SarahF_/1697050457_6526ef5987586_Monosnap-screencast-2023-10-11-13-52-25.gif)
 
 
 
