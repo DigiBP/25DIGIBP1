@@ -100,7 +100,7 @@ Forwarding to the applicable department</description>
           <text>"isLarge"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0v52zic">
-          <text></text>
+          <text>"uMedium", "uLow"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0c958ee">
           <text>"fmNo"</text>
@@ -116,7 +116,7 @@ Forwarding to the applicable department</description>
           <text>"ftNegative", "ftSuggestion"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0bu7g0b">
-          <text></text>
+          <text>"isSmall", "isSpecific"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0yf88mk">
           <text>"uHigh"</text>
