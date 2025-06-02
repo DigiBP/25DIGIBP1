@@ -167,7 +167,7 @@ Selecting a row opens a detailed view of the chosen feedback.
 In this view the Feedback Master can set a case to **`terminate`** (e.g., when the submitter withdraws the issue).  
 The web-app then correlates a terminate message to Camunda; the workflow instance ends and the database status becomes **`cancelled`**.
 
-![Termination flow](Readme%20-%20Appendix/Pictures/DataFlow_Termination.png)
+![Event Sub Process: Termination](Readme%20-%20Appendix/Pictures/DataFlow_Termination.png)
 
 The same screen allows to record measures taken and grant final approval, which updates the status to **`complete`**.
 
