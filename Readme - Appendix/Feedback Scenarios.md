@@ -12,10 +12,10 @@ Different Handling Scenarios for different types of feedback have been defined. 
 
 - **Scenario 4**: Positive feedback (e.g., praise or kudos) is stored in the Review Board backlog for potential sharing and celebration during regular review meetings.
 
-  ---- SCREENSHOT OF BPMN part (already uploaded)
-
+Say that the project team has also created guardrails which support the feedback master on classifying a feedback (Classification Guardrails.md)
 
 Explain the follow up logic with the review board. 
-  The review board approves every feedback by using the Feedback Manager (web app). 
+The review board approves every feedback by using the Feedback Manager (web app). 
+Thereby, it is ensured that the same persons keep track of the feedback over time and it is ensured that issues and patterns can be detected directly and feedback is generally recognized.
 
 
