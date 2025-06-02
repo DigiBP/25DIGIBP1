@@ -8,7 +8,7 @@ Three Make blueprints bridge **Jotform** and **Camunda**:
    ```json
    {
      "tenantId": "25DIGIBP12",
-     "businessKey": "<Jotform-submission-ID>",
+     "businessKey": "<JotForm-submission-ID>",
      "messageName": "<CAMUNDA_MESSAGE>",
      "processVariables": { ... }
    }
