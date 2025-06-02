@@ -85,8 +85,19 @@ At SVK, stakeholders typically submit feedback via e-mail, phone or even paper. 
 In summary, the current feedback handling process at SVK is characterized by a lack of governance, transparency, and process reliability. Without clearly assigned responsibilities, centralized documentation, or standard workflows, the organization is unable to ensure traceability, timely responses, or data-driven insights. These deficiencies served as the basis for defining the mandatory requirements of the redesigned TO-BE process, which aims to standardize, digitize, and control feedback management. The following chapter presents this target-state process and the implementation with state-f-the-art tools in detail.
 
 # To-Be Process
+The **To-Be process** operationalises SVK’s feedback management as an executable BPMN 2.0 model, ensuring deterministic flow control, auditable data capture, and ISO 9001:2015 compliance. The diagram below presents the complete workflow; its logic can be summarised in five stages:
 
-bla bla...
+1. **Intake** – A stakeholder submits feedback via JotForm; a Make scenario starts a Camunda instance and stores the record with status `open`.  
+2. **Classification** – The Feedback Master reviews the submission, assigns type, urgency, and impact scope, and decides whether clarification or departmental involvement is required.  
+3. **Clarification (conditional)** – If additional information is needed, the process launches an asynchronous query–response loop with the submitter; status switches to `clarification` until the loop is closed or withdrawn.  
+4. **Scenario handling** – A DMN decision returns one of four scenarios:  
+   * non-critical items forwarded to the bi-weekly Review Board (`review-board`),  
+   * departmental action via a dedicated measures form,  
+   * immediate resolution by the Feedback Master, or  
+   * acknowledgement of positive feedback.  
+5. **Closure** – Where applicable (Scenarios 2 and 3) the documented measures are captured; in every path the workflow writes the closing entry to the Excel log, notifies the submitter, and transfers the case to the newly developed Feedback-Manager web app, where it awaits final Review Board approval.
+
+The following operational process model provides the holistic visual representation of these stages.
 
 ![To-Be Process Model](Readme%20-%20Appendix/Pictures/To-Be%20Process%20Model.png)
 
