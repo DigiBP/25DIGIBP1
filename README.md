@@ -53,7 +53,7 @@ The overarching goal is to **digitally transform SVK’s feedback management** b
 - A **central role (Feedback Master)** responsible for classification, routing, and process monitoring
 - A **Review Board** that evaluates feedback outcomes biweekly to promote continuous improvement
 - Structured, scenario-based process logic that ensures consistency
-- Full audit-traceability through Camunda’s workflow engine
+- Full audit-traceability
 - Transparency and responsiveness for internal and external stakeholders
 
 
@@ -83,6 +83,8 @@ At SVK, stakeholders typically submit feedback via e-mail, phone or even paper. 
 | **Updates or Closure is not guaranteed** for the Feedback Givers  | Automated follow-ups and stakeholder communication |
 
 In summary, the current feedback handling process at SVK is characterized by a lack of governance, transparency, and process reliability. Without clearly assigned responsibilities, centralized documentation, or standard workflows, the organization is unable to ensure traceability, timely responses, or data-driven insights. These deficiencies served as the basis for defining the mandatory requirements of the redesigned TO-BE process, which aims to standardize, digitize, and control feedback management. The following chapter presents this target-state process and the implementation with state-f-the-art tools in detail.
+
+--- 
 
 # To-Be Process
 The **To-Be process** operationalises SVK’s feedback management as an executable BPMN 2.0 model. The whole workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. Its logic can be summarised in five stages:
@@ -224,144 +226,3 @@ https://support.microsoft.com/de-de/topic/ein-potenziell-gef%C3%A4hrliches-makro
 
 
 
-
-
-## Docker
-docker run \
-  -v "$(pwd)/api_key.txt:/app/api_key.txt" \
-  -v "$(pwd)/password.txt:/app/password.txt" \
-  -v "$(pwd)/config.json:/app/config.json" \
-  my-python-app
-
-Yes — exactly! 🎯
-
-Here’s a step-by-step summary of what to do on a **new computer**:
-
----
-
-## ✅ What You Need on the New Computer
-
-1. **Docker installed**
-2. **Your Docker image**, either:
-
-   * Built locally again (with your project files), **or**
-   * Pulled from a registry (e.g., Docker Hub)
-3. A folder with:
-
-   * `api_key.txt`
-   * `password.txt`
-   * `config.json`
-
----
-
-## 📁 Example Folder Layout on New Computer
-
-```
-my_run_folder/
-├── api_key.txt
-├── password.txt
-├── config.json
-```
-
-Assume the image is already available locally (e.g., `my-python-app`).
-
----
-
-## 🖥️ PowerShell: How to Run It
-
-Open PowerShell, go into the folder:
-
-```powershell
-cd path\to\my_run_folder
-```
-
-Then run:
-
-```powershell
-docker run --rm `
-  -v "${PWD}\config.json:/app/config.json" `
-  -v "${PWD}\api_key.txt:/app/api_key.txt" `
-  -v "${PWD}\password.txt:/app/password.txt" `
-  -v "C:\Test:/host" `
-  feedback-management-app
-```
-
-> ✅ `${PWD}` in PowerShell is equivalent to `$(pwd)` in Bash.
-
----
-
-## 🧼 Clean, Secure, Portable
-
-* Secrets stay outside the image 🔐
-* You don’t need to modify the image on each computer 💻
-* Works in production, staging, or testing just by changing the mounted files 🧪
-
----
-
-Let me know if you also want to package the image for transfer (`docker save`) or push it to Docker Hub.
-
-```json
-{
-  "camundaEngineUrl": "https://digibp.engine.martinlab.science/engine-rest",
-  "excelFilePath": "/host/form_data.xlsm",
-  "passwordFilePath": "password.txt",
-  "apiKeyPath": "api_key.txt",
-  "tenantID": "25DIGIBP12",
-  "documentationFormID": "251324255618051",
-  "supplementationFormID": "251256180381049"
-}
-```
-
-
-
-To **export your Docker image** so it can be moved to another computer (e.g., via USB or file transfer), you'll use the `docker save` command.
-
----
-
-## ✅ Step-by-Step: Export the Image to a `.tar` File
-
-### 1. Save the image as a tarball
-
-```powershell
-docker save -o feedback-management-app.tar feedback-management-app
-```
-
-* `-o feedback-management-app.tar`: output file
-* `feedback-management-app`: name of your image (no `:tag` defaults to `latest`)
-
-This creates a portable `.tar` file you can transfer.
-
-
-
-
-
----
-
-## ✅ To Import It on Another Computer
-
-After transferring the `.tar` file:
-
-```powershell
-docker load -i feedback-management-app.tar
-```
-
-This will load the image into Docker’s local image registry on the new machine.
-
----
-
-## ✅ Verify It’s There
-
-```powershell
-docker images
-```
-
-You should see:
-
-```
-REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
-feedback-management-app  latest    abc123456789   ...             ...
-```
-
-Then you can run it like before.
-
----

@@ -1,6 +1,8 @@
-# Database
+# Process Variables
 
-Please see 25DIGIBP1/Camunda/processVariables.md for an overview of all process variables.
+
+
+# Database
 
 - Camunda Engine Persistence: The solution did not introduce a separate relational database for process data. All feedback case information (submitted fields, process variables, task assignments, etc.) is stored in Camunda’s internal database as part of the workflow state. This built-in persistence guarantees that process context is saved reliably (with transaction support) and can be queried via Camunda’s history if needed. It sufficed for ensuring data durability and auditability within the scope of this project.
 
@@ -11,18 +13,15 @@ Please see 25DIGIBP1/Camunda/processVariables.md for an overview of all process 
 - Justification: Using Camunda’s persistence plus an Excel report strikes a balance between complexity and functionality. A traditional database and custom reporting UI were beyond the project’s time constraints and were not required to meet the core requirements. By avoiding unnecessary infrastructure, we reduced maintenance overhead. If the process expands in the future (e.g., a much higher volume of feedback or more complex analytics needs), the data export to a proper database can be revisited. For now, the combination of Camunda’s internal storage (for operational needs) and an Excel-based log (for managerial reporting) meets all requirements with minimal complexity.
 
 
-# Status Coventions
+## Status Coventions
 
-| Status value | Meaning in lifecycle          | Set by                                 | Picked up by                           |
-| ------------ | ----------------------------- | -------------------------------------- | -------------------------------------- |
-| `open`       | Initial, still running        | `store_feedback_in_db.py`              | —                                      |
-| `withdrawn`  | User withdrew feedback        | `set_withdrawn_in_db.py`               | —                                      |
-| `terminate`  | **Marker**: request full stop | Any script / UI that decides to cancel | **`terminate_cancelled_instances.py`** |
-| `cancelled`  | Instance already killed       | `terminate_cancelled_instances.py`     | —                                      |
+| Status value | Meaning in lifecycle          | 
+| ------------ | ----------------------------- | 
+| `open`       | Initial, still running        | 
+| `withdrawn`  | User withdrew feedback        | 
+| `terminate`  | **Marker**: request full stop | 
+| `cancelled`  | Instance already killed       | 
 
 
 # Web App
-
-## Using the Web App
-
 
