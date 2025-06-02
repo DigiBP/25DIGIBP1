@@ -1,7 +1,17 @@
+import json
+
 import pandas as pd
 from flask import Flask, render_template, request, redirect, url_for, flash
 import webbrowser, threading, os
 from collections import Counter, defaultdict
+
+# read config file
+with open("../config.json", "r") as f:
+    config = json.load(f)
+f.close()
+
+WEBAPP_HOST_IP = config["webappHostIP"]
+WEBAPP_PORT = config["webappPort"]
 
 FILE = "../form_data.xlsx"
 SHEET = "feedbackData"
@@ -217,4 +227,4 @@ def open_browser():
 if __name__ == "__main__":
     # Browser automatisch öffnen
     threading.Timer(1.0, open_browser).start()
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    app.run(host=WEBAPP_HOST_IP, port=WEBAPP_PORT, debug=False)

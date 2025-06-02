@@ -20,7 +20,7 @@ def send_email(data: dict, business_key):
     message_header = "Information Dringendes Feedback"
 
     message_before_conv = (
-        f"Hallo Helga Geschäftsführerin\n\n\n"
+        f"Hallo {CEO_NAME}\n\n\n"
         f"Am {get_date(int(business_key))} wurde uns folgendes Feedback übermittelt und vom Feedback Master mit "
         f"der Dringlichkeit Hoch versehen:\n\n"
     )
@@ -45,7 +45,7 @@ def send_email(data: dict, business_key):
     msg = EmailMessage()
     msg["Subject"] = "Dringendes Feedback"
     msg["From"] = EMAIL_USER
-    msg["To"] = EMAIL_USER
+    msg["To"] = CEO_EMAIL
 
     msg.set_content(html_body, subtype="html")
 

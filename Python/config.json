@@ -8,5 +8,19 @@
   "supplementationFormID": "251256180381049",
   "emailHost": "mail.infomaniak.com",
   "emailUser": "digipro-demo@ikmail.com",
-  "emailPort": 465
+  "emailPort": 465,
+  "webappHostIP": "127.0.0.1",
+  "webappPort": 5000,
+  "ceoName": "Helga Geschäftsführerin",
+  "ceoEmail": "digipro-demo@ikmail.com",
+  "departments": [
+    {
+    "departmentName": "testDepartment",
+    "departmentEmail": "digipro-demo@ikmail.com"
+    },
+    {
+    "departmentName": "testDepartment2",
+    "departmentEmail": "digipro-demo@ikmail.com"
+    }
+  ]
 }

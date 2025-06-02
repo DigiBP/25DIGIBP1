@@ -47,6 +47,19 @@ docker run --rm `
   "tenantID": "25DIGIBP12",
   "documentationFormID": "251324255618051",
   "supplementationFormID": "251256180381049"
+  "emailHost": "mail.infomaniak.com",
+  "emailUser": "digipro-demo@ikmail.com",
+  "emailPort": 465,
+  "webappHostIP": "127.0.0.1",
+  "webappPort": 5000,
+  "ceoName": "Helga Geschäftsführerin",
+  "ceoEmail": "digipro-demo@ikmail.com",
+  "departments": [
+    {
+    "departmentName": "testDepartment",
+    "departmentEmail": "digipro-demo@ikmail.com"
+    }
+  ]
 }
 ```
 
@@ -91,7 +104,19 @@ As the other files are in the Docker folder and are mounted later in the Docker 
   "supplementationFormID": "251256180381049",
   "emailHost": "mail.infomaniak.com",
   "emailUser": "digipro-demo@ikmail.com",
-  "emailPort": 465
+  "emailPort": 465,
+  "ceoName": "Helga Geschäftsführerin",
+  "ceoEmail": "digipro-demo@ikmail.com",
+  "departments": [
+    {
+    "departmentName": "testDepartment",
+    "departmentEmail": "digipro-demo@ikmail.com"
+    },
+    {
+    "departmentName": "testDepartment2",
+    "departmentEmail": "digipro-demo@ikmail.com"
+    }
+  ]
 }
 ```
 

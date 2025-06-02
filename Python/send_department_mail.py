@@ -47,7 +47,7 @@ def send_email(data: dict, business_key):
     msg = EmailMessage()
     msg["Subject"] = "Dringendes Feedback"
     msg["From"] = EMAIL_USER
-    msg["To"] = EMAIL_USER
+    msg["To"] = get_department_email(data["forwardToDepartment"])
 
     msg.set_content(html_body, subtype="html")
 

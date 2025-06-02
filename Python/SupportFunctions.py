@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 # read config file
-with open("config.json", "r") as f:
+with open("config.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 f.close()
 
@@ -16,6 +16,7 @@ f.close()
 with open(config["passwordFilePath"]) as f:
     EMAIL_PASSWORD = f.readline()
 f.close()
+
 
 with open(config["apiKeyPath"]) as f:
     API_KEY = f.readline()
@@ -26,6 +27,10 @@ EMAIL_USER = config["emailUser"]
 EMAIL_HOST = config["emailHost"]
 EMAIL_PORT = config["emailPort"]
 
+CEO_NAME = config["ceoName"]
+CEO_EMAIL = config["ceoEmail"]
+
+
 
 
 def get_date(business_key):
@@ -34,6 +39,15 @@ def get_date(business_key):
     data = data.set_index("businessKey")
 
     return data.loc[business_key, "feedbackDate"]
+
+
+
+def get_department_email(department_name):
+    for department in config.get("departments", []):
+        if department.get("departmentName") == department_name:
+            return department.get("departmentEmail")
+
+    raise ValueError(f"Department '{department_name}' not found in config.")
 
 
 
