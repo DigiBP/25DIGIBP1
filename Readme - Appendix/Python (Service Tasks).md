@@ -75,3 +75,16 @@ This file defines all runtime settings for the workers and the web application. 
 ## ✅ Example
 
 If your repository has this structure:
+your-repo/
+├── python/
+│ ├── api_key.txt
+│ ├── password.txt
+│ ├── config.json
+│ └── ...
+
+Then the following entries will work without modification:
+
+```json
+"apiKeyPath": "api_key.txt",
+"passwordFilePath": "password.txt"
+```
