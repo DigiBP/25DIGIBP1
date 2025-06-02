@@ -215,7 +215,7 @@ These sub-documents provide further insights required to replicate, maintain, or
 
 # Deployment  
 
-The solution can be installed in three logical layers - Camunda, integration artefacts (JotForm + Make), and Python workers - followed by a section for university deployment and testing.  
+The solution can be installed in three logical layers - Camunda, integration artefacts (JotForm + Make), and Python workers.  
 Wherever further detail is required, links point to the dedicated README Appendices in *Readme – Appendix/*.
 
 ---
@@ -254,7 +254,7 @@ Full instructions: [Docker.md](Readme%20-%20Appendix/Docker.md) and configuratio
 
 ---
 
-## 4 Deployment for Teachers & Testing
+# Easy Deployment for Teachers & Testing
 
 Professors and Coaches can evaluate the flow without local installation:
 
