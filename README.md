@@ -85,7 +85,7 @@ At SVK, stakeholders typically submit feedback via e-mail, phone or even paper. 
 In summary, the current feedback handling process at SVK is characterized by a lack of governance, transparency, and process reliability. Without clearly assigned responsibilities, centralized documentation, or standard workflows, the organization is unable to ensure traceability, timely responses, or data-driven insights. These deficiencies served as the basis for defining the mandatory requirements of the redesigned TO-BE process, which aims to standardize, digitize, and control feedback management. The following chapter presents this target-state process and the implementation with state-f-the-art tools in detail.
 
 # To-Be Process
-The **To-Be process** operationalises SVK’s feedback management as an executable BPMN 2.0 model. Its logic can be summarised in five stages:
+The **To-Be process** operationalises SVK’s feedback management as an executable BPMN 2.0 model. The whole workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. Its logic can be summarised in five stages:
 
 1. **Intake** – A stakeholder submits feedback via JotForm; a Make scenario starts a Camunda instance and stores the record with status `open`.  
 2. **Classification** – The Feedback Master reviews the submission, assigns type, urgency, and impact scope, and decides whether clarification or departmental involvement is required.  
@@ -101,9 +101,8 @@ The following operational process model provides the holistic visual representat
 
 ![To-Be Process Model](Readme%20-%20Appendix/Pictures/To-Be%20Process%20Model.png)
 
-## Description of the To-Be Process
-
-The future-state workflow is orchestrated end-to-end by a **Camunda 7** BPMN engine. A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
+## Intake
+A new case begins when a stakeholder submits feedback via a **JotForm** which is going to be embedded on the SVK website. The submission payload is forwarded through a **Make** scenario  ([see further details](Readme%20-%20Appendix/Make%20Scenarios.md)) which instantiates a Camunda process instance; the JotForm *submission ID* (created by Jotform on submission) serves as the **business key**.
 
 ![Initial data flow](Readme%20-%20Appendix/Pictures/DataFlow_initialSubmission.png)
 
@@ -111,6 +110,7 @@ Immediately after instantiation, the feedback is persisted in SVK’s central da
 
 ![Database save + confirmation](Readme%20-%20Appendix/Pictures/Dataflow_initialSubmissionSaveConfirm.png)
 
+## Classification
 The case is then routed to the newly created role **Feedback Master** (see [Role Definitions.md](Readme%20-%20Appendix/Role%20Definitions.md)). The Feedback Master works exclusively in the **Camunda Tasklist**, where a Camunda form displays all submission details.
 
 ![Classification task](Readme%20-%20Appendix/Pictures/Dataflow_classification.png)
@@ -131,7 +131,7 @@ An **exclusive gateway** then directs the token either to a *Clarification* sub-
 
 ![Save → CEO alert → decision](Readme%20-%20Appendix/Pictures/DataFlow_saveCEOqueryDecision.png)
 
-### Clarification sub-flow  
+## Clarification
 If clarification is required, Camunda generates a new task for the Feedback Master to phrase a query to the submitter.  
 The query text is added to the database and the status changes to **`clarification`**.  
 A pre-filled JotForm - including the original submission and the query - is generated, and the submitter receives an e-mail with the link.
@@ -148,7 +148,7 @@ When the submitter answers, another Make scenario ([see further details](Readme%
 
 The query and the reply are appended - timestamped - to the process variable `feedbackText`. Control returns to the **Classify Feedback** user task; the sub-flow may loop until all clarifications are complete. The final classification is submitted when  `needsClarification` is cleared, allowing the main flow to continue to define the appropriate scenario for the feedback.
 
-### Scenario selection  
+## Scenario Handling & Closure
 A **Business Rule Task** evaluates the classified variables and outputs one of four predefined handling scenarios (see [Handling Scenarios.md](Readme%20-%20Appendix/Handling%20Scenarios.md) for further details). An exclusive gateway routes accordingly:
 
 *Scenario 1 and 4 – Non-critical items*  
@@ -171,7 +171,7 @@ A follow-up user task prompts the Feedback Master to document the actions taken 
 
 For Scenarios 2 and 3 the documented measures are persisted to the database, and the submitter is informed that the feedback has been resolved.
 
-### Feedback termination and lifecycle management  
+## Feedback termination and lifecycle management
 Throughout the lifecycle the Feedback Master and Review Board members can monitor the case in the dedicated **Feedback Manager Web-App**.  
 
 The landing page provides a dashboard and lists all feedback items, grouped by their status.
