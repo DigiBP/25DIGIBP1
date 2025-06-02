@@ -37,9 +37,9 @@ To clone these forms into another JotForm workspace, follow the official *Import
 
 2. **Choose “From a Webpage”, paste the Form URL, and confirm**  
 
-3. The form appears in *My Forms* with a new ID; open it and check that *all field properties* (especially **Unique Name / Field ID**) match the originals.
+3. The form appears in *My Forms* with a new ID; open it and check that *all fields*  match the originals.
 
-   ![Clone Steps](Readme%20-%20Appendix/Pictures/Jotform_clone.gif)  
+![Clone Steps](Readme%20-%20Appendix/Pictures/Jotform_clone.gif)  
 
 > **Important:** Do **not** rename or delete fields. Any change to a field’s *Unique Name* alters its ID, breaking the mappings in Python scripts and Make scenarios. If you must modify a field, update the corresponding variable names in:
 > * Python external-task scripts  
