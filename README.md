@@ -285,7 +285,7 @@ Camunda artefacts already run on Tenant **`25DIGIBP12`**, JotForms are available
 3. **Clarification loop** (conditional) — check your mailbox, follow the Supplementation link, answer the query, and submit.  
 4. **Scenario branching**  
    * *Scenario 3* → in Camunda Tasklist finish **Document Measures**.  
-   * *Scenario 2* → log in with test account **svk-dept-demo@outlook.com / SvkTest2025!** and submit the Department Measures form.  
+   * *Scenario 2* → log in with test account **digipro-demo@ikmail.com / password can be found in DeepNote (password.txt)** on <a href="https://login.infomaniak.com/de/login">Infomaniak/login</a>, find the mail and submit the Department Measures form.  
 5. **Stop the worker notebook** — Deepnote › *Kernel ▸ Restart & Clear* (workers shut down).  
 6. **Launch web app** — open **`02_start_webapp.ipynb`**, run the single cell, and click the displayed URL.  
 7. **Approve or terminate** — locate your case in the web app:  
