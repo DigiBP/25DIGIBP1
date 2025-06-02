@@ -71,7 +71,7 @@ If Feedback-Master can not take action it is assesed who would be responsible.
 - **No**  
   The feedback falls outside the Feedback-Masters area of expertise or authority and should be treated by to the responsible department.
 
-Mind that only in urgent and/ or large impact cases the departement gets a direct notification. Otherwise the feedback will be in the Review Boards backlog and treated in the next meeting. (See DMN table)
+Mind that only in urgent and/ or large impact cases the departement gets a direct notification. Otherwise the feedback will be in the Review Boards backlog and treated in the next meeting. (see [Feedback Scenarios.md](Readme%20-%20Appendix/Feedback%20Scenarios.md) for further details)
 
 ---
 
