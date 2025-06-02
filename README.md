@@ -213,34 +213,66 @@ These sub-documents provide further insights required to replicate, maintain, or
 
 
 
-# READ UNTIL HERE Deployment
+# Deployment  
 
+The solution can be installed in three logical layers - Camunda, integration artefacts (JotForm + Make), and Python workers - followed by a section for university deployment and testing.  
+Wherever further detail is required, links point to the dedicated README Appendices in *Readme – Appendix/*.
 
-- Jotforms will be provided
-- MAKE will be provided
+---
 
+## 1 Camunda Engine  
 
-- **Decide**:
-  - if we host python workers
-    - then share excel via onedrive
-    - then share config file via onedrive (they can then adapt the TenantID in the config file)
-      - say that they could deploy the BPMN files on their TenantID and change the TenantID in the config file
-    - say that they can also (easily) login with tenantID 12 (argue why we only have one profile for deployment and feedback MAster)
-  
-  - if they host python workers 
-    - send them password and api key file
-    - tell them how to open excel
-    - tell them how they could use the config file
-    - tell them how to run docker (see below)
+1. **Provision Camunda 7** on an on-premise or cloud server and confirm that `/engine-rest` is reachable.  
+2. **Deploy Camunda artefacts** (`TOBE_Technical_Model.bpmn`, `DMN.dmn`, `classificationForm.form`, `queryForm.form`, `feedbackMasterMeasureDocumentationForm.form`).  
+3. **Tenant ID**  
+   * All external messages reference the Feedback Master’s tenant (default `25DIGIBP12`).  
+   * If Camunda administrators and the Feedback Master use separate tenants, open each user task in the *Feedback Master* lane and set the **User Assignment → Tenant ID** property accordingly.  
+4. **Classification form dropdown** — add every department name in the `forwardToDepartment`.
 
+---
 
+## 2 Integration Artefacts  
 
+| Step | Action | Reference |
+|------|--------|-----------|
+| **Clone JotForms** | Import the three public forms into your JotForm account| [Jotform.md](Readme%20-%20Appendix/Jotform.md) |
+| **Import Make blueprints** | Upload the JSON files, insert the JotForm API key in each *watchForSubmissions* module, select the cloned form, and set the Camunda REST URL & tenant ID (Feedback Master) in the HTTP request module. | [Make Scenarios.md](Readme%20-%20Appendix/Make%20Scenarios.md) |
 
+---
 
+## 3 Python Workers (SVK on-premise)  
 
+SVK runs a pre-built Docker image that bundles all Python service-task workers.
 
-If an error arises when trying to open the excel for the first time:
-https://support.microsoft.com/de-de/topic/ein-potenziell-gef%C3%A4hrliches-makro-wurde-blockiert-0952faa0-37e7-4316-b61d-5b5ed6024216
+1. **Pull / load image** — see the import command in the Docker guide.  
+2. **Mount configuration**  
+   * Adjust `config.json`.  
+   * Provide `api_key.txt` and `password.txt` (they are provided seperately).  
+3. **Launch container** — the `docker run` command mounts the config and secrets, plus a host folder for the Excel workbook.  
+
+Full instructions: [Docker.md](Readme%20-%20Appendix/Docker.md) and configuration keys: [Python (Service Tasks).md](Readme%20-%20Appendix/Python%20(Service%20Tasks).md).
+
+---
+
+## 4 Deployment for Teachers & Testing
+
+Professors and Coaches can evaluate the flow without local installation:
+
+1. **Check Deployments** on Camunda Engine; the team has deployed all Camunda artefacts with tenant ID 12 (`25DIGIBP12`) which is ready for use.
+2. <a href="https://deepnote.com/workspace/maierk-73504f8c-d324-4df7-a9e9-437921c573fe/project/SVK-Feedback-Management-System-695b966e-0260-420f-9d51-bf90028ebc3a/notebook/Launcher-b9aa3c2eb3864129a944f40ad0bac8cb?utm_source=share-modal&utm_medium=product-shared-content&utm_campaign=notebook&utm_content=695b966e-0260-420f-9d51-bf90028ebc3a">**Open Deepnote project**</a> provided by the team; you should have received an invitation via email.   
+3. **Run the import script**; it imports necessary packages to execute the scripts.
+4. **Run the worker script**; it starts the Python external-task workers.  
+5. **Submit a test form** via the public JotForm link (Form #1).
+6. **Act as Feedback Master** in Camunda Cockpit: classify the entry and optionally create a clarification query.  
+   * If clarification is required, complete the query loop by using your own e-mail address in the original submission.  
+7. **Scenario branches**  
+   * *Scenario 3* — complete “Document Measures” in Tasklist.  
+   * *Scenario 2* — log in with the provided test mail account and submit the department measures form.  
+8. **Switch execution** — because Deepnote can run only one script at a time, stop the worker notebook and launch the web-app notebook to review or terminate cases.  
+   * To test termination, you could pause the process at *Classify feedback*, open the web app, terminate the feedback, then restart the worker notebook so Camunda can process the termination message.
+
+All artefact-specific deployment notes are summarised above; for schema details of variables and database columns consult  
+[Process Variables and Database.md](Readme%20-%20Appendix/Process%20Variables%20and%20Database.md).
 
 
 
