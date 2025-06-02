@@ -222,7 +222,7 @@ Wherever further detail is required, links point to the dedicated README Appendi
 
 ## 1 Camunda Engine  
 
-1. **Provision Camunda 7** on an on-premise or cloud server and confirm that `/engine-rest` is reachable.  
+1. **Provision Camunda 7** on an on-premise server and confirm that `/engine-rest` is reachable.  
 2. **Deploy Camunda artefacts** (`TOBE_Technical_Model.bpmn`, `DMN.dmn`, `classificationForm.form`, `queryForm.form`, `feedbackMasterMeasureDocumentationForm.form`).  
 3. **Tenant ID**  
    * All external messages reference the Feedback Master’s tenant (default `25DIGIBP12`).  
