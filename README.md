@@ -286,7 +286,7 @@ Camunda artefacts already run on Tenant **`25DIGIBP12`**, JotForms are available
 4. **Scenario branching**  
    * *Scenario 3* → in Camunda Tasklist finish **Document Measures**.  
    * *Scenario 2* → log in with test account **digipro-demo@ikmail.com / password can be found in DeepNote (password.txt)** on <a href="https://login.infomaniak.com/de/login">Infomaniak/login</a>, find the mail and submit the Department Measures form.  
-5. **Stop the worker notebook** — Deepnote › *Kernel ▸ Restart & Clear* (workers shut down).  
+5. **Stop the worker notebook**  
 6. **Launch web app** — Run the single cell for the web app, and click the displayed URL below.  
 7. **Approve or terminate** — locate your feedback in the web app:  
    * Click **Approve** to set status `complete`, **or**  
