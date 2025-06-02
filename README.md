@@ -59,7 +59,7 @@ The overarching goal is to **digitally transform SVK’s feedback management** b
 
 ## Current (AS-IS) Feedback Process
 
-At SVK, although a standardized feedback process exists, it is not actively followed in day-to-day operations. Instead, spontaneous feedback is typically handled ad hoc by individual employees. When feedback is received—most often via email—the employee reviews it to determine whether the content is clear or requires additional information. If clarification is needed, the stakeholder is contacted directly. In the absence of a response, some employees may follow up with a reminder after several days, but there is no consistent handling timeline.
+At SVK, although a standardized feedback process exists, it is not actively followed in day-to-day operations. Instead, spontaneous feedback from their varios stakeholders is typically handled ad hoc by individual employees. When feedback is received (most often via email) the employee reviews it to determine whether the content is clear or requires additional information. If clarification is needed, the stakeholder is contacted directly. In the absence of a response, some employees may follow up with a reminder after several days, but there is no consistent handling timeline.
 
 Once enough information has been gathered, employees usually send a confirmation message to acknowledge the input. They then decide on their own whether any follow-up action is necessary. If not, the feedback may be documented informally or simply noted for awareness. If action is required, the steps are defined and tracked individually, without alignment to a central system or predefined process.
 
