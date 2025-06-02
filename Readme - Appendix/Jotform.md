@@ -1,7 +1,7 @@
 # JotForm Specifications  
 
 Below, each section presents one of the three forms used in the feedback process.  
-For every form you will find a screenshot placeholder, the public URL, and a one-sentence purpose statement.
+For every form you will find a screenshot of the form, the public URL, and the purpose of the form.
 
 ---
 
