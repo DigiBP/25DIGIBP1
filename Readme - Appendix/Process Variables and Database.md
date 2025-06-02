@@ -71,4 +71,4 @@ Excel was therefore selected because:
 | `complete` | Review Board approved the outcome; case closed. |
 | `withdrawn` | Submitter does not responst; indicated the feedback is no longer relevant; case closed without further action. |
 | `terminate` | Feedback Master (or Review Board) requested termination of the feedbacks process isntance via the web app. |
-| `cancelled` | Workflow instance was programmatically ended after a `terminate` request. |
+| `cancelled` | Feedback in status `review-board` was terminated or workflow instance terminated was programmatically ended after a `terminate` request (final status for termianted feedback). |
