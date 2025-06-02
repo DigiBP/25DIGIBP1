@@ -35,7 +35,30 @@ See the table below for a mapping of worker scripts to their BPMN service tasks 
 | `send_withdrawal_message.py`           | Message that Feedback was Withdrawn                 | Compose and send an HTML-formatted email to inform the user that their feedback has been closed due to a lack of response to a clarification request. |
 | `terminate_terminated_instances.py`    | *(Triggered via WebApp – not in BPMN)*              | Scan the Excel database for feedback entries marked for termination, send a termination message to the Camunda workflow engine for each, and update the status in the Excel sheet to 'cancelled' upon success. |
 
+---
 
+# Feedback-Manager Web App 
+
+The web interface is a thin Flask layer that rides on the same Excel datastore as the Python workers. Its purpose is two-fold:  
+1) give the Feedback Master a quick cockpit for day-to-day operations, and 2) let the Review Board record final approvals without Camunda credentials.
+
+| Tier | Technology / File | Functionality |
+|------|-------------------|---------------|
+| **Server** | **Flask 2.3** (`app.py`) | Defines two GET views—`/` (dashboard) and `/detail/<idx>` - plus three POST endpoints (`/terminate`, `/update_measures`, `/complete_feedback`). Uses `pandas` + `openpyxl` to read/write *form_data.xlsx*. |
+| **Layout** | Bootstrap 5 + custom CSS (`templates/layout.html`, `static/style.css`) | Provides the base layout with SVK colour, rounded cards, and responsive navbar with logo. |
+| **Dashboard** | `templates/overview.html` + Chart.js | Shows three charts (status, type, time-series) and two tables: *Open* (statuses `open…review-board`) and *Finished* (`complete`,`withdrawn`,`terminate`, `cancelled`). |
+| **Detail view** | `templates/detail.html` | Displays all record fields; editable `measuresTaken`; buttons trigger status transitions. |
+| **Config** | `config.json` | Paths (`excelFilePath`), host/port. |
+| **Data layer** | Excel workbook (`form_data.xlsx`) | App opens in *read-only* for dashboards; *write-only* on updates, keeping file locks. |
+
+## Key Interactions
+
+* **Open case** – click *Ansehen* → `/detail/<idx>`; all meta-data is read-only except *measuresTaken*.  
+* **Terminate** – sets `status = terminate`; workers later mark it `cancelled`.  
+* **Update measures** – writes `measuresTaken` but leaves status unchanged.  
+* **Complete** – allowed only if `status = review-board` and measures exist; sets `status = complete`.
+
+---
 
 # Deployment
 
