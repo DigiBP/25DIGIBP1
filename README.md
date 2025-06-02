@@ -184,7 +184,7 @@ The detailed view also allows to record measures taken and grant final approval,
 
 
 
-# Deployment
+# READ UNTIL HERE Deployment
 
 
 - Jotforms will be provided
