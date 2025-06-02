@@ -72,30 +72,17 @@ At SVK, stakeholders typically submit feedback via e-mail, phone or even paper. 
   - **Timeliness** – whether response times met internal or ISO targets
   - **Trend analysis** – aggregated data for management review
 
-## Challenges to be adressed with the To-Be Process
+## Challenges and Requirements to be adressed with the To-Be Process
 | Challenge          | Requirement                  |
 |---------------|------------------------|
 | Feedback is collected **informally** via email, phone, or paper | Standardizing how feedback is analyzed and handled internally |
-| There is **no central system or responsible role**  | Clear process ownership and traceability |
 | Processing is **inconsistent and undocumented** | Documentation of feedback and Compliance with ISO-Standards |
+| There is **no central system or responsible role**  | Clear process ownership and traceability |
+| There is **no structured categorization** or trend reporting| Standardized categorization |
 | **No standardized escalation** exists for unresolved or critical feedback | Ensuring every feedback is recognized, proceed and answered |
 | **Updates or Closure is not guaranteed** for the Feedback Givers  | Automated follow-ups and stakeholder communication |
-| There is **no structured categorization** or trend reporting| Standardized categorization |
-
 
 In summary, the current feedback handling process at SVK is characterized by a lack of governance, transparency, and process reliability. Without clearly assigned responsibilities, centralized documentation, or standard workflows, the organization is unable to ensure traceability, timely responses, or data-driven insights. These deficiencies served as the basis for defining the mandatory requirements of the redesigned TO-BE process, which aims to standardize, digitize, and control feedback management. The following chapter presents this target-state process and the implementation with state-f-the-art tools in detail.
-
-
-## Requirements for To-Be Process
-
----- DESCRIPTION OF THE REQUIREMENTS
-
-- 
-- 
-- 
-- 
-- 
-
 
 # To-Be Process
 
