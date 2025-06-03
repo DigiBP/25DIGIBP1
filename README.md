@@ -210,7 +210,7 @@ Use the links below to open each file directly:
 | [**Jotform.md**](Readme%20-%20Appendix/Jotform.md) | Public URLs, and cloning instructions. |
 | [**Make Scenarios.md**](Readme%20-%20Appendix/Make%20Scenarios.md) | Description of the Make blueprints and cloning instructions. |
 | [**Process Variables and Database.md**](Readme%20-%20Appendix/Process%20Variables%20and%20Database.md) | Complete list of process variables, database schema, and status semantics. |
-| [**Python (Service Workers and Web App).md**](Readme%20-%20Appendix/Python%20(Service%20Workers%20and%20Web%20App).md) | Mapping of each external-task topic to its Python script with a functional summary. |
+| [**Python (Service Workers and Web App).md**](Readme%20-%20Appendix/Python%20(Service%20Workers%20and%20Web%20App).md) | Mapping of each external-task topic to its Python script with a functional summary and description of the web app. |
 | [**Role Definitions.md**](Readme%20-%20Appendix/Role%20Definitions.md) | Formal responsibilities and authority boundaries for Feedback Master and Review Board. |
 | [**Docker.md**](Readme%20-%20Appendix/Docker.md) | Guide on how to perform the local deployment. |
 
