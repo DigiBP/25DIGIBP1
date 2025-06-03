@@ -135,6 +135,7 @@ If essential information is missing, the Feedback Master sets the Boolean `needs
 She or he also indicates - via `immediateAction` - whether the feedback can be resolved immediately; otherwise the responsible department is selected from a drop-down menu which contains SVKs department names.
 
 After these entries, the record is re-written to the database. An **inclusive gateway** checks `urgency`; if the value is *high*, an escalation e-mail is sent to the CEO.  
+
 An **exclusive gateway** then directs the token either to a *Clarification* sub-flow or to scenario determination, depending on `needsClarification`.
 
 ![Save → CEO alert → decision](Readme%20-%20Appendix/Pictures/DataFlow_saveCEOqueryDecision.png)
