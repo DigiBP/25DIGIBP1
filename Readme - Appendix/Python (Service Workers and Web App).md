@@ -40,7 +40,7 @@ See the table below for a mapping of worker scripts to their BPMN service tasks 
 # Feedback-Manager Web App 
 
 The web interface is a thin Flask layer that rides on the same Excel datastore as the Python workers. Its purpose is two-fold:  
-1) give the Feedback Master a quick cockpit for day-to-day operations, and 2) let the Review Board record final approvals without Camunda credentials.
+1) give the Feedback Master a quick cockpit for day-to-day operations (e.g. terminate feedback or update measures), and 2) let the Review Board record final approvals without Camunda credentials.
 
 | Tier | Technology / File | Functionality |
 |------|-------------------|---------------|
