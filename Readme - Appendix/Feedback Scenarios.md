@@ -1,3 +1,5 @@
+<a href="https://github.com/DigiBP/25DIGIBP1/tree/main?tab=readme-ov-file#scenario-handling--closure">*Return to README → Classification*</a>
+
 # Feedback-Handling Scenarios  
 
 SVK’s BPMN model delegates the routing decision to a **DMN decision table** named *Define Scenario*.  
