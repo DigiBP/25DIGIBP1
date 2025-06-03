@@ -191,7 +191,7 @@ Selecting a row opens a detailed view of the chosen feedback.
 
 ![Detailed feedback view](Readme%20-%20Appendix/Pictures/webappDetail.png)
 
-In this view the Feedback Master can set a case to **`terminate`** (e.g., when the submitter withdraws the issue).  
+In this view the Feedback Master can set a case to **`terminate`** (e.g., when the submitter withdraws the issue) by clicking the red button.
 The web-app then correlates a terminate message to Camunda; the workflow instance ends and the database status becomes **`cancelled`**.
 
 ![Event Sub Process: Termination](Readme%20-%20Appendix/Pictures/DataFlow_Termination.png)
